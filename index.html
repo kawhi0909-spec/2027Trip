@@ -602,12 +602,14 @@ function showDetail(idx){
     const btn = document.createElement('button');
     btn.className = 'day-btn' + (i===0 ? ' active' : '');
     btn.textContent = day.day;
+    btn.dataset.day = i;
     btn.onclick = () => switchDay(i);
     dayNav.appendChild(btn);
 
     const btnBottom = document.createElement('button');
     btnBottom.className = 'day-btn' + (i===0 ? ' active' : '');
     btnBottom.textContent = day.day;
+    btnBottom.dataset.day = i;
     btnBottom.onclick = () => {
       switchDay(i);
       document.getElementById('dayNav').scrollIntoView({behavior:'smooth', block:'start'});
@@ -636,7 +638,7 @@ function showDetail(idx){
 }
 
 function switchDay(i){
-  document.querySelectorAll('.day-btn').forEach((b,idx)=>b.classList.toggle('active', idx===i));
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.toggle('active', Number(b.dataset.day)===i));
   document.querySelectorAll('.day-panel').forEach(p=>p.classList.toggle('active', Number(p.dataset.day)===i));
 }
 
