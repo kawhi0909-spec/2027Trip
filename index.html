@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -75,11 +76,14 @@
 
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.22em;
+    font-size:clamp(30px,5.2vw,52px);
+    font-weight:600;
+    letter-spacing:.08em;
+    line-height:1.3;
     color:var(--amber);
     text-transform:uppercase;
-    margin:0 0 14px;
+    margin:0 0 18px;
+    text-align:center;
   }
   h1{
     font-family:'Noto Serif TC', serif;
@@ -88,13 +92,15 @@
     line-height:1.25;
     margin:0 0 10px;
     color:var(--paper);
+    text-align:center;
   }
   .sub{
     color:#B9C4C7;
     font-size:15px;
     line-height:1.8;
     max-width:640px;
-    margin:0 0 44px;
+    margin:0 auto 44px;
+    text-align:center;
   }
   .sub b{color:var(--amber);font-weight:700;}
 
@@ -118,6 +124,7 @@
     transition:transform .25s ease, box-shadow .25s ease;
     overflow:hidden;
     border:1px solid #DDD2B4;
+    text-align:left;
   }
   .ticket:nth-child(1){--tilt:-1.4deg;}
   .ticket:nth-child(2){--tilt:0.8deg;}
@@ -242,6 +249,7 @@
   .detail-meta span{display:block;color:var(--amber);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
 
   .day-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+  #dayNavBottom{margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);}
   .day-btn{
     font-family:'IBM Plex Mono', monospace;
     font-size:12px;
@@ -340,13 +348,14 @@
     </div>
     <div class="day-nav" id="dayNav"></div>
     <div id="dayPanels"></div>
+    <div class="day-nav" id="dayNavBottom"></div>
     <div class="notes-box">
       <h4>注意事項</h4>
       <p id="dNotes"></p>
     </div>
   </div>
 
-  <p class="edit-hint">＊ 這是行程架構模板：把下方 script 區塊的 plans 陣列內容，換成實際的方案名稱、日期、每日行程與注意事項即可。</p>
+  <p class="edit-hint">＊ 行程請洽 設計組 Tony 王</p>
 </div>
 
 <script>
@@ -583,8 +592,10 @@ function showDetail(idx){
   setTheme(p.theme);
 
   const dayNav = document.getElementById('dayNav');
+  const dayNavBottom = document.getElementById('dayNavBottom');
   const dayPanels = document.getElementById('dayPanels');
   dayNav.innerHTML = '';
+  dayNavBottom.innerHTML = '';
   dayPanels.innerHTML = '';
 
   p.itinerary.forEach((day, i) => {
@@ -593,6 +604,15 @@ function showDetail(idx){
     btn.textContent = day.day;
     btn.onclick = () => switchDay(i);
     dayNav.appendChild(btn);
+
+    const btnBottom = document.createElement('button');
+    btnBottom.className = 'day-btn' + (i===0 ? ' active' : '');
+    btnBottom.textContent = day.day;
+    btnBottom.onclick = () => {
+      switchDay(i);
+      document.getElementById('dayNav').scrollIntoView({behavior:'smooth', block:'start'});
+    };
+    dayNavBottom.appendChild(btnBottom);
 
     const panel = document.createElement('div');
     panel.className = 'day-panel' + (i===0 ? ' active' : '');
