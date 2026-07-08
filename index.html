@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>員工旅遊 · 行程方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132229;
+    --navy:#0F2027;
+    --navy-deep:#0A1720;
+    --paper:#F3ECDC;
+    --paper-soft:#EFE7D3;
+    --amber:#E3A23E;
+    --coral:#D6603F;
+    --line:#C9BFA0;
+    --muted:#6B6155;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #16303B 0%, transparent 60%),
+      radial-gradient(1000px 500px at 90% 10%, #17313D 0%, transparent 55%),
+      var(--navy-deep);
+    color:var(--paper);
+    font-family:'Noto Sans TC', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 24px 80px;position:relative;z-index:1;}
+
+  /* ---- Animated background effects (per-plan theme) ---- */
+  .bg-effect{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+
+  .snowflake{
+    position:absolute;
+    top:-5vh;
+    background:#fff;
+    border-radius:50%;
+    opacity:.85;
+    animation-name:snowfall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    filter:blur(.2px);
+  }
+  @keyframes snowfall{
+    from{ transform:translate(0,0); }
+    to{ transform:translate(var(--drift,0px), 115vh); }
+  }
+
+  .neon-dot{
+    position:absolute;
+    bottom:-10vh;
+    border-radius:50%;
+    filter:blur(7px);
+    opacity:0;
+    animation-name:neonrise;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:infinite;
+  }
+  @keyframes neonrise{
+    0%{ transform:translateY(0) translateX(0); opacity:0; }
+    12%{ opacity:.65; }
+    85%{ opacity:.5; }
+    100%{ transform:translateY(-125vh) translateX(var(--drift,0px)); opacity:0; }
+  }
+
+  .bg-wave{position:fixed;left:0;bottom:0;width:100%;height:22vh;min-height:140px;z-index:0;pointer-events:none;}
+  .bg-wave svg{position:absolute;bottom:0;left:0;width:200%;height:100%;}
+  .wave-back{animation:waveMove 16s linear infinite;opacity:.35;}
+  .wave-front{animation:waveMove 9s linear infinite reverse;opacity:.55;}
+  @keyframes waveMove{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.22em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:clamp(28px,4.4vw,44px);
+    line-height:1.25;
+    margin:0 0 10px;
+    color:var(--paper);
+  }
+  .sub{
+    color:#B9C4C7;
+    font-size:15px;
+    line-height:1.8;
+    max-width:640px;
+    margin:0 0 44px;
+  }
+  .sub b{color:var(--amber);font-weight:700;}
+
+  /* ---- Landing: ticket cards (always single column, scroll down) ---- */
+  .tickets{
+    display:flex;
+    flex-direction:column;
+    gap:36px;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  .ticket{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:14px;
+    cursor:pointer;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+    transform:rotate(var(--tilt,0deg));
+    transition:transform .25s ease, box-shadow .25s ease;
+    overflow:hidden;
+    border:1px solid #DDD2B4;
+  }
+  .ticket:nth-child(1){--tilt:-1.4deg;}
+  .ticket:nth-child(2){--tilt:0.8deg;}
+  .ticket:nth-child(3){--tilt:-0.6deg;}
+  .ticket:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 26px 55px rgba(0,0,0,.45);}
+  .ticket:focus-visible{outline:3px solid var(--amber);outline-offset:3px;}
+
+  .ticket-top{padding:22px 22px 18px;}
+  .plan-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .plan-code span:last-child{color:var(--coral);font-weight:600;}
+  .plan-title{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:23px;
+    line-height:1.4;
+    margin:0 0 8px;
+  }
+  .plan-dest{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .plan-meta{
+    display:flex;
+    gap:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+    padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .plan-meta div span{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em;margin-bottom:3px;text-transform:uppercase;}
+
+  .perf{
+    position:relative;
+    height:0;
+    border-top:2px dashed var(--line);
+    margin:0 22px;
+  }
+  .perf::before,.perf::after{
+    content:"";
+    position:absolute;
+    top:-11px;
+    width:22px;height:22px;
+    background:var(--navy-deep);
+    border-radius:50%;
+  }
+  .perf::before{left:-33px;}
+  .perf::after{right:-33px;}
+
+  .ticket-bottom{
+    padding:16px 22px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .plan-summary{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .go{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--navy-deep);
+    background:var(--amber);
+    padding:8px 14px;
+    border-radius:6px;
+    white-space:nowrap;
+  }
+
+  /* ---- Detail view ---- */
+  #detail{display:none;}
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    color:var(--amber);
+    background:none;
+    border:1px solid rgba(227,162,62,.4);
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    margin-bottom:28px;
+  }
+  .back:hover{background:rgba(227,162,62,.12);}
+
+  .detail-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:16px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    padding-bottom:24px;
+    margin-bottom:32px;
+  }
+  .detail-head .plan-code{color:var(--amber);opacity:.85;}
+  .detail-head h2{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:clamp(26px,3.6vw,38px);
+    margin:6px 0 8px;
+    color:var(--paper);
+  }
+  .detail-meta{
+    display:flex;
+    gap:26px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:#B9C4C7;
+  }
+  .detail-meta span{display:block;color:var(--amber);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+
+  .day-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+  .day-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.2);
+    background:transparent;
+    color:#B9C4C7;
+    cursor:pointer;
+  }
+  .day-btn.active{background:var(--amber);color:var(--navy-deep);border-color:var(--amber);font-weight:600;}
+
+  .day-panel{display:none;}
+  .day-panel.active{display:block;}
+  .day-panel h3{
+    font-family:'Noto Serif TC', serif;
+    font-size:20px;
+    margin:0 0 6px;
+    color:var(--paper);
+  }
+  .day-panel .day-sub{color:var(--muted);color:#9FADB1;font-size:13px;margin-bottom:20px;}
+
+  .timeline{border-left:2px solid rgba(227,162,62,.35);padding-left:22px;display:flex;flex-direction:column;gap:22px;}
+  .item{position:relative;}
+  .item::before{
+    content:"";
+    position:absolute;
+    left:-28px;top:4px;
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 0 3px rgba(227,162,62,.2);
+  }
+  .item .time{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--amber);
+    margin-bottom:3px;
+  }
+  .item .activity{font-size:14.5px;color:var(--paper);line-height:1.6;}
+  .item .note{font-size:12.5px;color:#93A0A4;margin-top:3px;}
+
+  .notes-box{
+    margin-top:40px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    padding:18px 22px;
+  }
+  .notes-box h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .notes-box p{font-size:13px;line-height:1.9;color:#B9C4C7;margin:0;}
+
+  .edit-hint{
+    margin-top:56px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:#6D7A7E;
+    line-height:1.8;
+    border-top:1px dashed rgba(255,255,255,.15);
+    padding-top:18px;
+  }
+</style>
+</head>
+<body>
+<div class="bg-effect" id="bgEffect"></div>
+<div class="wrap">
+
+  <!-- LANDING -->
+  <div id="landing">
+    <p class="eyebrow">2027 數字廣告員工旅遊</p>
+    <h1>你要去哪裡？</h1>
+    <p class="sub">點選任一張「機票」查看完整逐日行程。</p>
+    <div class="tickets" id="ticketList"></div>
+  </div>
+
+  <!-- DETAIL -->
+  <div id="detail">
+    <button class="back" onclick="showLanding()">← 返回三個方案</button>
+    <div class="detail-head">
+      <div>
+        <p class="plan-code" id="dCode"></p>
+        <h2 id="dTitle"></h2>
+        <div class="detail-meta">
+          <div><span>天數</span><b id="dDays"></b></div>
+          <div><span>日期</span><b id="dDate"></b></div>
+          <div><span>集合地點</span><b id="dMeet"></b></div>
+        </div>
+      </div>
+    </div>
+    <div class="day-nav" id="dayNav"></div>
+    <div id="dayPanels"></div>
+    <div class="notes-box">
+      <h4>注意事項</h4>
+      <p id="dNotes"></p>
+    </div>
+  </div>
+
+  <p class="edit-hint">＊ 這是行程架構模板：把下方 script 區塊的 plans 陣列內容，換成實際的方案名稱、日期、每日行程與注意事項即可。</p>
+</div>
+
+<script>
+const plans = [
+  {
+    code: ["PLAN A","CTS"],
+    title: "雪國戀曲・北海道５日",
+    theme: "snow",
+    dest: "日本．北海道（札幌／小樽／登別／旭川）",
+    days: "5 天 4 夜",
+    date: "2027 年 2 月下旬",
+    meet: "桃園國際機場第二航廈（依航班報到時間集合）",
+    summary: "一晚溫泉飯店＋小樽運河＋旭山動物園企鵝散步＋登別地獄谷＋購物",
+    itinerary: [
+      { day:"Day 1", sub:"抵達新千歲 → 登別地獄谷 → 溫泉飯店會席晚宴", items:[
+        {time:"06:30", activity:"桃園機場第二航廈集合報到"},
+        {time:"08:35", activity:"搭乘華航 CI130 直飛新千歲機場"},
+        {time:"13:30", activity:"抵達新千歲機場，入境通關、領取行李"},
+        {time:"14:30", activity:"專車南下登別溫泉區", note:"車程約 1 小時"},
+        {time:"15:30", activity:"登別地獄谷火山地形步道散策", note:"環狀步道約 30-40 分鐘，白煙裊裊"},
+        {time:"16:15", activity:"順遊大湯沼天然溫泉池"},
+        {time:"17:00", activity:"登別溫泉飯店辦理入住"},
+        {time:"18:00", activity:"會席料理晚宴", note:"晚餐．含露天溫泉"},
+      ]},
+      { day:"Day 2", sub:"小樽運河散策 → 堺町通．天狗山夜景 → 札幌", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"08:30", activity:"專車北上小樽", note:"車程約 1.5-2 小時"},
+        {time:"10:30", activity:"三角市場海鮮丼／帝王蟹早午餐", note:"午餐"},
+        {time:"12:00", activity:"小樽運河散策", note:"百年石造倉庫＋煤氣燈"},
+        {time:"13:00", activity:"堺町通商店街：北一硝子．音樂盒堂．LeTAO雙層起司蛋糕"},
+        {time:"15:30", activity:"天狗山纜車夜景"},
+        {time:"17:30", activity:"返回札幌，湯咖哩或成吉思汗烤羊肉晚宴", note:"晚餐"},
+        {time:"19:30", activity:"自由活動：狸小路．薄野商圈"},
+      ]},
+      { day:"Day 3", sub:"旭山動物園企鵝散步 → 男山酒造 → 北海道神宮", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"08:00", activity:"專車前往旭川", note:"車程約 1.5 小時"},
+        {time:"09:30", activity:"旭山動物園：冬季限定「企鵝散步」．北極熊館．海豹眼球水槽"},
+        {time:"12:30", activity:"男山酒造資料館：清酒免費試飲"},
+        {time:"13:00", activity:"午餐：旭川醬油拉麵", note:"午餐"},
+        {time:"14:30", activity:"返回札幌途中，順遊北海道神宮參拜祈福"},
+        {time:"18:00", activity:"薄野拉麵橫丁或成吉思汗晚餐", note:"晚餐"},
+      ]},
+      { day:"Day 4", sub:"札幌市區精華遊 → 藻岩山夜景 → 南下千歲", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"大通公園．札幌電視塔登高俯瞰市區"},
+        {time:"11:00", activity:"白色戀人公園：甜點採購．拍照打卡"},
+        {time:"12:30", activity:"午餐：白色戀人公園內咖啡廳輕食", note:"午餐"},
+        {time:"14:00", activity:"藻岩山纜車夜景", note:"北海道新三大夜景之一"},
+        {time:"16:30", activity:"專車南下千歲／苫小牧入住"},
+        {time:"18:30", activity:"晚餐：成吉思汗烤羊肉或當地居酒屋", note:"晚餐"},
+      ]},
+      { day:"Day 5", sub:"三井Outlet千歲 → 新千歲機場 → 賦歸", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"三井OUTLET千歲購物血拚"},
+        {time:"12:00", activity:"午餐：拉麵道場自理", note:"午餐自理"},
+        {time:"13:30", activity:"前往新千歲機場"},
+        {time:"14:30", activity:"辦理登機手續，機場免稅店"},
+        {time:"16:15", activity:"搭乘長榮航空 BR115 直飛桃園"},
+        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
+      ]},
+    ],
+    notes: "預算約 NT$44,900／人；費用含機票、住宿、餐食（4早3午4晚，Day5午餐自理）、遊覽車、保險、司機／導遊／領隊小費，不含個人消費。可加購北海道和牛、帝王蟹吃到飽、石狩鍋等特色餐，每人約 NT$2,000-4,000。實際航班時刻以 2027 年 2 月開賣班表為準。"
+  },
+  {
+    code: ["PLAN B","HKG／MFM"],
+    title: "不夜浮華・港澳５日",
+    theme: "neon",
+    dest: "香港．澳門（路氹金光大道豪華度假村）",
+    days: "5 天 4 夜",
+    date: "2027 年 2 月下旬",
+    meet: "桃園國際機場第一航廈（依航班報到時間集合）",
+    summary: "太平山夜景＋維港遊船＋路氹豪華酒店＋水舞秀＋大三巴歷史城區",
+    itinerary: [
+      { day:"Day 1", sub:"抵達香港 → 尖沙咀維港夜景", items:[
+        {time:"06:15", activity:"桃園機場第一航廈集合報到"},
+        {time:"08:15", activity:"搭乘長榮航空直飛班機飛往香港", note:"航程約 1 小時 50 分"},
+        {time:"10:05", activity:"抵達香港國際機場，入境通關、領取行李"},
+        {time:"11:15", activity:"專車前往尖沙咀，酒店寄放行李"},
+        {time:"11:45", activity:"自由活動：海港城．K11 MUSEA 購物商場"},
+        {time:"13:00", activity:"港式茶餐廳午餐", note:"午餐"},
+        {time:"14:30", activity:"五星酒店辦理入住，稍作休息"},
+        {time:"16:00", activity:"星光大道．維多利亞港海濱散策"},
+        {time:"18:30", activity:"港式飲茶晚宴", note:"晚餐"},
+        {time:"20:00", activity:"幻彩詠香江燈光音樂匯演", note:"每晚 20:00 尖沙咀海濱免費觀賞"},
+      ]},
+      { day:"Day 2", sub:"太平山夜景 → 中環半山 → 天星小輪 → 廟街夜市", items:[
+        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"專車出發"},
+        {time:"10:00", activity:"太平山纜車登頂．凌霄閣俯瞰全景"},
+        {time:"12:30", activity:"中環半山手扶梯．大館古蹟藝術中心"},
+        {time:"14:00", activity:"香港老字號雲吞麵午餐", note:"午餐"},
+        {time:"15:30", activity:"天星小輪遊維港", note:"百年渡輪穿梭港島與九龍"},
+        {time:"18:00", activity:"澳洲牛奶公司或avenue茶餐廳晚餐", note:"晚餐"},
+        {time:"19:30", activity:"廟街夜市自由活動"},
+      ]},
+      { day:"Day 3", sub:"港珠澳大橋 → 抵達澳門 → 路氹豪華度假村", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"飯店退房，專車前往港珠澳大橋口岸"},
+        {time:"10:00", activity:"搭乘港珠澳大橋金巴前往澳門", note:"車程約 1 小時，跨越伶仃洋"},
+        {time:"11:30", activity:"抵達澳門，專車前往路氹金光大道"},
+        {time:"12:30", activity:"午餐：路氹酒店內特色餐廳", note:"午餐"},
+        {time:"13:30", activity:"威尼斯人／巴黎人／倫敦人酒店辦理入住"},
+        {time:"15:00", activity:"威尼斯人貢多拉遊船體驗", note:"仿威尼斯運河船歌表演"},
+        {time:"17:00", activity:"巴黎人鐵塔觀景平台．酒店巡禮"},
+        {time:"18:30", activity:"澳門葡式自助餐晚宴", note:"晚餐"},
+        {time:"20:00", activity:"巴黎鐵塔燈光秀"},
+      ]},
+      { day:"Day 4", sub:"大三巴歷史城區 → 路氹娛樂城巡禮 → 永利皇宮水舞秀", items:[
+        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"專車出發"},
+        {time:"10:00", activity:"大三巴牌坊．議事亭前地．戀愛巷"},
+        {time:"12:00", activity:"黃枝記粥麵或在地老店午餐", note:"午餐"},
+        {time:"14:00", activity:"新濠影匯．美獅美高梅酒店巡禮"},
+        {time:"16:30", activity:"永利皇宮水舞秀＋皇宮纜車", note:"每 15-30 分鐘一場，免費觀賞"},
+        {time:"18:30", activity:"米其林推薦餐廳惜別晚宴", note:"晚餐"},
+      ]},
+      { day:"Day 5", sub:"官也街伴手禮 → 澳門機場 → 賦歸", items:[
+        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"官也街伴手禮採購", note:"安德魯蛋塔、鉅記餅家"},
+        {time:"11:00", activity:"酒店退房，行李寄放櫃檯"},
+        {time:"12:00", activity:"路氹金光大道自由活動．午餐自理", note:"午餐自理"},
+        {time:"15:00", activity:"專車前往澳門國際機場"},
+        {time:"15:30", activity:"辦理登機手續"},
+        {time:"17:25", activity:"搭乘澳門航空直飛班機返回桃園", note:"航程約 1 小時 50 分"},
+        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
+      ]},
+    ],
+    notes: "預算約 NT$35,000／人；費用含機票、住宿（2晚香港五星酒店＋2晚澳門路氹豪華度假村）、餐食（4早3午4晚，Day5午餐自理）、港珠澳大橋接送、保險、司機／導遊／領隊小費，不含個人消費。水舞間門票、貢多拉船票等自費體驗約 NT$1,500-3,000。實際航班與房型以 2027 年開賣班表為準。"
+  },
+  {
+    code: ["PLAN C","PUS"],
+    title: "海與古城・釜山慶州５日",
+    theme: "wave",
+    dest: "南韓．釜山／慶州",
+    days: "5 天 4 夜",
+    date: "2027 年 2 月下旬",
+    meet: "桃園國際機場第一航廈（依航班報到時間集合）",
+    summary: "甘川洞文化村＋慶州世界遺產＋海東龍宮寺＋太宗台斷崖美景",
+    itinerary: [
+      { day:"Day 1", sub:"抵達釜山 → 西面入住 → 札嘎其市場 → BIFF廣場", items:[
+        {time:"05:30", activity:"桃園機場第一航廈集合報到"},
+        {time:"07:55", activity:"搭乘華航 CI188 直飛班機飛往釜山", note:"航程約 2 小時 20 分"},
+        {time:"11:15", activity:"抵達釜山金海機場，入境通關、領取行李"},
+        {time:"12:30", activity:"專車前往西面，午餐：釜山豬肉湯飯", note:"午餐"},
+        {time:"14:00", activity:"西面商圈酒店辦理入住"},
+        {time:"15:00", activity:"龍頭山公園．釜山塔"},
+        {time:"17:00", activity:"札嘎其市場：新鮮海鮮晚餐", note:"晚餐"},
+        {time:"19:00", activity:"BIFF廣場．南浦洞自由逛街"},
+      ]},
+      { day:"Day 2", sub:"甘川洞文化村 → 太宗台 → 松島雲端散步路", items:[
+        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"專車出發"},
+        {time:"09:30", activity:"甘川洞文化村：彩色階梯屋．壁畫巷弄"},
+        {time:"12:00", activity:"午餐：在地海鮮定食", note:"午餐"},
+        {time:"13:30", activity:"太宗台：燈塔．斷崖海岸線觀景"},
+        {time:"15:30", activity:"松島雲端散步路：海上玻璃棧道"},
+        {time:"18:00", activity:"返回西面，烤肉晚餐", note:"晚餐"},
+        {time:"20:00", activity:"西面商圈自由購物"},
+      ]},
+      { day:"Day 3", sub:"慶州世界遺產一日遊：佛國寺．瞻星台．東宮月池", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"08:30", activity:"專車前往慶州", note:"車程約 1 小時"},
+        {time:"09:30", activity:"佛國寺：世界文化遺產．石造多寶塔"},
+        {time:"11:00", activity:"石窟庵：釋迦如來石佛像"},
+        {time:"12:30", activity:"午餐：慶州傳統韓定食", note:"午餐"},
+        {time:"14:00", activity:"大陵苑：新羅古墳群"},
+        {time:"15:00", activity:"瞻星台：東亞現存最古老天文台"},
+        {time:"16:00", activity:"東宮與月池：新羅離宮遺址", note:"傍晚燈景著名"},
+        {time:"18:30", activity:"返回釜山，晚餐：釜山烤五花肉", note:"晚餐"},
+      ]},
+      { day:"Day 4", sub:"海東龍宮寺 → 五六島天空步道 → 樂天世界 → 廣安大橋夜景", items:[
+        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"專車出發"},
+        {time:"09:30", activity:"海東龍宮寺：海邊寺廟，韓國三大寺廟之一"},
+        {time:"11:30", activity:"五六島天空步道：透明玻璃棧道"},
+        {time:"13:00", activity:"午餐：海雲台傳統市場小吃", note:"午餐"},
+        {time:"14:30", activity:"樂天世界釜山：室內主題樂園自由活動"},
+        {time:"17:30", activity:"廣安里海邊．廣安大橋夜景"},
+        {time:"18:30", activity:"晚餐：生魚片或烤貝", note:"晚餐"},
+      ]},
+      { day:"Day 5", sub:"西面．國際市場購物 → 釜山機場 → 賦歸", items:[
+        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
+        {time:"09:00", activity:"飯店退房，行李寄放櫃檯"},
+        {time:"09:30", activity:"國際市場．富平罐頭市場伴手禮採購"},
+        {time:"12:00", activity:"午餐：在地小吃", note:"午餐"},
+        {time:"13:30", activity:"西面．南浦洞自由活動"},
+        {time:"15:30", activity:"專車前往釜山金海機場"},
+        {time:"16:30", activity:"辦理登機手續，機場免稅店"},
+        {time:"17:35", activity:"搭乘大韓航空直飛班機返回桃園", note:"航程約 2 小時 25 分"},
+        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
+      ]},
+    ],
+    notes: "預算約 NT$30,000／人；費用含機票、住宿（4晚西面商圈四星酒店）、餐食（4早3午4晚）、慶州一日遊專車、保險、司機／導遊／領隊小費，不含個人消費。實際航班以 2027 年開賣班表為準。"
+  },
+];
+
+const ticketList = document.getElementById('ticketList');
+plans.forEach((p, idx) => {
+  const el = document.createElement('div');
+  el.className = 'ticket';
+  el.tabIndex = 0;
+  el.innerHTML = `
+    <div class="ticket-top">
+      <div class="plan-code"><span>${p.code[0]}</span>${p.code[1] ? `<span>${p.code[1]}</span>` : ''}</div>
+      <div class="plan-title">${p.title}</div>
+      <div class="plan-dest">${p.dest}</div>
+      <div class="plan-meta">
+        <div><span>天數</span>${p.days}</div>
+        <div><span>日期</span>${p.date}</div>
+      </div>
+    </div>
+    <div class="perf"></div>
+    <div class="ticket-bottom">
+      <div class="plan-summary">${p.summary}</div>
+      <div class="go">查看行程 →</div>
+    </div>
+  `;
+  el.addEventListener('click', () => showDetail(idx));
+  el.addEventListener('keypress', (e) => { if(e.key === 'Enter') showDetail(idx); });
+  ticketList.appendChild(el);
+});
+
+function showDetail(idx){
+  const p = plans[idx];
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('detail').style.display = 'block';
+  document.getElementById('dCode').textContent = p.code.filter(Boolean).join('   ·   ');
+  document.getElementById('dTitle').textContent = p.title;
+  document.getElementById('dDays').textContent = p.days;
+  document.getElementById('dDate').textContent = p.date;
+  document.getElementById('dMeet').textContent = p.meet;
+  document.getElementById('dNotes').textContent = p.notes;
+  setTheme(p.theme);
+
+  const dayNav = document.getElementById('dayNav');
+  const dayPanels = document.getElementById('dayPanels');
+  dayNav.innerHTML = '';
+  dayPanels.innerHTML = '';
+
+  p.itinerary.forEach((day, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'day-btn' + (i===0 ? ' active' : '');
+    btn.textContent = day.day;
+    btn.onclick = () => switchDay(i);
+    dayNav.appendChild(btn);
+
+    const panel = document.createElement('div');
+    panel.className = 'day-panel' + (i===0 ? ' active' : '');
+    panel.dataset.day = i;
+    panel.innerHTML = `
+      <h3>${day.day}</h3>
+      <p class="day-sub">${day.sub}</p>
+      <div class="timeline">
+        ${day.items.map(it => `
+          <div class="item">
+            <div class="time">${it.time}</div>
+            <div class="activity">${it.activity}</div>
+            ${it.note ? `<div class="note">${it.note}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    `;
+    dayPanels.appendChild(panel);
+  });
+  window.scrollTo(0,0);
+}
+
+function switchDay(i){
+  document.querySelectorAll('.day-btn').forEach((b,idx)=>b.classList.toggle('active', idx===i));
+  document.querySelectorAll('.day-panel').forEach(p=>p.classList.toggle('active', Number(p.dataset.day)===i));
+}
+
+function showLanding(){
+  document.getElementById('detail').style.display = 'none';
+  document.getElementById('landing').style.display = 'block';
+  document.getElementById('bgEffect').innerHTML = '';
+  window.scrollTo(0,0);
+}
+
+function setTheme(theme){
+  const bg = document.getElementById('bgEffect');
+  bg.innerHTML = '';
+
+  if (theme === 'snow') {
+    for (let i = 0; i < 45; i++) {
+      const f = document.createElement('div');
+      f.className = 'snowflake';
+      const size = 3 + Math.random() * 6;
+      const left = Math.random() * 100;
+      const duration = 8 + Math.random() * 10;
+      const delay = -Math.random() * 18;
+      const drift = (Math.random() * 80 - 40) + 'px';
+      f.style.width = f.style.height = size + 'px';
+      f.style.left = left + 'vw';
+      f.style.animationDuration = duration + 's';
+      f.style.animationDelay = delay + 's';
+      f.style.setProperty('--drift', drift);
+      bg.appendChild(f);
+    }
+  } else if (theme === 'neon') {
+    const colors = ['#E3A23E','#D6603F','#F3ECDC','#E9CD94'];
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement('div');
+      d.className = 'neon-dot';
+      const size = 6 + Math.random() * 16;
+      const left = Math.random() * 100;
+      const duration = 7 + Math.random() * 9;
+      const delay = -Math.random() * 14;
+      const drift = (Math.random() * 60 - 30) + 'px';
+      d.style.width = d.style.height = size + 'px';
+      d.style.left = left + 'vw';
+      d.style.background = colors[i % colors.length];
+      d.style.animationDuration = duration + 's';
+      d.style.animationDelay = delay + 's';
+      d.style.setProperty('--drift', drift);
+      bg.appendChild(d);
+    }
+  } else if (theme === 'wave') {
+    bg.innerHTML = `
+      <div class="bg-wave">
+        <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="wave-back">
+          <path d="M0,20 C25,35 50,5 75,20 C100,35 125,5 150,20 C175,35 187,20 200,20 L200,40 L0,40 Z" fill="#2A6F6F"/>
+        </svg>
+        <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="wave-front">
+          <path d="M0,22 C25,8 50,32 75,18 C100,4 125,30 150,16 C175,4 187,18 200,18 L200,40 L0,40 Z" fill="#E3A23E"/>
+        </svg>
+      </div>
+    `;
+  }
+}
+</script>
+</body>
+</html>
