@@ -3,671 +3,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>員工旅遊 · 行程方案</title>
+<title>登別．小樽５日物語｜2027 員工旅遊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#132229;
-    --navy:#0F2027;
-    --navy-deep:#0A1720;
-    --paper:#F3ECDC;
-    --paper-soft:#EFE7D3;
-    --amber:#E3A23E;
-    --coral:#D6603F;
-    --line:#C9BFA0;
-    --muted:#6B6155;
+    --sky:#EAF5FB;
+    --sky-deep:#CFE9F5;
+    --cream:#FFFDF8;
+    --ink:#2E3E4E;
+    --muted:#6B7C89;
+    --coral:#F0916B;
+    --berry:#DE7391;
+    --gold:#E8B24C;
+    --mint:#7FBFB0;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
     background:
-      radial-gradient(1200px 600px at 15% -10%, #16303B 0%, transparent 60%),
-      radial-gradient(1000px 500px at 90% 10%, #17313D 0%, transparent 55%),
-      var(--navy-deep);
-    color:var(--paper);
+      radial-gradient(1000px 500px at 10% -10%, #FFFFFF 0%, transparent 55%),
+      radial-gradient(900px 500px at 95% 0%, #FDEFE4 0%, transparent 55%),
+      linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 45%, #F7EFE2 100%);
+    color:var(--ink);
     font-family:'Noto Sans TC', sans-serif;
-    min-height:100vh;
-  }
-  .wrap{max-width:1080px;margin:0 auto;padding:56px 24px 80px;position:relative;z-index:1;}
-
-  /* ---- Animated background effects (per-plan theme) ---- */
-  .bg-effect{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
-
-  .snowflake{
-    position:absolute;
-    top:-5vh;
-    background:#fff;
-    border-radius:50%;
-    opacity:.85;
-    animation-name:snowfall;
-    animation-timing-function:linear;
-    animation-iteration-count:infinite;
-    filter:blur(.2px);
-  }
-  @keyframes snowfall{
-    from{ transform:translate(0,0); }
-    to{ transform:translate(var(--drift,0px), 115vh); }
+    overflow-x:hidden;
   }
 
-  .neon-dot{
-    position:absolute;
-    bottom:-10vh;
-    border-radius:50%;
-    filter:blur(7px);
-    opacity:0;
-    animation-name:neonrise;
-    animation-timing-function:ease-in-out;
-    animation-iteration-count:infinite;
-  }
-  @keyframes neonrise{
-    0%{ transform:translateY(0) translateX(0); opacity:0; }
-    12%{ opacity:.65; }
-    85%{ opacity:.5; }
-    100%{ transform:translateY(-125vh) translateX(var(--drift,0px)); opacity:0; }
-  }
+  .snow{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  .flake{position:absolute;top:-6vh;background:#fff;border:1px solid #CFE4EF;border-radius:50%;opacity:.9;animation:fall linear infinite;box-shadow:0 0 4px rgba(255,255,255,.8);}
+  @keyframes fall{ to{ transform:translate(var(--dx,0), 112vh) rotate(180deg); } }
 
-  .bg-wave{position:fixed;left:0;bottom:0;width:100%;height:22vh;min-height:140px;z-index:0;pointer-events:none;}
-  .bg-wave svg{position:absolute;bottom:0;left:0;width:200%;height:100%;}
-  .wave-back{animation:waveMove 16s linear infinite;opacity:.35;}
-  .wave-front{animation:waveMove 9s linear infinite reverse;opacity:.55;}
-  @keyframes waveMove{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
 
+  /* ---------- hero ---------- */
+  .hero{padding:100px 0 80px;text-align:center;}
   .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:clamp(30px,5.2vw,52px);
-    font-weight:600;
-    letter-spacing:.08em;
-    line-height:1.3;
-    color:var(--amber);
-    text-transform:uppercase;
+    font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink);
+    background:linear-gradient(135deg, #FFFFFF, #FDEFE0);
+    padding:8px 20px;border-radius:20px;
+    margin:0 0 26px;
+    border:1px solid rgba(232,178,76,.5);
+    box-shadow:0 8px 20px rgba(46,62,78,.1), inset 0 1px 0 #fff;
+  }
+  .eyebrow::before{content:"❄";color:var(--coral);font-size:11px;}
+  .hero h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(32px,5.6vw,58px);
+    line-height:1.35;
     margin:0 0 18px;
-    text-align:center;
-  }
-  h1{
-    font-family:'Noto Serif TC', serif;
-    font-weight:900;
-    font-size:clamp(28px,4.4vw,44px);
-    line-height:1.25;
-    margin:0 0 10px;
-    color:var(--paper);
-    text-align:center;
-  }
-  .sub{
-    color:#B9C4C7;
-    font-size:15px;
-    line-height:1.8;
-    max-width:640px;
-    margin:0 auto 44px;
-    text-align:center;
-  }
-  .sub b{color:var(--amber);font-weight:700;}
-
-  /* ---- Landing: ticket cards (always single column, scroll down) ---- */
-  .tickets{
-    display:flex;
-    flex-direction:column;
-    gap:36px;
-    max-width:640px;
-    margin:0 auto;
-  }
-
-  .ticket{
-    position:relative;
-    background:var(--paper);
     color:var(--ink);
-    border-radius:14px;
-    cursor:pointer;
-    box-shadow:0 18px 40px rgba(0,0,0,.35);
-    transform:rotate(var(--tilt,0deg));
-    transition:transform .25s ease, box-shadow .25s ease;
-    overflow:hidden;
-    border:1px solid #DDD2B4;
-    text-align:left;
   }
-  .ticket:nth-child(1){--tilt:-1.4deg;}
-  .ticket:nth-child(2){--tilt:0.8deg;}
-  .ticket:nth-child(3){--tilt:-0.6deg;}
-  .ticket:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 26px 55px rgba(0,0,0,.45);}
-  .ticket:focus-visible{outline:3px solid var(--amber);outline-offset:3px;}
-
-  .ticket-top{padding:22px 22px 18px;}
-  .plan-code{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.14em;
-    color:var(--muted);
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:14px;
+  .hero h1 b{
+    background:linear-gradient(100deg, var(--berry), var(--coral));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .plan-code span:last-child{color:var(--coral);font-weight:600;}
-  .plan-title{
-    font-family:'Noto Serif TC', serif;
-    font-weight:700;
-    font-size:23px;
-    line-height:1.4;
-    margin:0 0 8px;
+  .hero-sub{
+    color:var(--muted);font-size:15.5px;line-height:1.95;
+    max-width:520px;margin:0 auto 32px;
   }
-  .plan-dest{
-    font-size:13px;
-    color:var(--muted);
-    margin-bottom:16px;
+  .hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;}
+  .htag{
+    font-family:'IBM Plex Mono', monospace;font-size:12px;
+    background:#fff;border:1.5px solid var(--sky-deep);color:var(--ink);
+    padding:8px 16px;border-radius:20px;
   }
-  .plan-meta{
-    display:flex;
-    gap:18px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--ink);
-    padding-top:12px;
-    border-top:1px dashed var(--line);
-  }
-  .plan-meta div span{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em;margin-bottom:3px;text-transform:uppercase;}
-
-  .perf{
+  .price-tag-wrap{display:inline-flex;flex-direction:column;align-items:center;}
+  .price-badge{
     position:relative;
-    height:0;
-    border-top:2px dashed var(--line);
-    margin:0 22px;
+    display:inline-flex;flex-direction:column;align-items:flex-start;gap:6px;
+    background:linear-gradient(150deg, #FFFDF8 0%, #FBEEDA 100%);
+    color:var(--ink);
+    padding:26px 40px 26px 54px;
+    clip-path:polygon(26px 0, 100% 0, 100% 100%, 26px 100%, 0 50%);
+    box-shadow:0 22px 48px rgba(46,62,78,.28);
   }
-  .perf::before,.perf::after{
-    content:"";
-    position:absolute;
-    top:-11px;
-    width:22px;height:22px;
-    background:var(--navy-deep);
-    border-radius:50%;
+  .price-badge::before{
+    content:"";position:absolute;left:13px;top:50%;
+    width:9px;height:9px;border-radius:50%;
+    background:#CFE0EA;
+    box-shadow:inset 0 0 0 1.5px rgba(46,62,78,.3), inset 0 2px 3px rgba(0,0,0,.15);
+    transform:translateY(-50%);
   }
-  .perf::before{left:-33px;}
-  .perf::after{right:-33px;}
+  .price-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.18em;
+    color:var(--berry);text-transform:uppercase;font-weight:600;
+  }
+  .price-divider{width:32px;height:2px;background:var(--gold);margin:1px 0 5px;border-radius:2px;}
+  .price-row{display:flex;align-items:baseline;gap:7px;}
+  .price-badge .cur{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--berry);font-weight:700;}
+  .price-badge .num{font-family:'Shippori Mincho',serif;font-weight:800;font-size:38px;letter-spacing:.02em;color:var(--ink);}
+  .price-badge .per{font-size:12px;color:var(--muted);}
+  .price-string{width:2px;height:22px;background:repeating-linear-gradient(to bottom, #C9B48A 0 4px, transparent 4px 8px);margin:0 auto;}
 
-  .ticket-bottom{
-    padding:16px 22px 22px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+  /* ---------- trail / day sections ---------- */
+  .trail{position:relative;padding:20px 0 50px;}
+  .trail::before{
+    content:"";position:absolute;left:24px;top:0;bottom:0;width:3px;
+    background:repeating-linear-gradient(to bottom, var(--coral) 0 8px, transparent 8px 17px);
+    opacity:.6;border-radius:3px;
   }
-  .plan-summary{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:66%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .go{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    font-weight:600;
-    color:var(--navy-deep);
-    background:var(--amber);
-    padding:8px 14px;
-    border-radius:6px;
-    white-space:nowrap;
+  @media (min-width:780px){ .trail::before{left:50%;margin-left:-1.5px;} }
+
+  .day{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding:0 0 0 60px;
+    margin-bottom:64px;
+  }
+  @media (min-width:780px){
+    .day{grid-template-columns:1fr 1fr;align-items:stretch;padding-left:0;gap:52px;}
+    .day.rev .day-copy{order:2;}
+    .day.rev .day-art{order:1;}
   }
 
-  /* ---- Detail view ---- */
-  #detail{display:none;}
-  .back{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.1em;
-    color:var(--amber);
-    background:none;
-    border:1px solid rgba(227,162,62,.4);
-    padding:8px 14px;
-    border-radius:20px;
-    cursor:pointer;
-    margin-bottom:28px;
+  .stamp{
+    position:absolute;left:2px;top:-4px;
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    font-family:'Shippori Mincho',serif;font-weight:800;
+    color:#fff;
+    box-shadow:0 10px 22px rgba(0,0,0,.18);
+    border:3px solid #fff;
+    z-index:2;
   }
-  .back:hover{background:rgba(227,162,62,.12);}
+  .stamp .n{font-size:17px;line-height:1;}
+  @media (min-width:780px){ .stamp{left:50%;margin-left:-26px;top:50%;margin-top:-26px;} }
 
-  .detail-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    flex-wrap:wrap;
-    gap:16px;
-    border-bottom:1px solid rgba(255,255,255,.14);
-    padding-bottom:24px;
-    margin-bottom:32px;
-  }
-  .detail-head .plan-code{color:var(--amber);opacity:.85;}
-  .detail-head h2{
-    font-family:'Noto Serif TC', serif;
-    font-weight:900;
-    font-size:clamp(26px,3.6vw,38px);
-    margin:6px 0 8px;
-    color:var(--paper);
-  }
-  .detail-meta{
-    display:flex;
-    gap:26px;
-    flex-wrap:wrap;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:#B9C4C7;
-  }
-  .detail-meta span{display:block;color:var(--amber);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+  .day-copy{background:var(--cream);border-radius:20px;padding:28px 28px 24px;box-shadow:0 16px 36px rgba(46,62,78,.12);border:1px solid #F1E4D2;}
+  .day-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--berry);text-transform:uppercase;margin:0 0 8px;font-weight:600;}
+  .day-copy h2{font-family:'Shippori Mincho',serif;font-weight:700;font-size:21px;margin:0 0 13px;line-height:1.5;color:var(--ink);}
+  .day-copy p{font-size:13.5px;line-height:1.95;color:#5A5148;margin:0 0 15px;}
+  .day-chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#fff;border:1px solid #EEDFC8;color:#8A7A5E;padding:5px 11px;border-radius:14px;}
 
-  .day-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
-  #dayNavBottom{margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);}
-  .day-btn{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    padding:8px 16px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.2);
-    background:transparent;
-    color:#B9C4C7;
-    cursor:pointer;
+  .day-art{display:flex;justify-content:center;align-items:stretch;}
+  .art-frame{
+    position:relative;width:100%;max-width:340px;
+    border-radius:20px;overflow:hidden;
+    box-shadow:0 20px 45px rgba(46,62,78,.25);
+    border:6px solid #fff;
   }
-  .day-btn.active{background:var(--amber);color:var(--navy-deep);border-color:var(--amber);font-weight:600;}
+  .art-frame img{display:block;width:100%;height:100%;min-height:290px;object-fit:cover;object-position:center 25%;}
+  .tape{
+    position:absolute;top:-14px;left:26px;width:70px;height:26px;
+    opacity:.9;transform:rotate(-8deg);
+    border-radius:2px;
+    box-shadow:0 4px 8px rgba(0,0,0,.12);
+  }
 
-  .day-panel{display:none;}
-  .day-panel.active{display:block;}
-  .day-panel h3{
-    font-family:'Noto Serif TC', serif;
-    font-size:20px;
-    margin:0 0 6px;
-    color:var(--paper);
-  }
-  .day-panel .day-sub{color:var(--muted);color:#9FADB1;font-size:13px;margin-bottom:20px;}
+  /* ---------- cute critters ---------- */
+  .critter{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(46,62,78,.15));}
+  @media (max-width:900px){ .critter{display:none;} }
 
-  .timeline{border-left:2px solid rgba(227,162,62,.35);padding-left:22px;display:flex;flex-direction:column;gap:22px;}
-  .item{position:relative;}
-  .item::before{
-    content:"";
-    position:absolute;
-    left:-28px;top:4px;
-    width:10px;height:10px;
-    border-radius:50%;
-    background:var(--amber);
-    box-shadow:0 0 0 3px rgba(227,162,62,.2);
+  /* ---------- footer ---------- */
+  .footer-box{
+    background:var(--cream);border-radius:22px;
+    padding:38px 30px;margin:20px 0 80px;
+    box-shadow:0 18px 40px rgba(46,62,78,.14);
+    border:1px solid #F1E4D2;
   }
-  .item .time{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--amber);
-    margin-bottom:3px;
-  }
-  .item .activity{font-size:14.5px;color:var(--paper);line-height:1.6;}
-  .item .note{font-size:12.5px;color:#93A0A4;margin-top:3px;}
-
-  .notes-box{
-    margin-top:40px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;
-    padding:18px 22px;
-  }
-  .notes-box h4{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.1em;
-    color:var(--amber);
-    text-transform:uppercase;
-    margin:0 0 10px;
-  }
-  .notes-box p{font-size:13px;line-height:1.9;color:#B9C4C7;margin:0;}
-
-  .edit-hint{
-    margin-top:56px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    color:#6D7A7E;
-    line-height:1.8;
-    border-top:1px dashed rgba(255,255,255,.15);
-    padding-top:18px;
+  .footer-box h3{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 18px;color:var(--ink);}
+  .incl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:20px;}
+  @media (max-width:560px){ .incl-grid{grid-template-columns:1fr;} }
+  .incl-grid div{font-size:13px;color:#5A5148;padding-left:20px;position:relative;line-height:1.7;}
+  .incl-grid div::before{content:"🐧";position:absolute;left:0;top:0;font-size:12px;}
+  .footer-note{font-size:11.5px;color:#9C8F7A;line-height:1.8;border-top:1px dashed #EEDFC8;padding-top:15px;}
+  .contact-line{
+    text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    color:var(--muted);padding-bottom:50px;
   }
 </style>
 </head>
 <body>
-<div class="bg-effect" id="bgEffect"></div>
+<div class="snow" id="snow"></div>
+
 <div class="wrap">
-
-  <!-- LANDING -->
-  <div id="landing">
-    <p class="eyebrow">2027 數字廣告 員工旅遊</p>
-    <h1>北海道 你選哪一道？</h1>
-    <p class="sub">點選任一張「機票」查看完整逐日行程。</p>
-    <div class="tickets" id="ticketList"></div>
-  </div>
-
-  <!-- DETAIL -->
-  <div id="detail">
-    <button class="back" onclick="showLanding()">← 返回三個方案</button>
-    <div class="detail-head">
-      <div>
-        <p class="plan-code" id="dCode"></p>
-        <h2 id="dTitle"></h2>
-        <div class="detail-meta">
-          <div><span>天數</span><b id="dDays"></b></div>
-          <div><span>日期</span><b id="dDate"></b></div>
-          <div><span>集合地點</span><b id="dMeet"></b></div>
+  <div class="hero">
+    <span class="eyebrow">2027 數字廣告員工旅遊</span>
+    <h1>登別．小樽<br><b>企鵝與蟹宴</b>５日物語</h1>
+    <p class="hero-sub">火山秘境的溫泉初夜，國王企鵝搖擺遊行，運河畔的浪漫散策，三大蟹無限暢吃——這趟旅程，把北海道的冬天，一次收進行李箱。</p>
+    <div class="hero-tags">
+      <span class="htag">📅 2027.02.24－02.28</span>
+      <span class="htag">🗓️ 5天4夜</span>
+      <span class="htag">✈️ 傳統航空直飛</span>
+    </div>
+    <div class="price-tag-wrap">
+      <div class="price-string"></div>
+      <div class="price-badge">
+        <span class="price-label">旅遊團費．每人</span>
+        <div class="price-divider"></div>
+        <div class="price-row">
+          <span class="cur">NT$</span><span class="num">42,000</span><span class="per">／人</span>
         </div>
       </div>
     </div>
-    <div class="day-nav" id="dayNav"></div>
-    <div id="dayPanels"></div>
-    <div class="day-nav" id="dayNavBottom"></div>
-    <div class="notes-box">
-      <h4>注意事項</h4>
-      <p id="dNotes"></p>
-    </div>
   </div>
 
-  <p class="edit-hint">＊ 行程請洽 設計組 Tony 王</p>
+  <div class="trail">
+
+    <!-- cute background critters -->
+    <svg class="critter" style="width:64px;left:2%;top:120px;transform:rotate(-8deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#2E3E4E"/>
+      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
+      <circle cx="50" cy="30" r="16" fill="#2E3E4E"/>
+      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
+      <circle cx="44" cy="28" r="1.1" fill="#2E3E4E"/><circle cx="56" cy="28" r="1.1" fill="#2E3E4E"/>
+      <polygon points="50,32 45,38 55,38" fill="#F0916B"/>
+      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(-20 27 55)"/>
+      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(20 73 55)"/>
+      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#F0916B"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#F0916B"/>
+    </svg>
+
+    <svg class="critter" style="width:56px;right:3%;top:640px;transform:rotate(10deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="62" rx="30" ry="20" fill="#DE7391"/>
+      <circle cx="30" cy="60" r="9" fill="#DE7391"/><circle cx="70" cy="60" r="9" fill="#DE7391"/>
+      <circle cx="30" cy="60" r="4" fill="#fff"/><circle cx="70" cy="60" r="4" fill="#fff"/>
+      <circle cx="30" cy="60" r="2" fill="#2E3E4E"/><circle cx="70" cy="60" r="2" fill="#2E3E4E"/>
+      <path d="M14,50 L4,38 M10,55 L-2,50" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
+      <path d="M86,50 L96,38 M90,55 L102,50" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
+      <path d="M28,80 L20,92 M42,84 L38,96 M58,84 L62,96 M72,80 L80,92" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="critter" style="width:60px;left:1%;top:1120px;transform:rotate(6deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#25333B"/>
+      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
+      <circle cx="50" cy="30" r="16" fill="#25333B"/>
+      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
+      <circle cx="44" cy="28" r="1.1" fill="#25333B"/><circle cx="56" cy="28" r="1.1" fill="#25333B"/>
+      <polygon points="50,32 45,38 55,38" fill="#E8B24C"/>
+      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#25333B" transform="rotate(15 27 55)"/>
+      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#25333B" transform="rotate(-15 73 55)"/>
+      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#E8B24C"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#E8B24C"/>
+    </svg>
+
+    <svg class="critter" style="width:52px;right:2%;top:1600px;transform:rotate(-12deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="62" rx="30" ry="20" fill="#F0916B"/>
+      <circle cx="30" cy="60" r="9" fill="#F0916B"/><circle cx="70" cy="60" r="9" fill="#F0916B"/>
+      <circle cx="30" cy="60" r="4" fill="#fff"/><circle cx="70" cy="60" r="4" fill="#fff"/>
+      <circle cx="30" cy="60" r="2" fill="#2E3E4E"/><circle cx="70" cy="60" r="2" fill="#2E3E4E"/>
+      <path d="M14,50 L4,38 M10,55 L-2,50" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
+      <path d="M86,50 L96,38 M90,55 L102,50" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
+      <path d="M28,80 L20,92 M42,84 L38,96 M58,84 L62,96 M72,80 L80,92" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="critter" style="width:58px;left:2%;top:2100px;transform:rotate(-5deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#2E3E4E"/>
+      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
+      <circle cx="50" cy="30" r="16" fill="#2E3E4E"/>
+      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
+      <circle cx="44" cy="28" r="1.1" fill="#2E3E4E"/><circle cx="56" cy="28" r="1.1" fill="#2E3E4E"/>
+      <polygon points="50,32 45,38 55,38" fill="#F0916B"/>
+      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(-20 27 55)"/>
+      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(20 73 55)"/>
+      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#F0916B"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#F0916B"/>
+    </svg>
+
+    <div class="day">
+      <div class="stamp" style="background:var(--coral)"><span class="n">一</span></div>
+      <div class="day-copy">
+        <p class="day-tag">Day 1 ｜ 2/24</p>
+        <h2>登別溫泉鄉，落雪初夜</h2>
+        <p>搭乘傳統航空直飛新千歲機場，專車一路南下登別。沿途山巒披著薄雪，傍晚時分抵達溫泉飯店。</p>
+        <p>換上浴衣後，不妨到飯店外的傳統溫泉商店街走走——老字號饅頭店、木雕紀念品店沿街林立，空氣裡飄著硫磺與甜點交織的氣味。</p>
+        <p>晚餐後泡進飯店的溫泉池，把長途飛行的疲憊，一併留在氤氳白煙裡。</p>
+        <div class="day-chips">
+          <span class="chip">機場→登別溫泉鄉</span>
+          <span class="chip">傳統溫泉商店街</span>
+          <span class="chip">住宿．溫泉飯店</span>
+        </div>
+      </div>
+      <div class="day-art">
+        <div class="art-frame">
+          <div class="tape" style="background:var(--coral)"></div>
+          <img src="day1.png" alt="登別溫泉商店街">
+        </div>
+      </div>
+    </div>
+
+    <div class="day rev">
+      <div class="stamp" style="background:var(--berry)"><span class="n">二</span></div>
+      <div class="day-copy">
+        <p class="day-tag">Day 2 ｜ 2/25</p>
+        <h2>地獄谷秘境 × 國王企鵝大遊行</h2>
+        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多。</p>
+        <p>接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，每日固定登場的「國王企鵝大遊行」，一群企鵝搖搖擺擺地列隊行走、近距離與遊客互動，是北海道少見的療癒風景。</p>
+        <p>傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
+        <div class="day-chips">
+          <span class="chip">登別地獄谷</span>
+          <span class="chip">國王企鵝大遊行</span>
+          <span class="chip">住宿．札幌市區</span>
+        </div>
+      </div>
+      <div class="day-art">
+        <div class="art-frame">
+          <div class="tape" style="background:var(--berry)"></div>
+          <img src="day2.png" alt="國王企鵝大遊行">
+        </div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="stamp" style="background:var(--gold)"><span class="n">三</span></div>
+      <div class="day-copy">
+        <p class="day-tag">Day 3 ｜ 2/26</p>
+        <h2>小樽運河浪漫遊，蟹宴狂歡夜</h2>
+        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景。</p>
+        <p>走進北一硝子館，挑選一盞屬於自己的手工玻璃燈；路過歐風蒸氣鐘，整點報時的白煙準時噴發；再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。</p>
+        <p>晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，毛蟹、松葉蟹、鱈場蟹輪番上桌，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。</p>
+        <div class="day-chips">
+          <span class="chip">小樽運河．北一硝子館</span>
+          <span class="chip">歐風蒸氣鐘．音樂盒堂</span>
+          <span class="chip">★三大蟹暢吃＋喝到飽</span>
+        </div>
+      </div>
+      <div class="day-art">
+        <div class="art-frame">
+          <div class="tape" style="background:var(--gold)"></div>
+          <img src="day3.png" alt="小樽運河">
+        </div>
+      </div>
+    </div>
+
+    <div class="day rev">
+      <div class="stamp" style="background:var(--mint)"><span class="n">四</span></div>
+      <div class="day-copy">
+        <p class="day-tag">Day 4 ｜ 2/27</p>
+        <h2>札幌自由日，步調交還給你</h2>
+        <p>保留一整天完全彈性的時間。喜歡甜點的人可以前往白色戀人公園，看巧克力工廠現場製作；想登高望遠，藻岩山纜車能將百萬夜景盡收眼底；購物控則可以一頭鑽進狸小路商店街，從藥妝到伴手禮通通不放過。</p>
+        <p>沒有集合時間、沒有固定行程，只有你想去的地方跟想吃的那一餐，晚上依然回到熟悉的市區飯店休息。</p>
+        <div class="day-chips">
+          <span class="chip">全天自由活動</span>
+          <span class="chip">札幌電視塔．大通公園</span>
+          <span class="chip">住宿．札幌市區</span>
+        </div>
+      </div>
+      <div class="day-art">
+        <div class="art-frame">
+          <div class="tape" style="background:var(--mint)"></div>
+          <img src="day4.png" alt="札幌自由行">
+        </div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="stamp" style="background:var(--coral)"><span class="n">五</span></div>
+      <div class="day-copy">
+        <p class="day-tag">Day 5 ｜ 2/28</p>
+        <h2>Outlet 戰利品日，滿載而歸</h2>
+        <p>退房後前往三井 Outlet 千歲，森林系的園區聚集近150個品牌，從戶外機能服飾到日系雜貨、伴手禮甜點應有盡有。</p>
+        <p>趁著回國前的最後時光，把行李箱的空隙通通填滿，再前往新千歲機場享用最後一餐、逛逛免稅店，帶著滿滿的北國記憶，搭乘直飛班機返回溫暖的家。</p>
+        <div class="day-chips">
+          <span class="chip">三井Outlet千歲</span>
+          <span class="chip">新千歲機場免稅購物</span>
+          <span class="chip">直飛返台</span>
+        </div>
+      </div>
+      <div class="day-art">
+        <div class="art-frame">
+          <div class="tape" style="background:var(--coral)"></div>
+          <img src="day5.png" alt="Outlet購物">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-box">
+    <h3>費用包含</h3>
+    <div class="incl-grid">
+      <div>來回機票（傳統航空直飛）</div>
+      <div>4晚住宿（溫泉飯店＋市區飯店）</div>
+      <div>行程表列餐食</div>
+      <div>Day3 三大蟹無限暢吃＋酒水喝到飽</div>
+      <div>遊覽車與司機／導遊／領隊小費</div>
+      <div>旅遊平安保險</div>
+    </div>
+    <p class="footer-note">＊ 費用不含個人消費及自費行程。Day4自由活動當日餐食自理。實際航班時刻與飯店房型以出發前最終確認為準。</p>
+  </div>
+
+  <p class="contact-line">＊ 行程請洽 設計組 Tony 王</p>
 </div>
 
 <script>
-const plans = [
-  {
-    code: ["NT$29,900","CTS"],
-    title: "經典探索・北海道５日",
-    theme: "snow",
-    dest: "日本．北海道（札幌／小樽／函館）",
-    days: "5 天 4 夜",
-    date: "2027 年 2 月 24 日－2 月 28 日",
-    meet: "桃園國際機場第二航廈（依航班報到時間集合）",
-    summary: "二條市場鮮味早餐開胃，小樽運河雪燈散策，函館百萬夜景壓軸，經典北海道行程不踩雷。",
-    itinerary: [
-      { day:"Day 1", sub:"抵達新千歲 → 札幌市區 → 飛行自由日", items:[
-        {time:"06:30", activity:"桃園機場第二航廈集合報到"},
-        {time:"08:35", activity:"搭乘華航 CI130 直飛新千歲機場"},
-        {time:"13:30", activity:"抵達新千歲機場，入境通關、領取行李"},
-        {time:"14:30", activity:"專車前往札幌市區，辦理入住", note:"石狩の湯 ドーミーインPREMIUM札幌（男女別大浴場，鄰近狸小路）"},
-        {time:"15:30", activity:"自由活動：狸小路商店街散步", note:"晚餐自理，推薦成吉思汗だるま本店"},
-      ]},
-      { day:"Day 2", sub:"札幌自由行（推薦二條市場早餐＋企鵝散步一日遊）", items:[
-        {time:"07:00", activity:"自由前往二條市場吃早餐", note:"海膽、鮭魚卵、螃蟹丼，在地老饕早餐首選"},
-        {time:"09:00", activity:"全天自由活動，可自費報名「旭山動物園企鵝散步」一日遊", note:"冬季限定，建議提前預約，或自行探索北海道廳舊本廳舍．大通公園"},
-        {time:"18:00", activity:"晚餐自理，薄野商圈選擇多元"},
-      ]},
-      { day:"Day 3", sub:"小樽半自助遊：自行搭JR快速列車．運河散策．堺町通", items:[
-        {time:"08:30", activity:"自行搭乘JR快速列車前往小樽", note:"車程約 32 分鐘，班次密集，車票需自理"},
-        {time:"09:15", activity:"小樽運河散策", note:"百年石造倉庫＋煤氣燈"},
-        {time:"10:30", activity:"堺町通商店街：北一硝子．音樂盒堂．LeTAO"},
-        {time:"12:00", activity:"午餐自理：三角市場海鮮丼", note:"午餐自理"},
-        {time:"14:00", activity:"天狗山纜車展望", note:"自費，纜車來回約日幣1,800元"},
-        {time:"16:00", activity:"自行搭乘JR快速列車返回札幌"},
-        {time:"18:30", activity:"晚餐自理：薄野商圈成吉思汗烤羊肉", note:"晚餐自理"},
-      ]},
-      { day:"Day 4", sub:"函館半自助遊：自行搭JR特急．五稜郭．函館山夜景", items:[
-        {time:"07:00", activity:"自行搭乘JR特急列車前往函館", note:"車程約 3.5 小時，建議提前預訂指定席車票"},
-        {time:"10:30", activity:"五稜郭公園．五稜郭塔展望台", note:"展望台門票自理"},
-        {time:"12:30", activity:"午餐自理：函館朝市海鮮丼", note:"午餐自理"},
-        {time:"14:00", activity:"金森紅磚倉庫群自由散策"},
-        {time:"17:00", activity:"函館山纜車夜景", note:"自費，北海道三大夜景之一，纜車來回約日幣2,000元"},
-        {time:"18:30", activity:"晚餐自理：函館鹽味拉麵名店", note:"晚餐自理"},
-        {time:"19:30", activity:"自行搭乘JR特急列車返回札幌", note:"車程約 3.5 小時，抵達約 23:00"},
-      ]},
-      { day:"Day 5", sub:"三井Outlet千歲 → 新千歲機場 → 賦歸", items:[
-        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
-        {time:"09:00", activity:"退房，前往三井OUTLET千歲購物", note:"車程約 40 分鐘"},
-        {time:"12:00", activity:"午餐：拉麵道場自理", note:"午餐自理"},
-        {time:"13:30", activity:"前往新千歲機場"},
-        {time:"14:30", activity:"辦理登機手續，機場免稅店"},
-        {time:"16:15", activity:"搭乘長榮航空 BR115 直飛桃園"},
-        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
-      ]},
-    ],
-    notes: "預算約 NT$29,900／人；住宿：石狩の湯 ドーミーインPREMIUM札幌（市區4星商務型飯店，連住4晚）；行程型態：機加酒半自助行，Day3小樽、Day4函館採自行搭乘JR前往，無導遊隨行；餐食：4早（Day1早餐及全程午晚餐皆自理）；費用含機票、住宿、早餐、保險，不含車票、景點門票、其餘餐食及自費行程（如旭山動物園一日遊）。實際航班時刻以 2027 年開賣班表為準。"
-  },
-  {
-    code: ["NT$39,900","CTS"],
-    title: "溫泉尊寵・北海道５日",
-    theme: "snow",
-    dest: "日本．北海道（札幌／小樽／函館／登別）",
-    days: "5 天 4 夜",
-    date: "2027 年 2 月 24 日－2 月 28 日",
-    meet: "桃園國際機場第二航廈（依航班報到時間集合）",
-    summary: "百年老舖溫泉飯店二連泊，蟹肉吃到飽升等晚宴，小樽百年壽司名店加持，泡湯美食一次滿足。",
-    itinerary: [
-      { day:"Day 1", sub:"抵達新千歲 → 札幌市區 → 飛行自由日", items:[
-        {time:"06:30", activity:"桃園機場第二航廈集合報到"},
-        {time:"08:35", activity:"搭乘華航 CI130 直飛新千歲機場"},
-        {time:"13:30", activity:"抵達新千歲機場，入境通關、領取行李"},
-        {time:"14:30", activity:"專車前往札幌市區，辦理入住", note:"三井花園飯店札幌（市區精華地段）"},
-        {time:"15:30", activity:"自由活動：大通公園．北海道廳舊本廳舍", note:"晚餐自理"},
-      ]},
-      { day:"Day 2", sub:"札幌自由行（可自費企鵝散步一日遊，或白色戀人公園半日遊）", items:[
-        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
-        {time:"09:30", activity:"全天自由活動，可自費報名「旭山動物園企鵝散步」一日遊", note:"冬季限定，建議提前預約；喜歡悠閒可改逛白色戀人公園．JR塔展望室"},
-        {time:"18:30", activity:"晚餐自理，推薦薄野拉麵共和國"},
-      ]},
-      { day:"Day 3", sub:"小樽一日遊 → 轉宿登別溫泉「第一滝本館」", items:[
-        {time:"08:30", activity:"飯店大廳集合，隨團出發前往小樽", note:"車程約 40 分鐘"},
-        {time:"09:30", activity:"小樽運河散策"},
-        {time:"11:00", activity:"堺町通商店街：北一硝子．音樂盒堂．LeTAO"},
-        {time:"12:30", activity:"午餐：政壽司握壽司御膳", note:"午餐．小樽在地百年壽司名店"},
-        {time:"14:00", activity:"天狗山纜車展望"},
-        {time:"15:30", activity:"專車南下登別溫泉區", note:"車程約 2.5 小時"},
-        {time:"17:30", activity:"第一滝本館辦理入住", note:"創業160餘年老舗名湯，5種泉質、35座浴槽"},
-        {time:"18:30", activity:"螃蟹吃到飽自助晚宴", note:"晚餐．升等高級晚宴"},
-      ]},
-      { day:"Day 4", sub:"函館一日遊：五稜郭．函館山夜景．朝市（登別出發）", items:[
-        {time:"07:30", activity:"飯店集合出發，搭乘特急列車前往函館", note:"車程約 2 小時"},
-        {time:"09:30", activity:"五稜郭公園．五稜郭塔展望台"},
-        {time:"12:00", activity:"午餐：函館鹽味拉麵名店", note:"午餐"},
-        {time:"13:30", activity:"金森紅磚倉庫群自由散策"},
-        {time:"16:00", activity:"函館山纜車夜景", note:"北海道三大夜景之一"},
-        {time:"17:30", activity:"專車返回登別溫泉", note:"車程約 2 小時"},
-        {time:"19:30", activity:"溫泉飯店內高級和牛晚宴", note:"晚餐．升等高級晚宴"},
-      ]},
-      { day:"Day 5", sub:"三井Outlet千歲 → 新千歲機場 → 賦歸", items:[
-        {time:"07:30", activity:"飯店內早餐", note:"早餐"},
-        {time:"09:00", activity:"退房，前往三井OUTLET千歲購物", note:"車程約 50 分鐘"},
-        {time:"12:00", activity:"午餐：拉麵道場自理", note:"午餐自理"},
-        {time:"13:30", activity:"前往新千歲機場"},
-        {time:"14:30", activity:"辦理登機手續，機場免稅店"},
-        {time:"16:15", activity:"搭乘長榮航空 BR115 直飛桃園"},
-        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
-      ]},
-    ],
-    notes: "預算約 NT$39,900／人；住宿：2晚三井花園飯店札幌＋2晚登別溫泉第一滝本館（創業160餘年老舗名湯）；餐食：4早2午2晚（2晚螃蟹吃到飽／高級和牛升等晚宴；Day1、Day2晚餐及Day5午餐自理）；費用含機票、住宿、餐食、遊覽車、保險、司機／導遊／領隊小費，不含個人消費及自費行程。實際航班時刻以 2027 年開賣班表為準。"
-  },
-  {
-    code: ["NT$49,900","CTS"],
-    title: "頂級奢華・北海道５日",
-    theme: "snow",
-    dest: "日本．北海道（登別溫泉／小樽／旭川／美瑛）",
-    days: "5 天 4 夜",
-    date: "2027 年 2 月 24 日－2 月 28 日",
-    meet: "桃園國際機場第二航廈（依航班報到時間集合）",
-    summary: "連泊露天風呂特別室，企鵝散步已含團費，客室無菜單和牛會席，慢活奢華登別限定體驗。",
-    itinerary: [
-      { day:"Day 1", sub:"抵達新千歲 → 第一滝本館特別室 → 迎賓會席", items:[
-        {time:"06:30", activity:"桃園機場第二航廈集合報到"},
-        {time:"08:35", activity:"搭乘華航 CI130 直飛新千歲機場"},
-        {time:"13:30", activity:"抵達新千歲機場，入境通關、領取行李"},
-        {time:"14:30", activity:"專車南下登別溫泉區", note:"車程約 1 小時"},
-        {time:"15:30", activity:"第一滝本館辦理入住", note:"露天風呂付特別室，創業160餘年老舗名湯"},
-        {time:"18:00", activity:"客室內迎賓會席晚宴", note:"晚餐．升等高級晚宴（お部屋食）"},
-      ]},
-      { day:"Day 2", sub:"登別溫泉深度自由日", items:[
-        {time:"08:30", activity:"飯店內早餐", note:"早餐"},
-        {time:"10:00", activity:"自由活動：登別地獄谷．大湯沼周邊散策"},
-        {time:"12:30", activity:"自由活動：登別熊牧場", note:"自費，纜車來回＋門票約日幣3,000元／人，山頂俯瞰溫泉街＋倶多楽湖景"},
-        {time:"14:30", activity:"自由活動：1500坪大浴場．5種泉質湯めぐり", note:"露天風呂、蒸氣風呂、SPA可自費預約"},
-        {time:"18:30", activity:"客室內主廚特選和牛會席晚宴", note:"晚餐．升等高級晚宴（お部屋食）"},
-      ]},
-      { day:"Day 3", sub:"小樽一日遊：運河散策．堺町通．天狗山", items:[
-        {time:"08:00", activity:"飯店大廳集合，隨團出發前往小樽", note:"車程約 2.5 小時"},
-        {time:"10:30", activity:"小樽運河散策"},
-        {time:"12:00", activity:"午餐：政壽司特上握り膳", note:"午餐．小樽在地百年壽司名店升等套餐"},
-        {time:"13:30", activity:"堺町通商店街：北一硝子．音樂盒堂．LeTAO"},
-        {time:"15:00", activity:"天狗山纜車展望"},
-        {time:"16:30", activity:"專車返回登別溫泉", note:"車程約 2.5 小時"},
-        {time:"19:00", activity:"客室內主廚特選會席晚宴", note:"晚餐．升等高級晚宴（お部屋食）"},
-      ]},
-      { day:"Day 4", sub:"私人包車一日遊：旭山動物園企鵝散步．男山酒造．美瑛雪之丘", items:[
-        {time:"08:00", activity:"專屬商務車出發前往旭川", note:"車程約 2 小時，中文司機兼導遊全程陪同"},
-        {time:"10:00", activity:"旭山動物園：冬季限定「企鵝散步」．北極熊館", note:"企鵝散步已包含於團費，免自費排隊"},
-        {time:"12:30", activity:"午餐：男山酒造周邊旭川醬油拉麵名店", note:"午餐"},
-        {time:"13:30", activity:"男山酒造資料館：清酒免費試飲"},
-        {time:"15:00", activity:"美瑛雪之丘：白雪覆蓋的丘陵地景", note:"私房攝影點，人潮較少"},
-        {time:"17:30", activity:"專車返回登別溫泉", note:"車程約 2.5 小時"},
-        {time:"19:30", activity:"客室內主廚特選會席晚宴", note:"晚餐．升等高級晚宴（お部屋食）"},
-      ]},
-      { day:"Day 5", sub:"三井Outlet千歲 → 新千歲機場 → 賦歸", items:[
-        {time:"08:00", activity:"飯店內早餐", note:"早餐"},
-        {time:"09:30", activity:"退房，前往三井OUTLET千歲購物", note:"車程約 50 分鐘"},
-        {time:"12:30", activity:"午餐：拉麵道場自理", note:"午餐自理"},
-        {time:"13:30", activity:"前往新千歲機場"},
-        {time:"14:30", activity:"辦理登機手續，機場免稅店"},
-        {time:"16:15", activity:"搭乘長榮航空 BR115 直飛桃園"},
-        {time:"19:15", activity:"抵達桃園機場，賦歸溫暖的家"},
-      ]},
-    ],
-    notes: "預算約 NT$49,900／人；住宿：登別溫泉第一滝本館露天風呂付特別室（連住4晚，創業160餘年老舗名湯）；行程型態：Day4為私人商務車＋專屬司機兼導遊，旭山動物園企鵝散步已含團費；餐食：4早2午4晚（全程4晚皆為客室內主廚特選會席晚宴，非自助餐；僅Day5午餐機場自理）；費用含機票、住宿、餐食、私人包車、保險、司機／導遊／領隊小費，不含個人消費。實際航班時刻以 2027 年開賣班表為準。"
-  },
-];
-
-const ticketList = document.getElementById('ticketList');
-plans.forEach((p, idx) => {
-  const el = document.createElement('div');
-  el.className = 'ticket';
-  el.tabIndex = 0;
-  el.innerHTML = `
-    <div class="ticket-top">
-      <div class="plan-code"><span>${p.code[0]}</span>${p.code[1] ? `<span>${p.code[1]}</span>` : ''}</div>
-      <div class="plan-title">${p.title}</div>
-      <div class="plan-dest">${p.dest}</div>
-      <div class="plan-meta">
-        <div><span>天數</span>${p.days}</div>
-        <div><span>日期</span>${p.date}</div>
-      </div>
-    </div>
-    <div class="perf"></div>
-    <div class="ticket-bottom">
-      <div class="plan-summary">${p.summary}</div>
-      <div class="go">查看行程 →</div>
-    </div>
-  `;
-  el.addEventListener('click', () => showDetail(idx));
-  el.addEventListener('keypress', (e) => { if(e.key === 'Enter') showDetail(idx); });
-  ticketList.appendChild(el);
-});
-
-function showDetail(idx){
-  const p = plans[idx];
-  document.getElementById('landing').style.display = 'none';
-  document.getElementById('detail').style.display = 'block';
-  document.getElementById('dCode').textContent = p.code.filter(Boolean).join('   ·   ');
-  document.getElementById('dTitle').textContent = p.title;
-  document.getElementById('dDays').textContent = p.days;
-  document.getElementById('dDate').textContent = p.date;
-  document.getElementById('dMeet').textContent = p.meet;
-  document.getElementById('dNotes').textContent = p.notes;
-  setTheme(p.theme);
-
-  const dayNav = document.getElementById('dayNav');
-  const dayNavBottom = document.getElementById('dayNavBottom');
-  const dayPanels = document.getElementById('dayPanels');
-  dayNav.innerHTML = '';
-  dayNavBottom.innerHTML = '';
-  dayPanels.innerHTML = '';
-
-  p.itinerary.forEach((day, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'day-btn' + (i===0 ? ' active' : '');
-    btn.textContent = day.day;
-    btn.dataset.day = i;
-    btn.onclick = () => switchDay(i);
-    dayNav.appendChild(btn);
-
-    const btnBottom = document.createElement('button');
-    btnBottom.className = 'day-btn' + (i===0 ? ' active' : '');
-    btnBottom.textContent = day.day;
-    btnBottom.dataset.day = i;
-    btnBottom.onclick = () => {
-      switchDay(i);
-      document.getElementById('dayNav').scrollIntoView({behavior:'smooth', block:'start'});
-    };
-    dayNavBottom.appendChild(btnBottom);
-
-    const panel = document.createElement('div');
-    panel.className = 'day-panel' + (i===0 ? ' active' : '');
-    panel.dataset.day = i;
-    panel.innerHTML = `
-      <h3>${day.day}</h3>
-      <p class="day-sub">${day.sub}</p>
-      <div class="timeline">
-        ${day.items.map(it => `
-          <div class="item">
-            <div class="time">${it.time}</div>
-            <div class="activity">${it.activity}</div>
-            ${it.note ? `<div class="note">${it.note}</div>` : ''}
-          </div>
-        `).join('')}
-      </div>
-    `;
-    dayPanels.appendChild(panel);
-  });
-  window.scrollTo(0,0);
-}
-
-function switchDay(i){
-  document.querySelectorAll('.day-btn').forEach(b=>b.classList.toggle('active', Number(b.dataset.day)===i));
-  document.querySelectorAll('.day-panel').forEach(p=>p.classList.toggle('active', Number(p.dataset.day)===i));
-}
-
-function showLanding(){
-  document.getElementById('detail').style.display = 'none';
-  document.getElementById('landing').style.display = 'block';
-  document.getElementById('bgEffect').innerHTML = '';
-  window.scrollTo(0,0);
-}
-
-function setTheme(theme){
-  const bg = document.getElementById('bgEffect');
-  bg.innerHTML = '';
-
-  if (theme === 'snow') {
-    for (let i = 0; i < 45; i++) {
-      const f = document.createElement('div');
-      f.className = 'snowflake';
-      const size = 3 + Math.random() * 6;
-      const left = Math.random() * 100;
-      const duration = 8 + Math.random() * 10;
-      const delay = -Math.random() * 18;
-      const drift = (Math.random() * 80 - 40) + 'px';
-      f.style.width = f.style.height = size + 'px';
-      f.style.left = left + 'vw';
-      f.style.animationDuration = duration + 's';
-      f.style.animationDelay = delay + 's';
-      f.style.setProperty('--drift', drift);
-      bg.appendChild(f);
-    }
-  } else if (theme === 'neon') {
-    const colors = ['#E3A23E','#D6603F','#F3ECDC','#E9CD94'];
-    for (let i = 0; i < 28; i++) {
-      const d = document.createElement('div');
-      d.className = 'neon-dot';
-      const size = 6 + Math.random() * 16;
-      const left = Math.random() * 100;
-      const duration = 7 + Math.random() * 9;
-      const delay = -Math.random() * 14;
-      const drift = (Math.random() * 60 - 30) + 'px';
-      d.style.width = d.style.height = size + 'px';
-      d.style.left = left + 'vw';
-      d.style.background = colors[i % colors.length];
-      d.style.animationDuration = duration + 's';
-      d.style.animationDelay = delay + 's';
-      d.style.setProperty('--drift', drift);
-      bg.appendChild(d);
-    }
-  } else if (theme === 'wave') {
-    bg.innerHTML = `
-      <div class="bg-wave">
-        <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="wave-back">
-          <path d="M0,20 C25,35 50,5 75,20 C100,35 125,5 150,20 C175,35 187,20 200,20 L200,40 L0,40 Z" fill="#2A6F6F"/>
-        </svg>
-        <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="wave-front">
-          <path d="M0,22 C25,8 50,32 75,18 C100,4 125,30 150,16 C175,4 187,18 200,18 L200,40 L0,40 Z" fill="#E3A23E"/>
-        </svg>
-      </div>
-    `;
+(function(){
+  const c = document.getElementById('snow');
+  for (let i=0;i<50;i++){
+    const f = document.createElement('div');
+    f.className = 'flake';
+    const size = 3 + Math.random()*6;
+    f.style.width = f.style.height = size+'px';
+    f.style.left = (Math.random()*100)+'vw';
+    f.style.animationDuration = (9+Math.random()*10)+'s';
+    f.style.animationDelay = (-Math.random()*16)+'s';
+    f.style.setProperty('--dx', (Math.random()*70-35)+'px');
+    c.appendChild(f);
   }
-}
+})();
 </script>
 </body>
 </html>
