@@ -38,7 +38,7 @@
   .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
 
   /* ---------- hero ---------- */
-  .hero{padding:100px 0 80px;text-align:center;}
+  .hero{padding:100px 0 30px;text-align:center;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'IBM Plex Mono', monospace;
@@ -102,7 +102,7 @@
   .price-string{width:2px;height:22px;background:repeating-linear-gradient(to bottom, #C9B48A 0 4px, transparent 4px 8px);margin:0 auto;}
 
   /* ---------- trail / day sections ---------- */
-  .trail{position:relative;padding:20px 0 50px;}
+  .trail{position:relative;padding:0 0 50px;}
   .trail::before{
     content:"";position:absolute;left:24px;top:0;bottom:0;width:3px;
     background:repeating-linear-gradient(to bottom, var(--coral) 0 8px, transparent 8px 17px);
@@ -138,11 +138,62 @@
   .stamp .n{font-size:17px;line-height:1;}
   @media (min-width:780px){ .stamp{left:50%;margin-left:-26px;top:50%;margin-top:-26px;} }
 
-  .day-copy{background:var(--cream);border-radius:20px;padding:28px 28px 24px;box-shadow:0 16px 36px rgba(46,62,78,.12);border:1px solid #F1E4D2;}
+  .day-copy{position:relative;background:var(--cream);border-radius:20px;padding:28px 28px 24px;box-shadow:0 16px 36px rgba(46,62,78,.12);border:1px solid #F1E4D2;}
   .day-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--berry);text-transform:uppercase;margin:0 0 8px;font-weight:600;}
   .day-copy h2{font-family:'Shippori Mincho',serif;font-weight:700;font-size:21px;margin:0 0 13px;line-height:1.5;color:var(--ink);}
   .day-copy p{font-size:13.5px;line-height:1.95;color:#5A5148;margin:0 0 15px;}
   .day-chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .day-route{margin:0 0 16px;}
+  .day-route-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--berry);text-transform:uppercase;font-weight:600;margin:0 0 8px;}
+  .route-list{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:#5A5148;}
+  .route-list span{white-space:nowrap;}
+  .route-list .arrow{color:var(--coral);font-weight:700;}
+  .day-meals{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
+  .meal-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;background:#FDEFE0;border:1px solid #EEDFC8;color:#8A6A3E;padding:5px 12px;border-radius:14px;}
+  .option-list{display:flex;flex-direction:column;gap:10px;margin:0 0 16px;}
+  .option-item{display:flex;gap:10px;font-size:13px;color:#5A5148;line-height:1.7;}
+  .option-num{
+    flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+    background:var(--mint);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:11px;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+  .option-item b{color:var(--ink);}
+
+  /* ---------- floating day critters (outside the card) ---------- */
+  .day-critter{position:absolute;top:-34px;left:28px;width:56px;height:56px;z-index:4;filter:drop-shadow(0 8px 10px rgba(46,62,78,.2));}
+  @media (min-width:780px){ .day.rev .day-critter{left:auto;right:28px;} }
+
+  @keyframes bobRun{
+    0%,100%{ transform:translateY(0) rotate(-3deg); }
+    50%{ transform:translateY(-8px) rotate(3deg); }
+  }
+  @keyframes waddleBob{
+    0%,100%{ transform:translateY(0) rotate(-6deg); }
+    50%{ transform:translateY(-6px) rotate(6deg); }
+  }
+  @keyframes crabSway{
+    0%,100%{ transform:translateX(0) scaleX(1); }
+    45%{ transform:translateX(14px) scaleX(1); }
+    50%{ transform:translateX(14px) scaleX(-1); }
+    95%{ transform:translateX(0) scaleX(-1); }
+  }
+  @keyframes giftBounce{
+    0%,100%{ transform:translateY(0) scale(1); }
+    50%{ transform:translateY(-7px) scale(1.05); }
+  }
+  @keyframes planeHover{
+    0%,100%{ transform:translate(0,0) rotate(-12deg); }
+    50%{ transform:translate(10px,-10px) rotate(-6deg); }
+  }
+  @keyframes twinkle{ 0%,100%{ opacity:.2; } 50%{ opacity:1; } }
+
+  .day-critter.run{animation:bobRun 2.2s ease-in-out infinite;}
+  .day-critter.wad{animation:waddleBob 1.8s ease-in-out infinite;}
+  .day-critter.crab{animation:crabSway 3.2s ease-in-out infinite;}
+  .day-critter.gift{animation:giftBounce 2s ease-in-out infinite;}
+  .day-critter.plane{animation:planeHover 3.4s ease-in-out infinite;}
+  .spark{position:absolute;font-size:12px;color:var(--gold);animation:twinkle 1.8s ease-in-out infinite;}
+  .spark-in{animation:twinkle 1.6s ease-in-out infinite;}
   .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#fff;border:1px solid #EEDFC8;color:#8A7A5E;padding:5px 11px;border-radius:14px;}
 
   .day-art{display:flex;justify-content:center;align-items:stretch;}
@@ -159,6 +210,16 @@
     border-radius:2px;
     box-shadow:0 4px 8px rgba(0,0,0,.12);
   }
+  .mode-badge{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;
+    padding:9px 20px;border-radius:22px;
+    color:#fff;
+    box-shadow:0 8px 18px rgba(0,0,0,.22);
+    margin:0 0 12px;
+  }
+  .mode-badge.group{background:var(--berry);}
+  .mode-badge.free{background:var(--mint);}
 
   /* ---------- cute critters ---------- */
   .critter{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(46,62,78,.15));}
@@ -188,7 +249,7 @@
 
 <div class="wrap">
   <div class="hero">
-    <span class="eyebrow">2027 數字廣告員工旅遊</span>
+    <span class="eyebrow">2027 員工旅遊</span>
     <h1>登別．小樽<br><b>企鵝與蟹宴</b>５日物語</h1>
     <p class="hero-sub">火山秘境的溫泉初夜，國王企鵝搖擺遊行，運河畔的浪漫散策，三大蟹無限暢吃——這趟旅程，把北海道的冬天，一次收進行李箱。</p>
     <div class="hero-tags">
@@ -269,12 +330,29 @@
 
     <div class="day">
       <div class="stamp" style="background:var(--coral)"><span class="n">一</span></div>
+      <svg class="day-critter run" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="42" r="15" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
+        <circle cx="30" cy="20" r="11" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
+        <circle cx="26" cy="18" r="1.6" fill="#2E3E4E"/><circle cx="34" cy="18" r="1.6" fill="#2E3E4E"/>
+        <polygon points="30,21 24,24 30,25" fill="#F0916B"/>
+        <circle cx="30" cy="38" r="1.6" fill="#8A7A5E"/><circle cx="30" cy="46" r="1.6" fill="#8A7A5E"/>
+        <path d="M17,20 L9,15 M43,20 L51,15" stroke="#8A5E3A" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="22" y="8" width="16" height="5" fill="#2E3E4E"/><rect x="24" y="2" width="12" height="8" fill="#2E3E4E"/>
+      </svg>
       <div class="day-copy">
+        <span class="mode-badge group">團體行動</span>
         <p class="day-tag">Day 1 ｜ 2/24</p>
         <h2>登別溫泉鄉，落雪初夜</h2>
-        <p>搭乘傳統航空直飛新千歲機場，專車一路南下登別。沿途山巒披著薄雪，傍晚時分抵達溫泉飯店。</p>
-        <p>換上浴衣後，不妨到飯店外的傳統溫泉商店街走走——老字號饅頭店、木雕紀念品店沿街林立，空氣裡飄著硫磺與甜點交織的氣味。</p>
-        <p>晚餐後泡進飯店的溫泉池，把長途飛行的疲憊，一併留在氤氳白煙裡。</p>
+        <p>搭乘傳統航空直飛新千歲機場，專車一路南下登別，沿途山巒披著薄雪，傍晚時分抵達溫泉飯店。換上浴衣後，不妨到飯店外的傳統溫泉商店街走走——老字號饅頭店、木雕紀念品店沿街林立，空氣裡飄著硫磺與甜點交織的氣味；晚餐後泡進飯店的溫泉池，把長途飛行的疲憊，一併留在氤氳白煙裡。</p>
+        <div class="day-route">
+          <p class="day-route-label">📍 本日路線</p>
+          <div class="route-list">
+            <span>新千歲機場</span><span class="arrow">→</span><span>登別溫泉鄉</span><span class="arrow">→</span><span>傳統溫泉商店街</span><span class="arrow">→</span><span>溫泉飯店</span>
+          </div>
+        </div>
+        <div class="day-meals">
+          <span class="meal-tag">🍴 晚餐：飯店溫泉會席料理</span>
+        </div>
         <div class="day-chips">
           <span class="chip">機場→登別溫泉鄉</span>
           <span class="chip">傳統溫泉商店街</span>
@@ -291,12 +369,32 @@
 
     <div class="day rev">
       <div class="stamp" style="background:var(--berry)"><span class="n">二</span></div>
+      <svg class="day-critter wad" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="30" cy="38" rx="13" ry="18" fill="#1B2B32"/>
+        <ellipse cx="30" cy="42" rx="7" ry="12" fill="#fff"/>
+        <circle cx="30" cy="16" r="8" fill="#1B2B32"/>
+        <circle cx="27" cy="14" r="1.3" fill="#fff"/><circle cx="33" cy="14" r="1.3" fill="#fff"/>
+        <polygon points="30,17 26,21 34,21" fill="#E8B24C"/>
+        <ellipse cx="16" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(-25 16 34)"/>
+        <ellipse cx="44" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(25 44 34)"/>
+        <ellipse cx="24" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/><ellipse cx="36" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/>
+      </svg>
       <div class="day-copy">
+        <span class="mode-badge group">團體行動</span>
         <p class="day-tag">Day 2 ｜ 2/25</p>
         <h2>地獄谷秘境 × 國王企鵝大遊行</h2>
-        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多。</p>
-        <p>接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，每日固定登場的「國王企鵝大遊行」，一群企鵝搖搖擺擺地列隊行走、近距離與遊客互動，是北海道少見的療癒風景。</p>
-        <p>傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
+        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多；接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，每日固定登場的「國王企鵝大遊行」，一群企鵝搖搖擺擺地列隊行走、近距離與遊客互動，是北海道少見的療癒風景。傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
+        <div class="day-route">
+          <p class="day-route-label">📍 本日路線</p>
+          <div class="route-list">
+            <span>登別地獄谷</span><span class="arrow">→</span><span>尼克斯海洋公園（企鵝遊行）</span><span class="arrow">→</span><span>札幌市區飯店</span>
+          </div>
+        </div>
+        <div class="day-meals">
+          <span class="meal-tag">🍴 早餐：飯店內用</span>
+          <span class="meal-tag">🍴 午餐：登別海鮮定食</span>
+          <span class="meal-tag">🍴 晚餐：薄野商圈料理</span>
+        </div>
         <div class="day-chips">
           <span class="chip">登別地獄谷</span>
           <span class="chip">國王企鵝大遊行</span>
@@ -313,12 +411,31 @@
 
     <div class="day">
       <div class="stamp" style="background:var(--gold)"><span class="n">三</span></div>
+      <svg class="day-critter crab" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="30" cy="34" rx="17" ry="11" fill="#DE7391"/>
+        <circle cx="17" cy="32" r="5.5" fill="#DE7391"/><circle cx="43" cy="32" r="5.5" fill="#DE7391"/>
+        <circle cx="17" cy="32" r="2.3" fill="#fff"/><circle cx="43" cy="32" r="2.3" fill="#fff"/>
+        <circle cx="17" cy="32" r="1.1" fill="#2E3E4E"/><circle cx="43" cy="32" r="1.1" fill="#2E3E4E"/>
+        <path d="M7,24 L1,15 M12,27 L2,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+        <path d="M53,24 L59,15 M48,27 L58,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+        <path d="M15,44 L9,52 M25,47 L21,55 M35,47 L39,55 M45,44 L51,52" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+      </svg>
       <div class="day-copy">
+        <span class="mode-badge group">團體行動</span>
         <p class="day-tag">Day 3 ｜ 2/26</p>
         <h2>小樽運河浪漫遊，蟹宴狂歡夜</h2>
-        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景。</p>
-        <p>走進北一硝子館，挑選一盞屬於自己的手工玻璃燈；路過歐風蒸氣鐘，整點報時的白煙準時噴發；再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。</p>
-        <p>晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，毛蟹、松葉蟹、鱈場蟹輪番上桌，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。</p>
+        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景；走進北一硝子館，挑選一盞屬於自己的手工玻璃燈，路過歐風蒸氣鐘，整點報時的白煙準時噴發，再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，毛蟹、松葉蟹、鱈場蟹輪番上桌，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。</p>
+        <div class="day-route">
+          <p class="day-route-label">📍 本日路線</p>
+          <div class="route-list">
+            <span>小樽運河</span><span class="arrow">→</span><span>北一硝子館</span><span class="arrow">→</span><span>歐風蒸氣鐘</span><span class="arrow">→</span><span>小樽音樂盒堂</span><span class="arrow">→</span><span>★三大蟹晚宴</span><span class="arrow">→</span><span>札幌市區飯店</span>
+          </div>
+        </div>
+        <div class="day-meals">
+          <span class="meal-tag">🍴 早餐：飯店內用</span>
+          <span class="meal-tag">🍴 午餐：小樽在地海鮮丼</span>
+          <span class="meal-tag">🍴 ★晚餐：三大蟹無限暢吃＋酒水喝到飽</span>
+        </div>
         <div class="day-chips">
           <span class="chip">小樽運河．北一硝子館</span>
           <span class="chip">歐風蒸氣鐘．音樂盒堂</span>
@@ -335,11 +452,28 @@
 
     <div class="day rev">
       <div class="stamp" style="background:var(--mint)"><span class="n">四</span></div>
+      <svg class="day-critter gift" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="26" width="40" height="28" rx="3" fill="#F0916B"/>
+        <rect x="10" y="26" width="40" height="9" fill="#E8B24C"/>
+        <rect x="26" y="26" width="8" height="28" fill="#fff"/>
+        <path d="M30,26 Q18,18 22,10 Q30,10 30,26 Q30,10 38,10 Q42,18 30,26" fill="#DE7391"/>
+        <polygon class="spark-in" points="4,4 6,10 12,10 7,13 9,19 4,15 -1,19 1,13 -4,10 2,10" fill="var(--gold)"/>
+        <polygon class="spark-in" style="animation-delay:.6s" points="56,14 57,17 60,17 57.5,19 58.5,22 56,20 53.5,22 54.5,19 52,17 55,17" fill="var(--gold)"/>
+      </svg>
       <div class="day-copy">
+        <span class="mode-badge free">自由活動</span>
         <p class="day-tag">Day 4 ｜ 2/27</p>
         <h2>札幌自由日，步調交還給你</h2>
-        <p>保留一整天完全彈性的時間。喜歡甜點的人可以前往白色戀人公園，看巧克力工廠現場製作；想登高望遠，藻岩山纜車能將百萬夜景盡收眼底；購物控則可以一頭鑽進狸小路商店街，從藥妝到伴手禮通通不放過。</p>
-        <p>沒有集合時間、沒有固定行程，只有你想去的地方跟想吃的那一餐，晚上依然回到熟悉的市區飯店休息。</p>
+        <p>保留一整天完全彈性的時間，沒有集合時間、沒有固定行程，晚上依然回到熟悉的市區飯店休息。若還沒想法，這裡準備了三條路線給你參考：</p>
+        <div class="option-list">
+          <div class="option-item"><span class="option-num">1</span><span><b>甜點文青路線：</b>白色戀人公園（巧克力工廠參觀）→ 大通公園散步 → 市區人氣咖啡廳</span></div>
+          <div class="option-item"><span class="option-num">2</span><span><b>購物夜景路線：</b>狸小路商店街（藥妝伴手禮）→ 藻岩山纜車百萬夜景</span></div>
+          <div class="option-item"><span class="option-num">3</span><span><b>文化歷史路線：</b>北海道廳舊本廳舍 → 札幌市時計台 → 二條市場品嚐在地小吃</span></div>
+        </div>
+        <div class="day-meals">
+          <span class="meal-tag">🍴 早餐：飯店內用</span>
+          <span class="meal-tag">🍴 午晚餐：自由活動日，餐食自理</span>
+        </div>
         <div class="day-chips">
           <span class="chip">全天自由活動</span>
           <span class="chip">札幌電視塔．大通公園</span>
@@ -356,11 +490,28 @@
 
     <div class="day">
       <div class="stamp" style="background:var(--coral)"><span class="n">五</span></div>
+      <svg class="day-critter plane" style="width:64px;height:42px;top:-30px" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="26" cy="20" rx="20" ry="5" fill="#fff"/>
+        <polygon points="46,20 60,12 58,20 60,28" fill="#DCE3E8"/>
+        <polygon points="30,15 20,2 28,4 36,15" fill="#DCE3E8"/>
+        <polygon points="30,25 20,38 28,36 36,25" fill="#DCE3E8"/>
+        <circle cx="12" cy="18" r="1.6" fill="#F0916B"/>
+      </svg>
       <div class="day-copy">
+        <span class="mode-badge free">自由活動</span>
         <p class="day-tag">Day 5 ｜ 2/28</p>
         <h2>Outlet 戰利品日，滿載而歸</h2>
-        <p>退房後前往三井 Outlet 千歲，森林系的園區聚集近150個品牌，從戶外機能服飾到日系雜貨、伴手禮甜點應有盡有。</p>
-        <p>趁著回國前的最後時光，把行李箱的空隙通通填滿，再前往新千歲機場享用最後一餐、逛逛免稅店，帶著滿滿的北國記憶，搭乘直飛班機返回溫暖的家。</p>
+        <p>退房後前往三井 Outlet 千歲，森林系的園區聚集近150個品牌，從戶外機能服飾到日系雜貨、伴手禮甜點應有盡有。趁著回國前的最後時光，把行李箱的空隙通通填滿，再前往新千歲機場享用最後一餐、逛逛免稅店，帶著滿滿的北國記憶，搭乘直飛班機返回溫暖的家。</p>
+        <div class="day-route">
+          <p class="day-route-label">📍 本日路線</p>
+          <div class="route-list">
+            <span>三井Outlet千歲</span><span class="arrow">→</span><span>新千歲機場</span><span class="arrow">→</span><span>桃園機場</span>
+          </div>
+        </div>
+        <div class="day-meals">
+          <span class="meal-tag">🍴 早餐：飯店內用</span>
+          <span class="meal-tag">🍴 午晚餐：返程日，餐食自理</span>
+        </div>
         <div class="day-chips">
           <span class="chip">三井Outlet千歲</span>
           <span class="chip">新千歲機場免稅購物</span>
