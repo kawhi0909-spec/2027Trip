@@ -159,39 +159,34 @@
   }
   .option-item b{color:var(--ink);}
 
-  /* ---------- floating day critters (outside the card) ---------- */
-  .day-critter{position:absolute;top:-34px;left:28px;width:56px;height:56px;z-index:4;filter:drop-shadow(0 8px 10px rgba(46,62,78,.2));}
-  @media (min-width:780px){ .day.rev .day-critter{left:auto;right:28px;} }
+  /* ---------- critters patrolling the card border ---------- */
+  .day-critter{position:absolute;width:46px;height:46px;z-index:5;filter:drop-shadow(0 6px 8px rgba(46,62,78,.22));animation-timing-function:linear;animation-iteration-count:infinite;}
 
-  @keyframes bobRun{
+  @keyframes patrolBorder{
+    0%   { left:-15px; top:-15px; }
+    25%  { left:calc(100% - 15px); top:-15px; }
+    50%  { left:calc(100% - 15px); top:calc(100% - 15px); }
+    75%  { left:-15px; top:calc(100% - 15px); }
+    100% { left:-15px; top:-15px; }
+  }
+  @keyframes patrolBob{
     0%,100%{ transform:translateY(0) rotate(-3deg); }
-    50%{ transform:translateY(-8px) rotate(3deg); }
-  }
-  @keyframes waddleBob{
-    0%,100%{ transform:translateY(0) rotate(-6deg); }
-    50%{ transform:translateY(-6px) rotate(6deg); }
-  }
-  @keyframes crabSway{
-    0%,100%{ transform:translateX(0) scaleX(1); }
-    45%{ transform:translateX(14px) scaleX(1); }
-    50%{ transform:translateX(14px) scaleX(-1); }
-    95%{ transform:translateX(0) scaleX(-1); }
-  }
-  @keyframes giftBounce{
-    0%,100%{ transform:translateY(0) scale(1); }
-    50%{ transform:translateY(-7px) scale(1.05); }
-  }
-  @keyframes planeHover{
-    0%,100%{ transform:translate(0,0) rotate(-12deg); }
-    50%{ transform:translate(10px,-10px) rotate(-6deg); }
+    12.5%{ transform:translateY(-6px) rotate(3deg); }
+    25%{ transform:translateY(0) rotate(0deg); }
+    37.5%{ transform:translateY(-6px) rotate(-3deg); }
+    50%{ transform:translateY(0) rotate(3deg); }
+    62.5%{ transform:translateY(-6px) rotate(0deg); }
+    75%{ transform:translateY(0) rotate(-3deg); }
+    87.5%{ transform:translateY(-6px) rotate(3deg); }
   }
   @keyframes twinkle{ 0%,100%{ opacity:.2; } 50%{ opacity:1; } }
 
-  .day-critter.run{animation:bobRun 2.2s ease-in-out infinite;}
-  .day-critter.wad{animation:waddleBob 1.8s ease-in-out infinite;}
-  .day-critter.crab{animation:crabSway 3.2s ease-in-out infinite;}
-  .day-critter.gift{animation:giftBounce 2s ease-in-out infinite;}
-  .day-critter.plane{animation:planeHover 3.4s ease-in-out infinite;}
+  .day-critter .inner{width:100%;height:100%;animation:patrolBob 1.6s ease-in-out infinite;}
+  .day-critter.run{animation-name:patrolBorder;animation-duration:9s;}
+  .day-critter.wad{animation-name:patrolBorder;animation-duration:10s;}
+  .day-critter.crab{animation-name:patrolBorder;animation-duration:11s;}
+  .day-critter.gift{animation-name:patrolBorder;animation-duration:8s;}
+  .day-critter.plane{animation-name:patrolBorder;animation-duration:7s;}
   .spark{position:absolute;font-size:12px;color:var(--gold);animation:twinkle 1.8s ease-in-out infinite;}
   .spark-in{animation:twinkle 1.6s ease-in-out infinite;}
   .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#fff;border:1px solid #EEDFC8;color:#8A7A5E;padding:5px 11px;border-radius:14px;}
@@ -225,8 +220,6 @@
   .mode-badge.free{background:var(--mint);}
 
   /* ---------- cute critters ---------- */
-  .critter{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(46,62,78,.15));}
-  @media (max-width:900px){ .critter{display:none;} }
 
   /* ---------- footer ---------- */
   .footer-box{
@@ -274,77 +267,24 @@
 
   <div class="trail">
 
-    <!-- cute background critters -->
-    <svg class="critter" style="width:64px;left:2%;top:120px;transform:rotate(-8deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#2E3E4E"/>
-      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
-      <circle cx="50" cy="30" r="16" fill="#2E3E4E"/>
-      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
-      <circle cx="44" cy="28" r="1.1" fill="#2E3E4E"/><circle cx="56" cy="28" r="1.1" fill="#2E3E4E"/>
-      <polygon points="50,32 45,38 55,38" fill="#F0916B"/>
-      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(-20 27 55)"/>
-      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(20 73 55)"/>
-      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#F0916B"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#F0916B"/>
-    </svg>
-
-    <svg class="critter" style="width:56px;right:3%;top:640px;transform:rotate(10deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="62" rx="30" ry="20" fill="#DE7391"/>
-      <circle cx="30" cy="60" r="9" fill="#DE7391"/><circle cx="70" cy="60" r="9" fill="#DE7391"/>
-      <circle cx="30" cy="60" r="4" fill="#fff"/><circle cx="70" cy="60" r="4" fill="#fff"/>
-      <circle cx="30" cy="60" r="2" fill="#2E3E4E"/><circle cx="70" cy="60" r="2" fill="#2E3E4E"/>
-      <path d="M14,50 L4,38 M10,55 L-2,50" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
-      <path d="M86,50 L96,38 M90,55 L102,50" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
-      <path d="M28,80 L20,92 M42,84 L38,96 M58,84 L62,96 M72,80 L80,92" stroke="#DE7391" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-
-    <svg class="critter" style="width:60px;left:1%;top:1120px;transform:rotate(6deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#25333B"/>
-      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
-      <circle cx="50" cy="30" r="16" fill="#25333B"/>
-      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
-      <circle cx="44" cy="28" r="1.1" fill="#25333B"/><circle cx="56" cy="28" r="1.1" fill="#25333B"/>
-      <polygon points="50,32 45,38 55,38" fill="#E8B24C"/>
-      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#25333B" transform="rotate(15 27 55)"/>
-      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#25333B" transform="rotate(-15 73 55)"/>
-      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#E8B24C"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#E8B24C"/>
-    </svg>
-
-    <svg class="critter" style="width:52px;right:2%;top:1600px;transform:rotate(-12deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="62" rx="30" ry="20" fill="#F0916B"/>
-      <circle cx="30" cy="60" r="9" fill="#F0916B"/><circle cx="70" cy="60" r="9" fill="#F0916B"/>
-      <circle cx="30" cy="60" r="4" fill="#fff"/><circle cx="70" cy="60" r="4" fill="#fff"/>
-      <circle cx="30" cy="60" r="2" fill="#2E3E4E"/><circle cx="70" cy="60" r="2" fill="#2E3E4E"/>
-      <path d="M14,50 L4,38 M10,55 L-2,50" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
-      <path d="M86,50 L96,38 M90,55 L102,50" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
-      <path d="M28,80 L20,92 M42,84 L38,96 M58,84 L62,96 M72,80 L80,92" stroke="#F0916B" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-
-    <svg class="critter" style="width:58px;left:2%;top:2100px;transform:rotate(-5deg);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="60" rx="26" ry="34" fill="#2E3E4E"/>
-      <ellipse cx="50" cy="66" rx="15" ry="24" fill="#fff"/>
-      <circle cx="50" cy="30" r="16" fill="#2E3E4E"/>
-      <circle cx="44" cy="28" r="2.4" fill="#fff"/><circle cx="56" cy="28" r="2.4" fill="#fff"/>
-      <circle cx="44" cy="28" r="1.1" fill="#2E3E4E"/><circle cx="56" cy="28" r="1.1" fill="#2E3E4E"/>
-      <polygon points="50,32 45,38 55,38" fill="#F0916B"/>
-      <ellipse cx="27" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(-20 27 55)"/>
-      <ellipse cx="73" cy="55" rx="7" ry="14" fill="#2E3E4E" transform="rotate(20 73 55)"/>
-      <ellipse cx="40" cy="92" rx="7" ry="4" fill="#F0916B"/><ellipse cx="60" cy="92" rx="7" ry="4" fill="#F0916B"/>
-    </svg>
-
     <div class="day">
       <div class="stamp" style="background:var(--coral)"><span class="n">一</span></div>
-      <svg class="day-critter run" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="42" r="15" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
-        <circle cx="30" cy="20" r="11" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
-        <circle cx="26" cy="18" r="1.6" fill="#2E3E4E"/><circle cx="34" cy="18" r="1.6" fill="#2E3E4E"/>
-        <polygon points="30,21 24,24 30,25" fill="#F0916B"/>
-        <circle cx="30" cy="38" r="1.6" fill="#8A7A5E"/><circle cx="30" cy="46" r="1.6" fill="#8A7A5E"/>
-        <path d="M17,20 L9,15 M43,20 L51,15" stroke="#8A5E3A" stroke-width="2.5" stroke-linecap="round"/>
-        <rect x="22" y="8" width="16" height="5" fill="#2E3E4E"/><rect x="24" y="2" width="12" height="8" fill="#2E3E4E"/>
-      </svg>
       <div class="day-copy">
+        <div class="day-critter run">
+          <div class="inner">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <circle cx="30" cy="42" r="15" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
+              <circle cx="30" cy="20" r="11" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
+              <circle cx="26" cy="18" r="1.6" fill="#2E3E4E"/><circle cx="34" cy="18" r="1.6" fill="#2E3E4E"/>
+              <polygon points="30,21 24,24 30,25" fill="#F0916B"/>
+              <circle cx="30" cy="38" r="1.6" fill="#8A7A5E"/><circle cx="30" cy="46" r="1.6" fill="#8A7A5E"/>
+              <path d="M17,20 L9,15 M43,20 L51,15" stroke="#8A5E3A" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="22" y="8" width="16" height="5" fill="#2E3E4E"/><rect x="24" y="2" width="12" height="8" fill="#2E3E4E"/>
+            </svg>
+          </div>
+        </div>
         <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 1 ｜ 2/24</p>
+        <p class="day-tag">Day 1 ｜ 2/24（三）</p>
         <h2>登別溫泉鄉，落雪初夜</h2>
         <p>搭乘傳統航空直飛新千歲機場，專車一路南下登別，沿途山巒披著薄雪，傍晚時分抵達溫泉飯店。換上浴衣後，不妨到飯店外的傳統溫泉商店街走走——老字號饅頭店、木雕紀念品店沿街林立，空氣裡飄著硫磺與甜點交織的氣味；晚餐後泡進飯店的溫泉池，把長途飛行的疲憊，一併留在氤氳白煙裡。</p>
         <div class="day-route">
@@ -372,21 +312,25 @@
 
     <div class="day rev">
       <div class="stamp" style="background:var(--berry)"><span class="n">二</span></div>
-      <svg class="day-critter wad" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="30" cy="38" rx="13" ry="18" fill="#1B2B32"/>
-        <ellipse cx="30" cy="42" rx="7" ry="12" fill="#fff"/>
-        <circle cx="30" cy="16" r="8" fill="#1B2B32"/>
-        <circle cx="27" cy="14" r="1.3" fill="#fff"/><circle cx="33" cy="14" r="1.3" fill="#fff"/>
-        <polygon points="30,17 26,21 34,21" fill="#E8B24C"/>
-        <ellipse cx="16" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(-25 16 34)"/>
-        <ellipse cx="44" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(25 44 34)"/>
-        <ellipse cx="24" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/><ellipse cx="36" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/>
-      </svg>
       <div class="day-copy">
+        <div class="day-critter wad">
+          <div class="inner">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <ellipse cx="30" cy="38" rx="13" ry="18" fill="#1B2B32"/>
+              <ellipse cx="30" cy="42" rx="7" ry="12" fill="#fff"/>
+              <circle cx="30" cy="16" r="8" fill="#1B2B32"/>
+              <circle cx="27" cy="14" r="1.3" fill="#fff"/><circle cx="33" cy="14" r="1.3" fill="#fff"/>
+              <polygon points="30,17 26,21 34,21" fill="#E8B24C"/>
+              <ellipse cx="16" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(-25 16 34)"/>
+              <ellipse cx="44" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(25 44 34)"/>
+              <ellipse cx="24" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/><ellipse cx="36" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/>
+            </svg>
+          </div>
+        </div>
         <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 2 ｜ 2/25</p>
+        <p class="day-tag">Day 2 ｜ 2/25（四）</p>
         <h2>地獄谷秘境 × 國王企鵝大遊行</h2>
-        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多；接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，每日固定登場的「國王企鵝大遊行」，一群企鵝搖搖擺擺地列隊行走、近距離與遊客互動，是北海道少見的療癒風景。傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
+        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多；接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，欣賞園區人氣活動「企鵝遊行」，近距離看著企鵝搖搖擺擺地列隊前進，是北海道少見的療癒風景。實際活動時間依園區當日公告為準。傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
         <div class="day-route">
           <p class="day-route-label">📍 本日路線</p>
           <div class="route-list">
@@ -414,20 +358,24 @@
 
     <div class="day">
       <div class="stamp" style="background:var(--gold)"><span class="n">三</span></div>
-      <svg class="day-critter crab" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="30" cy="34" rx="17" ry="11" fill="#DE7391"/>
-        <circle cx="17" cy="32" r="5.5" fill="#DE7391"/><circle cx="43" cy="32" r="5.5" fill="#DE7391"/>
-        <circle cx="17" cy="32" r="2.3" fill="#fff"/><circle cx="43" cy="32" r="2.3" fill="#fff"/>
-        <circle cx="17" cy="32" r="1.1" fill="#2E3E4E"/><circle cx="43" cy="32" r="1.1" fill="#2E3E4E"/>
-        <path d="M7,24 L1,15 M12,27 L2,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-        <path d="M53,24 L59,15 M48,27 L58,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-        <path d="M15,44 L9,52 M25,47 L21,55 M35,47 L39,55 M45,44 L51,52" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-      </svg>
       <div class="day-copy">
+        <div class="day-critter crab">
+          <div class="inner">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <ellipse cx="30" cy="34" rx="17" ry="11" fill="#DE7391"/>
+              <circle cx="17" cy="32" r="5.5" fill="#DE7391"/><circle cx="43" cy="32" r="5.5" fill="#DE7391"/>
+              <circle cx="17" cy="32" r="2.3" fill="#fff"/><circle cx="43" cy="32" r="2.3" fill="#fff"/>
+              <circle cx="17" cy="32" r="1.1" fill="#2E3E4E"/><circle cx="43" cy="32" r="1.1" fill="#2E3E4E"/>
+              <path d="M7,24 L1,15 M12,27 L2,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+              <path d="M53,24 L59,15 M48,27 L58,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+              <path d="M15,44 L9,52 M25,47 L21,55 M35,47 L39,55 M45,44 L51,52" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
         <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 3 ｜ 2/26</p>
+        <p class="day-tag">Day 3 ｜ 2/26（五）</p>
         <h2>小樽運河浪漫遊，蟹宴狂歡夜</h2>
-        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景；走進北一硝子館，挑選一盞屬於自己的手工玻璃燈，路過歐風蒸氣鐘，整點報時的白煙準時噴發，再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，毛蟹、松葉蟹、鱈場蟹輪番上桌，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。</p>
+        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景；走進北一硝子館，挑選一盞屬於自己的手工玻璃燈，路過歐風蒸氣鐘，整點報時的白煙準時噴發，再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。＊實際蟹種及供應方式依餐廳當日安排為準。</p>
         <div class="day-route">
           <p class="day-route-label">📍 本日路線</p>
           <div class="route-list">
@@ -455,17 +403,21 @@
 
     <div class="day rev">
       <div class="stamp" style="background:var(--mint)"><span class="n">四</span></div>
-      <svg class="day-critter gift" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="26" width="40" height="28" rx="3" fill="#F0916B"/>
-        <rect x="10" y="26" width="40" height="9" fill="#E8B24C"/>
-        <rect x="26" y="26" width="8" height="28" fill="#fff"/>
-        <path d="M30,26 Q18,18 22,10 Q30,10 30,26 Q30,10 38,10 Q42,18 30,26" fill="#DE7391"/>
-        <polygon class="spark-in" points="4,4 6,10 12,10 7,13 9,19 4,15 -1,19 1,13 -4,10 2,10" fill="var(--gold)"/>
-        <polygon class="spark-in" style="animation-delay:.6s" points="56,14 57,17 60,17 57.5,19 58.5,22 56,20 53.5,22 54.5,19 52,17 55,17" fill="var(--gold)"/>
-      </svg>
       <div class="day-copy">
+        <div class="day-critter gift">
+          <div class="inner">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <rect x="10" y="26" width="40" height="28" rx="3" fill="#F0916B"/>
+              <rect x="10" y="26" width="40" height="9" fill="#E8B24C"/>
+              <rect x="26" y="26" width="8" height="28" fill="#fff"/>
+              <path d="M30,26 Q18,18 22,10 Q30,10 30,26 Q30,10 38,10 Q42,18 30,26" fill="#DE7391"/>
+              <polygon class="spark-in" points="4,4 6,10 12,10 7,13 9,19 4,15 -1,19 1,13 -4,10 2,10" fill="var(--gold)"/>
+              <polygon class="spark-in" style="animation-delay:.6s" points="56,14 57,17 60,17 57.5,19 58.5,22 56,20 53.5,22 54.5,19 52,17 55,17" fill="var(--gold)"/>
+            </svg>
+          </div>
+        </div>
         <span class="mode-badge free">自由活動</span>
-        <p class="day-tag">Day 4 ｜ 2/27</p>
+        <p class="day-tag">Day 4 ｜ 2/27（六）</p>
         <h2>札幌自由日，步調交還給你</h2>
         <p>保留一整天完全彈性的時間，沒有集合時間、沒有固定行程，晚上依然回到熟悉的市區飯店休息。若還沒想法，這裡準備了三條路線給你參考：</p>
         <div class="option-list">
@@ -493,22 +445,30 @@
 
     <div class="day">
       <div class="stamp" style="background:var(--coral)"><span class="n">五</span></div>
-      <svg class="day-critter plane" style="width:64px;height:42px;top:-30px" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="26" cy="20" rx="20" ry="5" fill="#fff"/>
-        <polygon points="46,20 60,12 58,20 60,28" fill="#DCE3E8"/>
-        <polygon points="30,15 20,2 28,4 36,15" fill="#DCE3E8"/>
-        <polygon points="30,25 20,38 28,36 36,25" fill="#DCE3E8"/>
-        <circle cx="12" cy="18" r="1.6" fill="#F0916B"/>
-      </svg>
       <div class="day-copy">
+        <div class="day-critter plane" style="width:64px;height:45px;">
+          <div class="inner">
+            <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <path d="M42,40 L26,60 Q23,64 29,62 L50,46 Z" fill="#fff" stroke="#2E3E4E" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M20,28 Q4,18 6,32 Q4,42 20,36 Z" fill="#fff" stroke="#2E3E4E" stroke-width="3" stroke-linejoin="round"/>
+              <ellipse cx="50" cy="30" rx="38" ry="14" fill="#fff" stroke="#2E3E4E" stroke-width="3"/>
+              <ellipse cx="68" cy="43" rx="10" ry="13" fill="#F0916B" stroke="#2E3E4E" stroke-width="3"/>
+              <ellipse cx="93" cy="22" rx="4" ry="12" fill="#E8B24C" stroke="#2E3E4E" stroke-width="2.5" transform="rotate(20 93 22)"/>
+              <circle cx="90" cy="26" r="4" fill="#2E3E4E"/>
+              <rect x="30" y="20" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
+              <rect x="44" y="19" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
+              <rect x="58" y="19" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
         <span class="mode-badge free">自由活動</span>
-        <p class="day-tag">Day 5 ｜ 2/28</p>
-        <h2>Outlet 戰利品日，滿載而歸</h2>
-        <p>退房後前往三井 Outlet 千歲，森林系的園區聚集近150個品牌，從戶外機能服飾到日系雜貨、伴手禮甜點應有盡有。趁著回國前的最後時光，把行李箱的空隙通通填滿，再前往新千歲機場享用最後一餐、逛逛免稅店，帶著滿滿的北國記憶，搭乘直飛班機返回溫暖的家。</p>
+        <p class="day-tag">Day 5 ｜ 2/28（日）</p>
+        <h2>三井 OUTLET PARK 札幌北廣島，滿載而歸</h2>
+        <p>退房後前往三井 OUTLET PARK 札幌北廣島，把握回國前的最後採買時間。園區集結服飾、戶外用品、日系雜貨與餐飲品牌，逛完後再前往新千歲機場享用最後一餐、採買伴手禮，帶著滿滿的北國回憶搭機返台。</p>
         <div class="day-route">
           <p class="day-route-label">📍 本日路線</p>
           <div class="route-list">
-            <span>三井Outlet千歲</span><span class="arrow">→</span><span>新千歲機場</span><span class="arrow">→</span><span>桃園機場</span>
+            <span>札幌市區飯店</span><span class="arrow">→</span><span>三井 OUTLET PARK 札幌北廣島</span><span class="arrow">→</span><span>新千歲機場</span><span class="arrow">→</span><span>桃園機場</span>
           </div>
         </div>
         <div class="day-meals">
@@ -516,7 +476,7 @@
           <span class="meal-tag">🍴 午晚餐：返程日，餐食自理</span>
         </div>
         <div class="day-chips">
-          <span class="chip">三井Outlet千歲</span>
+          <span class="chip">三井 OUTLET PARK 札幌北廣島</span>
           <span class="chip">新千歲機場免稅購物</span>
           <span class="chip">直飛返台</span>
         </div>
