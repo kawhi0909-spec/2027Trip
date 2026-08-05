@@ -3,237 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>登別．小樽５日物語｜2027 員工旅遊</title>
+<title>京阪自由行５日｜2027 員工旅遊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --sky:#EAF5FB;
-    --sky-deep:#CFE9F5;
-    --cream:#FFFDF8;
-    --ink:#2E3E4E;
-    --muted:#6B7C89;
-    --coral:#F0916B;
-    --berry:#DE7391;
-    --gold:#E8B24C;
-    --mint:#7FBFB0;
+    --washi:#F7F1E1;
+    --washi-deep:#EFE4C8;
+    --ink:#332A22;
+    --muted:#8A7A63;
+    --vermillion:#C0392B;
+    --vermillion-deep:#9C2E22;
+    --gold:#C9A227;
+    --indigo:#2B3A55;
+    --bamboo:#6B8E5A;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
     background:
-      radial-gradient(1000px 500px at 10% -10%, #FFFFFF 0%, transparent 55%),
-      radial-gradient(900px 500px at 95% 0%, #FDEFE4 0%, transparent 55%),
-      linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 45%, #F7EFE2 100%);
+      radial-gradient(1100px 550px at 8% -10%, #FFFDF6 0%, transparent 55%),
+      radial-gradient(900px 480px at 96% 4%, #F2E2C6 0%, transparent 55%),
+      linear-gradient(180deg, var(--washi) 0%, var(--washi-deep) 100%);
     color:var(--ink);
     font-family:'Noto Sans TC', sans-serif;
     overflow-x:hidden;
   }
 
-  .snow{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
-  .flake{position:absolute;top:-6vh;background:#fff;border:1px solid #CFE4EF;border-radius:50%;opacity:.9;animation:fall linear infinite;box-shadow:0 0 4px rgba(255,255,255,.8);}
-  @keyframes fall{ to{ transform:translate(var(--dx,0), 112vh) rotate(180deg); } }
+  /* falling plum blossom petals */
+  .petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  .petal{position:absolute;top:-6vh;border-radius:50% 0 50% 50%;opacity:.8;animation:fall linear infinite;}
+  @keyframes fall{ to{ transform:translate(var(--dx,0), 112vh) rotate(320deg); } }
 
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
 
   /* ---------- hero ---------- */
-  .hero{padding:100px 0 30px;text-align:center;}
+  .hero{padding:96px 0 10px;text-align:center;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'IBM Plex Mono', monospace;
     font-size:12px;letter-spacing:.2em;text-transform:uppercase;
     color:var(--ink);
-    background:linear-gradient(135deg, #FFFFFF, #FDEFE0);
+    background:linear-gradient(135deg, #FFFDF6, #F3E3C4);
     padding:8px 20px;border-radius:20px;
     margin:0 0 26px;
-    border:1px solid rgba(232,178,76,.5);
-    box-shadow:0 8px 20px rgba(46,62,78,.1), inset 0 1px 0 #fff;
+    border:1px solid rgba(201,162,39,.5);
+    box-shadow:0 8px 20px rgba(51,42,34,.1), inset 0 1px 0 #fff;
   }
-  .eyebrow::before{content:"❄";color:var(--coral);font-size:11px;}
-  .hero h1{
+  .eyebrow::before{content:"🏮";font-size:12px;}
+  h1{
     font-family:'Shippori Mincho', serif;
     font-weight:800;
     font-size:clamp(32px,5.6vw,58px);
     line-height:1.35;
     margin:0 0 18px;
-    color:var(--ink);
+    color:var(--indigo);
   }
-  .hero h1 b{
-    background:linear-gradient(100deg, var(--berry), var(--coral));
+  h1 b{
+    background:linear-gradient(100deg, var(--vermillion), var(--gold));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
   .hero-sub{
     color:var(--muted);font-size:15.5px;line-height:1.95;
-    max-width:520px;margin:0 auto 32px;
+    max-width:560px;margin:0 auto 32px;
   }
-  .hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;}
+  .hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
   .htag{
     font-family:'IBM Plex Mono', monospace;font-size:12px;
-    background:#fff;border:1.5px solid var(--sky-deep);color:var(--ink);
+    background:#fff;border:1.5px solid var(--washi-deep);color:var(--ink);
     padding:8px 16px;border-radius:20px;
   }
-  .price-tag-wrap{display:inline-flex;flex-direction:column;align-items:center;}
-  .price-badge{
+
+  /* ---------- section heading ---------- */
+  .section-head{text-align:center;margin:56px 0 34px;position:relative;}
+  .section-head .torii{font-size:26px;display:block;margin-bottom:10px;}
+  .section-head h2{font-family:'Shippori Mincho',serif;font-size:26px;color:var(--indigo);margin:0 0 8px;}
+  .section-head p{color:var(--muted);font-size:13.5px;margin:0;}
+
+  /* ---------- flight info ---------- */
+  .flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:700px){ .flight-grid{grid-template-columns:1fr;} }
+  .flight-card{background:#fff;border-radius:20px;padding:26px 26px 22px;box-shadow:0 16px 36px rgba(51,42,34,.12);border:1px solid var(--washi-deep);}
+  .flight-tag{display:inline-block;background:var(--bamboo);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;padding:5px 13px;border-radius:12px;margin-bottom:12px;}
+  .flight-date{font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .flight-date b{color:var(--ink);font-weight:600;}
+  .flight-leg{display:flex;gap:16px;align-items:flex-start;}
+  .flight-line{display:flex;flex-direction:column;align-items:center;padding-top:4px;}
+  .flight-dot{width:9px;height:9px;border-radius:50%;background:var(--vermillion);}
+  .flight-dot.end{background:var(--indigo);}
+  .flight-connector{width:2px;flex:1;background:var(--washi-deep);margin:4px 0;min-height:46px;}
+  .flight-points{flex:1;}
+  .flight-point{margin-bottom:6px;}
+  .flight-time{font-family:'Shippori Mincho',serif;font-size:21px;font-weight:800;color:var(--indigo);margin-right:10px;}
+  .flight-airport{font-size:13px;color:var(--ink);}
+  .flight-airport b{font-weight:700;}
+  .flight-meta{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
+    margin:8px 0 22px;display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .flight-meta span.airline{color:var(--vermillion-deep);font-weight:600;}
+
+  /* ---------- hotel grid ---------- */
+  .hotel-grid{display:grid;grid-template-columns:1fr;gap:28px;padding-bottom:20px;}
+  @media (min-width:700px){ .hotel-grid{grid-template-columns:1fr 1fr;} }
+
+  .hotel-card{
     position:relative;
-    display:inline-flex;flex-direction:column;align-items:flex-start;gap:6px;
-    background:linear-gradient(150deg, #FFFDF8 0%, #FBEEDA 100%);
-    color:var(--ink);
-    padding:26px 40px 26px 54px;
-    clip-path:polygon(26px 0, 100% 0, 100% 100%, 26px 100%, 0 50%);
-    box-shadow:0 22px 48px rgba(46,62,78,.28);
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(51,42,34,.16);
+    border:1px solid var(--washi-deep);
+    display:flex;flex-direction:column;
   }
-  .price-badge::before{
-    content:"";position:absolute;left:13px;top:50%;
-    width:9px;height:9px;border-radius:50%;
-    background:#CFE0EA;
-    box-shadow:inset 0 0 0 1.5px rgba(46,62,78,.3), inset 0 2px 3px rgba(0,0,0,.15);
-    transform:translateY(-50%);
+  .hotel-photo{
+    position:relative;width:100%;aspect-ratio:4/3;
+    background:linear-gradient(150deg,#EFE4C8,#E3D2A8);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;
+    color:#A8946A;
   }
-  .price-label{
-    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.18em;
-    color:var(--berry);text-transform:uppercase;font-weight:600;
+  .hotel-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hotel-photo .placeholder-icon{font-size:34px;opacity:.6;}
+  .hotel-photo .placeholder-text{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;opacity:.7;}
+  .hotel-photo.split{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#fff;}
+  .hotel-photo.split img{aspect-ratio:1/1;height:100%;}
+  .hotel-tier{
+    position:absolute;top:14px;left:14px;z-index:2;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
+    background:var(--vermillion);color:#fff;
+    padding:6px 14px;border-radius:16px;
+    box-shadow:0 6px 14px rgba(0,0,0,.2);
   }
-  .price-divider{width:32px;height:2px;background:var(--gold);margin:1px 0 5px;border-radius:2px;}
-  .price-row{display:flex;align-items:baseline;gap:7px;}
-  .price-badge .cur{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--berry);font-weight:700;}
-  .price-badge .num{font-family:'Shippori Mincho',serif;font-weight:800;font-size:38px;letter-spacing:.02em;color:var(--ink);}
-  .price-badge .per{font-size:12px;color:var(--muted);}
-  .price-string{width:2px;height:22px;background:repeating-linear-gradient(to bottom, #C9B48A 0 4px, transparent 4px 8px);margin:0 auto;}
+  .hotel-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;}
+  .hotel-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:19px;color:var(--indigo);margin:0 0 6px;line-height:1.5;}
+  .hotel-loc{font-size:12.5px;line-height:1.7;color:var(--muted);margin:0 0 14px;}
+  .hotel-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+  .hotel-tags .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--washi);border:1px solid var(--washi-deep);color:#8A6A3E;padding:5px 11px;border-radius:14px;}
 
-  /* ---------- trail / day sections ---------- */
-  .trail{position:relative;padding:0 0 50px;}
-  .trail::before{
-    content:"";position:absolute;left:24px;top:0;bottom:0;width:3px;
-    background:repeating-linear-gradient(to bottom, var(--coral) 0 8px, transparent 8px 17px);
-    opacity:.6;border-radius:3px;
-  }
-  @media (min-width:780px){ .trail::before{left:50%;margin-left:-1.5px;} }
+  .price-table{margin-top:auto;border-top:1px dashed var(--washi-deep);padding-top:14px;}
+  .price-head{display:flex;justify-content:flex-end;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.03em;margin-bottom:6px;padding-right:2px;}
+  .price-head span{width:58px;text-align:right;}
+  .price-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--washi);}
+  .price-item:last-child{border-bottom:none;}
+  .price-item .rtype{font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.4;}
+  .price-item .rtype small{display:block;font-size:10.5px;color:var(--muted);font-weight:400;}
+  .price-item .prices{display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .price-item .prices .pcol{width:58px;text-align:right;}
+  .price-item .prices .card-p{color:var(--vermillion-deep);font-weight:700;}
+  .price-item .prices .cash-p{color:var(--muted);}
 
-  .day{
-    position:relative;
-    z-index:1;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:24px;
-    padding:0 0 0 60px;
-    margin-bottom:64px;
-  }
-  @media (min-width:780px){
-    .day{grid-template-columns:1fr 1fr;align-items:stretch;padding-left:0;gap:52px;}
-    .day.rev .day-copy{order:2;}
-    .day.rev .day-art{order:1;}
-  }
-
-  .stamp{
-    position:absolute;left:2px;top:-4px;
-    width:52px;height:52px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;flex-direction:column;
-    font-family:'Shippori Mincho',serif;font-weight:800;
-    color:#fff;
-    box-shadow:0 10px 22px rgba(0,0,0,.18);
-    border:3px solid #fff;
-    z-index:2;
-  }
-  .stamp .n{font-size:17px;line-height:1;}
-  @media (min-width:780px){ .stamp{left:50%;margin-left:-26px;top:50%;margin-top:-26px;} }
-
-  .day-copy{position:relative;background:var(--cream);border-radius:20px;padding:28px 28px 24px;box-shadow:0 16px 36px rgba(46,62,78,.12);border:1px solid #F1E4D2;}
-  .day-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--berry);text-transform:uppercase;margin:0 0 8px;font-weight:600;}
-  .day-copy h2{font-family:'Shippori Mincho',serif;font-weight:700;font-size:21px;margin:0 0 13px;line-height:1.5;color:var(--ink);}
-  .day-copy p{font-size:13.5px;line-height:1.95;color:#5A5148;margin:0 0 15px;}
-  .day-chips{display:flex;flex-wrap:wrap;gap:7px;}
-  .day-route{margin:0 0 16px;}
-  .day-route-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--berry);text-transform:uppercase;font-weight:600;margin:0 0 8px;}
-  .route-list{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:#5A5148;}
-  .route-list span{white-space:nowrap;}
-  .route-list .arrow{color:var(--coral);font-weight:700;}
-  .day-meals{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
-  .meal-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;background:#FDEFE0;border:1px solid #EEDFC8;color:#8A6A3E;padding:5px 12px;border-radius:14px;}
-  .option-list{display:flex;flex-direction:column;gap:10px;margin:0 0 16px;}
-  .option-item{display:flex;gap:10px;font-size:13px;color:#5A5148;line-height:1.7;}
-  .option-num{
-    flex:0 0 auto;width:20px;height:20px;border-radius:50%;
-    background:var(--mint);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:11px;
-    display:flex;align-items:center;justify-content:center;margin-top:1px;
-  }
-  .option-item b{color:var(--ink);}
-
-  /* ---------- critters patrolling the card border ---------- */
-  .day-critter{position:absolute;width:46px;height:46px;z-index:5;filter:drop-shadow(0 6px 8px rgba(46,62,78,.22));animation-timing-function:linear;animation-iteration-count:infinite;}
-
-  @keyframes patrolBorder{
-    0%   { left:-15px; top:-15px; }
-    25%  { left:calc(100% - 15px); top:-15px; }
-    50%  { left:calc(100% - 15px); top:calc(100% - 15px); }
-    75%  { left:-15px; top:calc(100% - 15px); }
-    100% { left:-15px; top:-15px; }
-  }
-  @keyframes patrolBob{
-    0%,100%{ transform:translateY(0) rotate(-3deg); }
-    12.5%{ transform:translateY(-6px) rotate(3deg); }
-    25%{ transform:translateY(0) rotate(0deg); }
-    37.5%{ transform:translateY(-6px) rotate(-3deg); }
-    50%{ transform:translateY(0) rotate(3deg); }
-    62.5%{ transform:translateY(-6px) rotate(0deg); }
-    75%{ transform:translateY(0) rotate(-3deg); }
-    87.5%{ transform:translateY(-6px) rotate(3deg); }
-  }
-  @keyframes twinkle{ 0%,100%{ opacity:.2; } 50%{ opacity:1; } }
-
-  .day-critter .inner{width:100%;height:100%;animation:patrolBob 1.6s ease-in-out infinite;}
-  .day-critter.run{animation-name:patrolBorder;animation-duration:9s;}
-  .day-critter.wad{animation-name:patrolBorder;animation-duration:10s;}
-  .day-critter.crab{animation-name:patrolBorder;animation-duration:11s;}
-  .day-critter.gift{animation-name:patrolBorder;animation-duration:8s;}
-  .day-critter.plane{animation-name:patrolBorder;animation-duration:7s;}
-  .spark{position:absolute;font-size:12px;color:var(--gold);animation:twinkle 1.8s ease-in-out infinite;}
-  .spark-in{animation:twinkle 1.6s ease-in-out infinite;}
-  .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#fff;border:1px solid #EEDFC8;color:#8A7A5E;padding:5px 11px;border-radius:14px;}
-
-  .day-art{display:flex;justify-content:center;align-items:stretch;}
-  .art-frame{
-    position:relative;width:100%;max-width:340px;
-    border-radius:20px;overflow:hidden;
-    box-shadow:0 20px 45px rgba(46,62,78,.25);
-    border:6px solid #fff;
-  }
-  @media (min-width:780px){
-    .art-frame{max-width:none;}
-  }
-  .art-frame img{display:block;width:100%;height:100%;min-height:290px;object-fit:cover;object-position:center 25%;}
-  .tape{
-    position:absolute;top:-14px;left:26px;width:70px;height:26px;
-    opacity:.9;transform:rotate(-8deg);
-    border-radius:2px;
-    box-shadow:0 4px 8px rgba(0,0,0,.12);
-  }
-  .mode-badge{
-    display:inline-block;
-    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;
-    padding:9px 20px;border-radius:22px;
-    color:#fff;
-    box-shadow:0 8px 18px rgba(0,0,0,.22);
-    margin:0 0 12px;
-  }
-  .mode-badge.group{background:var(--berry);}
-  .mode-badge.free{background:var(--mint);}
-
-  /* ---------- cute critters ---------- */
+  /* ---------- decorative mascots ---------- */
+  .mascot{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(51,42,34,.18));}
+  @media (max-width:900px){ .mascot{display:none;} }
 
   /* ---------- footer ---------- */
   .footer-box{
-    background:var(--cream);border-radius:22px;
-    padding:38px 30px;margin:20px 0 80px;
-    box-shadow:0 18px 40px rgba(46,62,78,.14);
-    border:1px solid #F1E4D2;
+    background:#fff;border-radius:22px;
+    padding:38px 30px;margin:40px 0 80px;
+    box-shadow:0 18px 40px rgba(51,42,34,.14);
+    border:1px solid var(--washi-deep);
   }
-  .footer-box h3{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 18px;color:var(--ink);}
+  .footer-box h3{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 18px;color:var(--indigo);}
   .incl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:20px;}
   @media (max-width:560px){ .incl-grid{grid-template-columns:1fr;} }
-  .incl-grid div{font-size:13px;color:#5A5148;padding-left:20px;position:relative;line-height:1.7;}
-  .incl-grid div::before{content:"🐧";position:absolute;left:0;top:0;font-size:12px;}
-  .footer-note{font-size:11.5px;color:#9C8F7A;line-height:1.8;border-top:1px dashed #EEDFC8;padding-top:15px;}
+  .incl-grid div{font-size:13px;color:#5A4E3E;padding-left:20px;position:relative;line-height:1.7;}
+  .incl-grid div::before{content:"⛩️";position:absolute;left:0;top:0;font-size:12px;}
+  .footer-note{font-size:11.5px;color:#9C8F7A;line-height:1.8;border-top:1px dashed var(--washi-deep);padding-top:15px;}
   .contact-line{
     text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
     color:var(--muted);padding-bottom:50px;
@@ -241,251 +177,268 @@
 </style>
 </head>
 <body>
-<div class="snow" id="snow"></div>
+<div class="petals" id="petals"></div>
 
 <div class="wrap">
   <div class="hero">
     <span class="eyebrow">2027 員工旅遊</span>
-    <h1>登別．小樽<br><b>企鵝與蟹宴</b>５日物語</h1>
-    <p class="hero-sub">火山秘境的溫泉初夜，國王企鵝搖擺遊行，運河畔的浪漫散策，三大蟹無限暢吃——這趟旅程，把北海道的冬天，一次收進行李箱。</p>
+    <h1>京都．大阪<br><b>機加酒自由行</b>５日</h1>
+    <p class="hero-sub">古寺紅葉、町屋小巷、道頓堀霓虹——不跟團、不趕行程，飯店訂好、機票訂好，剩下的路自己走。以下六個房型方案，挑一個順眼的出發。</p>
     <div class="hero-tags">
       <span class="htag">📅 2027.02.24－02.28</span>
       <span class="htag">🗓️ 5天4夜</span>
       <span class="htag">✈️ 傳統航空直飛</span>
-      <span class="htag">🏖️ 請假3天．返台隔日放假</span>
+      <span class="htag">🎒 機加酒自由行</span>
     </div>
-    <div class="price-tag-wrap">
-      <div class="price-string"></div>
-      <div class="price-badge">
-        <span class="price-label">旅遊團費．每人</span>
-        <div class="price-divider"></div>
-        <div class="price-row">
-          <span class="cur">NT$</span><span class="num">42,000</span><span class="per">／人</span>
+  </div>
+
+  <div class="section-head" style="margin-top:26px;">
+    <span class="torii">✈️</span>
+    <h2>台北 ⇄ 大阪</h2>
+    <p>六個方案共用同一組去回程航班</p>
+  </div>
+
+  <div class="flight-grid">
+    <div class="flight-card">
+      <span class="flight-tag">去程</span>
+      <p class="flight-date"><b>2月24日（週三）</b>　飛行時間 2h30m</p>
+      <div class="flight-leg">
+        <div class="flight-line">
+          <div class="flight-dot"></div>
+          <div class="flight-connector"></div>
+          <div class="flight-dot end"></div>
+        </div>
+        <div class="flight-points">
+          <div class="flight-point">
+            <span class="flight-time">08:05</span>
+            <span class="flight-airport"><b>TPE</b> 桃園國際機場 T2　台北</span>
+          </div>
+          <div class="flight-meta">
+            <span class="airline">CI156 中華航空</span><span>波音777</span><span>經濟艙 N</span>
+          </div>
+          <div class="flight-point">
+            <span class="flight-time">11:35</span>
+            <span class="flight-airport"><b>KIX</b> 關西機場 T1　大阪</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <span class="flight-tag">回程</span>
+      <p class="flight-date"><b>2月28日（週日）</b>　飛行時間 3h25m</p>
+      <div class="flight-leg">
+        <div class="flight-line">
+          <div class="flight-dot"></div>
+          <div class="flight-connector"></div>
+          <div class="flight-dot end"></div>
+        </div>
+        <div class="flight-points">
+          <div class="flight-point">
+            <span class="flight-time">19:00</span>
+            <span class="flight-airport"><b>KIX</b> 關西機場 T1　大阪</span>
+          </div>
+          <div class="flight-meta">
+            <span class="airline">CI173 中華航空</span><span>波音787</span><span>經濟艙 T</span>
+          </div>
+          <div class="flight-point">
+            <span class="flight-time">21:25</span>
+            <span class="flight-airport"><b>TPE</b> 桃園國際機場 T2　台北</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="trail">
+  <!-- decorative mascots -->
+  <svg class="mascot" style="width:76px;right:2%;top:1400px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="60" rx="28" ry="22" fill="#C9A98A" stroke="#332A22" stroke-width="3"/>
+    <ellipse cx="36" cy="55" rx="4" ry="3" fill="#fff"/><ellipse cx="64" cy="55" rx="4" ry="3" fill="#fff"/>
+    <ellipse cx="50" cy="66" rx="5" ry="3" fill="#fff"/>
+    <circle cx="50" cy="30" r="16" fill="#C9A98A" stroke="#332A22" stroke-width="3"/>
+    <path d="M40,18 Q34,2 44,8 M60,18 Q66,2 56,8" stroke="#332A22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="44" cy="29" r="2" fill="#332A22"/><circle cx="56" cy="29" r="2" fill="#332A22"/>
+    <ellipse cx="50" cy="36" rx="2" ry="1.5" fill="#332A22"/>
+  </svg>
 
-    <div class="day">
-      <div class="stamp" style="background:var(--coral)"><span class="n">一</span></div>
-      <div class="day-copy">
-        <div class="day-critter run">
-          <div class="inner">
-            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <circle cx="30" cy="42" r="15" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
-              <circle cx="30" cy="20" r="11" fill="#fff" stroke="#D9EDF6" stroke-width="1.5"/>
-              <circle cx="26" cy="18" r="1.6" fill="#2E3E4E"/><circle cx="34" cy="18" r="1.6" fill="#2E3E4E"/>
-              <polygon points="30,21 24,24 30,25" fill="#F0916B"/>
-              <circle cx="30" cy="38" r="1.6" fill="#8A7A5E"/><circle cx="30" cy="46" r="1.6" fill="#8A7A5E"/>
-              <path d="M17,20 L9,15 M43,20 L51,15" stroke="#8A5E3A" stroke-width="2.5" stroke-linecap="round"/>
-              <rect x="22" y="8" width="16" height="5" fill="#2E3E4E"/><rect x="24" y="2" width="12" height="8" fill="#2E3E4E"/>
-            </svg>
-          </div>
-        </div>
-        <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 1 ｜ 2/24（三）</p>
-        <h2>登別溫泉鄉，落雪初夜</h2>
-        <p>搭乘傳統航空直飛新千歲機場，專車一路南下登別，沿途山巒披著薄雪，傍晚時分抵達溫泉飯店。換上浴衣後，不妨到飯店外的傳統溫泉商店街走走——老字號饅頭店、木雕紀念品店沿街林立，空氣裡飄著硫磺與甜點交織的氣味；晚餐後泡進飯店的溫泉池，把長途飛行的疲憊，一併留在氤氳白煙裡。</p>
-        <div class="day-route">
-          <p class="day-route-label">📍 本日路線</p>
-          <div class="route-list">
-            <span>新千歲機場</span><span class="arrow">→</span><span>登別溫泉鄉</span><span class="arrow">→</span><span>傳統溫泉商店街</span><span class="arrow">→</span><span>溫泉飯店</span>
-          </div>
-        </div>
-        <div class="day-meals">
-          <span class="meal-tag">🍴 晚餐：飯店溫泉會席料理</span>
-        </div>
-        <div class="day-chips">
-          <span class="chip">機場→登別溫泉鄉</span>
-          <span class="chip">傳統溫泉商店街</span>
-          <span class="chip">住宿．溫泉飯店</span>
-        </div>
+  <div class="section-head">
+    <span class="torii">⛩️</span>
+    <h2>六款房型方案</h2>
+    <p>飯店照片與詳細資訊陸續補上，先看整體風格</p>
+  </div>
+
+  <div class="hotel-grid" id="hotelGrid">
+
+    <div class="hotel-card">
+      <div class="hotel-photo split">
+        <span class="hotel-tier">方案 1</span>
+        <img src="plan1-a.jpg" alt="KOKO HOTEL 大阪梅田 雙床房">
+        <img src="plan1-b.jpg" alt="KOKO HOTEL 大阪梅田 雙人房">
       </div>
-      <div class="day-art">
-        <div class="art-frame">
-          <div class="tape" style="background:var(--coral)"></div>
-          <img src="day1.png" alt="登別溫泉商店街">
+      <div class="hotel-body">
+        <p class="hotel-name">KOKO HOTEL 大阪梅田</p>
+        <p class="hotel-loc">距離地下鐵谷町線「東梅田」站步行約3分鐘。客室走白粉色系設計，附設ReFa美容家電，自組漢堡早餐是招牌。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">大阪梅田</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">標準雙人房<small>一大床</small></span>
+            <span class="prices"><span class="pcol card-p">29,000</span><span class="pcol cash-p">28,000</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">標準雙床房<small>兩張床</small></span>
+            <span class="prices"><span class="pcol card-p">30,000</span><span class="pcol cash-p">29,000</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="day rev">
-      <div class="stamp" style="background:var(--berry)"><span class="n">二</span></div>
-      <div class="day-copy">
-        <div class="day-critter wad">
-          <div class="inner">
-            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <ellipse cx="30" cy="38" rx="13" ry="18" fill="#1B2B32"/>
-              <ellipse cx="30" cy="42" rx="7" ry="12" fill="#fff"/>
-              <circle cx="30" cy="16" r="8" fill="#1B2B32"/>
-              <circle cx="27" cy="14" r="1.3" fill="#fff"/><circle cx="33" cy="14" r="1.3" fill="#fff"/>
-              <polygon points="30,17 26,21 34,21" fill="#E8B24C"/>
-              <ellipse cx="16" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(-25 16 34)"/>
-              <ellipse cx="44" cy="34" rx="4" ry="9" fill="#1B2B32" transform="rotate(25 44 34)"/>
-              <ellipse cx="24" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/><ellipse cx="36" cy="55" rx="4.5" ry="2.5" fill="#E8B24C"/>
-            </svg>
-          </div>
-        </div>
-        <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 2 ｜ 2/25（四）</p>
-        <h2>地獄谷秘境 × 國王企鵝大遊行</h2>
-        <p>清晨前往登別最著名的火山地形景觀「地獄谷」，步道環繞著終年蒸氣瀰漫的赤紅岩壁，是整個溫泉鄉的源頭所在，親眼所見比照片震撼許多；接著前往城堡般矗立在雪地中的登別尼克斯海洋公園，欣賞園區人氣活動「企鵝遊行」，近距離看著企鵝搖搖擺擺地列隊前進，是北海道少見的療癒風景。實際活動時間依園區當日公告為準。傍晚專車返回札幌，入住市區飯店，華燈初上的薄野商圈正好適合來場輕鬆散策。</p>
-        <div class="day-route">
-          <p class="day-route-label">📍 本日路線</p>
-          <div class="route-list">
-            <span>登別地獄谷</span><span class="arrow">→</span><span>尼克斯海洋公園（企鵝遊行）</span><span class="arrow">→</span><span>札幌市區飯店</span>
-          </div>
-        </div>
-        <div class="day-meals">
-          <span class="meal-tag">🍴 早餐：飯店內用</span>
-          <span class="meal-tag">🍴 午餐：登別海鮮定食</span>
-          <span class="meal-tag">🍴 晚餐：薄野商圈料理</span>
-        </div>
-        <div class="day-chips">
-          <span class="chip">登別地獄谷</span>
-          <span class="chip">國王企鵝大遊行</span>
-          <span class="chip">住宿．札幌市區</span>
-        </div>
+    <div class="hotel-card">
+      <div class="hotel-photo">
+        <span class="hotel-tier">方案 2</span>
+        <img src="plan2.jpg" alt="APA度假酒店御堂筋本町站 雙床房">
       </div>
-      <div class="day-art">
-        <div class="art-frame">
-          <div class="tape" style="background:var(--berry)"></div>
-          <img src="day2.png" alt="國王企鵝大遊行">
+      <div class="hotel-body">
+        <p class="hotel-name">APA度假酒店 御堂筋本町站</p>
+        <p class="hotel-loc">大阪地鐵「本町」站18號出口直結，出站即達。屬於APA&amp;Resort系列大型塔樓飯店，樓層高、視野佳。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">大阪本町</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">標準雙床房<small>兩張床</small></span>
+            <span class="prices"><span class="pcol card-p">29,500</span><span class="pcol cash-p">28,500</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="stamp" style="background:var(--gold)"><span class="n">三</span></div>
-      <div class="day-copy">
-        <div class="day-critter crab">
-          <div class="inner">
-            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <ellipse cx="30" cy="34" rx="17" ry="11" fill="#DE7391"/>
-              <circle cx="17" cy="32" r="5.5" fill="#DE7391"/><circle cx="43" cy="32" r="5.5" fill="#DE7391"/>
-              <circle cx="17" cy="32" r="2.3" fill="#fff"/><circle cx="43" cy="32" r="2.3" fill="#fff"/>
-              <circle cx="17" cy="32" r="1.1" fill="#2E3E4E"/><circle cx="43" cy="32" r="1.1" fill="#2E3E4E"/>
-              <path d="M7,24 L1,15 M12,27 L2,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-              <path d="M53,24 L59,15 M48,27 L58,22" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-              <path d="M15,44 L9,52 M25,47 L21,55 M35,47 L39,55 M45,44 L51,52" stroke="#DE7391" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-        </div>
-        <span class="mode-badge group">團體行動</span>
-        <p class="day-tag">Day 3 ｜ 2/26（五）</p>
-        <h2>小樽運河浪漫遊，蟹宴狂歡夜</h2>
-        <p>專車前往北海道最浪漫的港灣小鎮小樽。百年石造倉庫沿著運河靜靜佇立，搭配復古煤氣燈，是最經典的明信片場景；走進北一硝子館，挑選一盞屬於自己的手工玻璃燈，路過歐風蒸氣鐘，整點報時的白煙準時噴發，再鑽進小樽音樂盒堂，上千款音樂盒交織出清脆旋律。晚餐是本趟旅程的重頭戲——★三大蟹無限暢吃，搭配酒水飲料喝到飽，大快朵頤北國最鮮甜的滋味，盡興才返回札幌市區飯店。＊實際蟹種及供應方式依餐廳當日安排為準。</p>
-        <div class="day-route">
-          <p class="day-route-label">📍 本日路線</p>
-          <div class="route-list">
-            <span>小樽運河</span><span class="arrow">→</span><span>北一硝子館</span><span class="arrow">→</span><span>歐風蒸氣鐘</span><span class="arrow">→</span><span>小樽音樂盒堂</span><span class="arrow">→</span><span>★三大蟹晚宴</span><span class="arrow">→</span><span>札幌市區飯店</span>
-          </div>
-        </div>
-        <div class="day-meals">
-          <span class="meal-tag">🍴 早餐：飯店內用</span>
-          <span class="meal-tag">🍴 午餐：小樽在地海鮮丼</span>
-          <span class="meal-tag">🍴 ★晚餐：三大蟹無限暢吃＋酒水喝到飽</span>
-        </div>
-        <div class="day-chips">
-          <span class="chip">小樽運河．北一硝子館</span>
-          <span class="chip">歐風蒸氣鐘．音樂盒堂</span>
-          <span class="chip">★三大蟹暢吃＋喝到飽</span>
-        </div>
+    <div class="hotel-card">
+      <div class="hotel-photo split">
+        <span class="hotel-tier">方案 3</span>
+        <img src="plan3-a.jpg" alt="大阪心齋橋橋樑酒店 雙床房">
+        <img src="plan3-b.jpg" alt="大阪心齋橋橋樑酒店 雙人房">
       </div>
-      <div class="day-art">
-        <div class="art-frame">
-          <div class="tape" style="background:var(--gold)"></div>
-          <img src="day3.png" alt="小樽運河">
+      <div class="hotel-body">
+        <p class="hotel-name">大阪心齋橋橋樑酒店</p>
+        <p class="hotel-loc">距離地下鐵四つ橋線「四ツ橋」站步行約3分鐘，心齋橋站也僅5-6分鐘可達。晚間提供生啤酒、雞尾酒喝到飽，另有少見的四人房型。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">大阪心齋橋</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">標準房<small>一大床</small></span>
+            <span class="prices"><span class="pcol card-p">28,500</span><span class="pcol cash-p">27,500</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">標準房<small>兩張床</small></span>
+            <span class="prices"><span class="pcol card-p">30,500</span><span class="pcol cash-p">29,500</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="day rev">
-      <div class="stamp" style="background:var(--mint)"><span class="n">四</span></div>
-      <div class="day-copy">
-        <div class="day-critter gift">
-          <div class="inner">
-            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <rect x="10" y="26" width="40" height="28" rx="3" fill="#F0916B"/>
-              <rect x="10" y="26" width="40" height="9" fill="#E8B24C"/>
-              <rect x="26" y="26" width="8" height="28" fill="#fff"/>
-              <path d="M30,26 Q18,18 22,10 Q30,10 30,26 Q30,10 38,10 Q42,18 30,26" fill="#DE7391"/>
-              <polygon class="spark-in" points="4,4 6,10 12,10 7,13 9,19 4,15 -1,19 1,13 -4,10 2,10" fill="var(--gold)"/>
-              <polygon class="spark-in" style="animation-delay:.6s" points="56,14 57,17 60,17 57.5,19 58.5,22 56,20 53.5,22 54.5,19 52,17 55,17" fill="var(--gold)"/>
-            </svg>
-          </div>
-        </div>
-        <span class="mode-badge free">自由活動</span>
-        <p class="day-tag">Day 4 ｜ 2/27（六）</p>
-        <h2>札幌自由日，步調交還給你</h2>
-        <p>保留一整天完全彈性的時間，沒有集合時間、沒有固定行程，晚上依然回到熟悉的市區飯店休息。若還沒想法，這裡準備了三條路線給你參考：</p>
-        <div class="option-list">
-          <div class="option-item"><span class="option-num">1</span><span><b>甜點文青路線：</b>白色戀人公園（巧克力工廠參觀）→ 大通公園散步 → 市區人氣咖啡廳</span></div>
-          <div class="option-item"><span class="option-num">2</span><span><b>購物夜景路線：</b>狸小路商店街（藥妝伴手禮）→ 藻岩山纜車百萬夜景</span></div>
-          <div class="option-item"><span class="option-num">3</span><span><b>文化歷史路線：</b>北海道廳舊本廳舍 → 札幌市時計台 → 二條市場品嚐在地小吃</span></div>
-        </div>
-        <div class="day-meals">
-          <span class="meal-tag">🍴 早餐：飯店內用</span>
-          <span class="meal-tag">🍴 午晚餐：自由活動日，餐食自理</span>
-        </div>
-        <div class="day-chips">
-          <span class="chip">全天自由活動</span>
-          <span class="chip">札幌電視塔．大通公園</span>
-          <span class="chip">住宿．札幌市區</span>
-        </div>
+    <div class="hotel-card">
+      <div class="hotel-photo split">
+        <span class="hotel-tier">方案 4</span>
+        <img src="plan4-a.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙床房">
+        <img src="plan4-b.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙人房">
       </div>
-      <div class="day-art">
-        <div class="art-frame">
-          <div class="tape" style="background:var(--mint)"></div>
-          <img src="day4.png" alt="札幌自由行">
+      <div class="hotel-body">
+        <p class="hotel-name">東急STAY大阪本町 御堂筋心齋橋</p>
+        <p class="hotel-loc">距離地下鐵堺筋本町站僅需步行1分鐘，御堂筋線本町站也在5分鐘內。多數房型配備獨立洗脫烘洗衣機與微波爐，適合長天數旅程。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">大阪本町</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">標準房<small>一大床或兩小床</small></span>
+            <span class="prices"><span class="pcol card-p">28,500</span><span class="pcol cash-p">27,500</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="stamp" style="background:var(--coral)"><span class="n">五</span></div>
-      <div class="day-copy">
-        <div class="day-critter plane" style="width:64px;height:45px;">
-          <div class="inner">
-            <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <path d="M42,40 L26,60 Q23,64 29,62 L50,46 Z" fill="#fff" stroke="#2E3E4E" stroke-width="3" stroke-linejoin="round"/>
-              <path d="M20,28 Q4,18 6,32 Q4,42 20,36 Z" fill="#fff" stroke="#2E3E4E" stroke-width="3" stroke-linejoin="round"/>
-              <ellipse cx="50" cy="30" rx="38" ry="14" fill="#fff" stroke="#2E3E4E" stroke-width="3"/>
-              <ellipse cx="68" cy="43" rx="10" ry="13" fill="#F0916B" stroke="#2E3E4E" stroke-width="3"/>
-              <ellipse cx="93" cy="22" rx="4" ry="12" fill="#E8B24C" stroke="#2E3E4E" stroke-width="2.5" transform="rotate(20 93 22)"/>
-              <circle cx="90" cy="26" r="4" fill="#2E3E4E"/>
-              <rect x="30" y="20" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
-              <rect x="44" y="19" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
-              <rect x="58" y="19" width="10" height="8" rx="3" fill="#A9D9E8" stroke="#2E3E4E" stroke-width="2.5"/>
-            </svg>
+    <div class="hotel-card">
+      <div class="hotel-photo split">
+        <span class="hotel-tier">方案 5</span>
+        <img src="plan5-a.jpg" alt="大阪恵美須飯店(通天閣) 雙床房">
+        <img src="plan5-b.jpg" alt="大阪恵美須飯店(通天閣) 雙人房">
+      </div>
+      <div class="hotel-body">
+        <p class="hotel-name">大阪恵美須飯店（通天閣）</p>
+        <p class="hotel-loc">距離地下鐵堺筋線「恵美須町」站步行約1分鐘，出站即可看到通天閣。鄰近新世界商圈，串炸、章魚燒等在地美食步行可達。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">通天閣</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">舒適雙人房<small>一大床或兩小床</small></span>
+            <span class="prices"><span class="pcol card-p">27,000</span><span class="pcol cash-p">26,000</span></span>
           </div>
-        </div>
-        <span class="mode-badge free">團體移動．自由購物</span>
-        <p class="day-tag">Day 5 ｜ 2/28（日）</p>
-        <h2>三井 OUTLET PARK 札幌北廣島，滿載而歸</h2>
-        <p>退房後前往三井 OUTLET PARK 札幌北廣島，把握回國前的最後採買時間。園區集結服飾、戶外用品、日系雜貨與餐飲品牌，逛完後再前往新千歲機場享用最後一餐、採買伴手禮，帶著滿滿的北國回憶搭機返台。</p>
-        <div class="day-route">
-          <p class="day-route-label">📍 本日路線</p>
-          <div class="route-list">
-            <span>札幌市區飯店</span><span class="arrow">→</span><span>三井 OUTLET PARK 札幌北廣島</span><span class="arrow">→</span><span>新千歲機場</span><span class="arrow">→</span><span>桃園機場</span>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
           </div>
-        </div>
-        <div class="day-meals">
-          <span class="meal-tag">🍴 早餐：飯店內用</span>
-          <span class="meal-tag">🍴 午晚餐：返程日，餐食自理</span>
-        </div>
-        <div class="day-chips">
-          <span class="chip">三井 OUTLET PARK 札幌北廣島</span>
-          <span class="chip">新千歲機場免稅購物</span>
-          <span class="chip">直飛返台</span>
         </div>
       </div>
-      <div class="day-art">
-        <div class="art-frame">
-          <div class="tape" style="background:var(--coral)"></div>
-          <img src="day5.png" alt="Outlet購物">
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-photo">
+        <span class="hotel-tier">方案 6</span>
+        <img src="plan6.jpg" alt="住一通天閣店 兩人房">
+      </div>
+      <div class="hotel-body">
+        <p class="hotel-name">住一 通天閣店</p>
+        <p class="hotel-loc">距離阪堺電車「新今宮駅前」步行數分鐘可達。位處新世界通天閣商圈巷弄內，鬧中取靜，鄰近多家在地小吃店。</p>
+        <div class="hotel-tags">
+          <span class="chip">中華航空</span>
+          <span class="chip">通天閣</span>
+          <span class="chip">5天4夜</span>
+        </div>
+        <div class="price-table">
+          <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
+          <div class="price-item">
+            <span class="rtype">兩人房<small>兩張大床</small></span>
+            <span class="prices"><span class="pcol card-p">26,800</span><span class="pcol cash-p">25,800</span></span>
+          </div>
+          <div class="price-item">
+            <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
+            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+          </div>
         </div>
       </div>
     </div>
@@ -496,13 +449,9 @@
     <h3>費用包含</h3>
     <div class="incl-grid">
       <div>來回機票（傳統航空直飛）</div>
-      <div>4晚住宿（溫泉飯店＋市區飯店）</div>
-      <div>行程表列餐食</div>
-      <div>Day3 三大蟹無限暢吃＋酒水喝到飽</div>
-      <div>遊覽車與司機／導遊／領隊小費</div>
-      <div>旅遊平安保險</div>
+      <div>4晚飯店住宿（依方案房型）</div>
     </div>
-    <p class="footer-note">＊ 費用不含個人消費及自費行程。Day4自由活動當日餐食自理。實際航班時刻與飯店房型以出發前最終確認為準。</p>
+    <p class="footer-note">＊ 機加酒自由行，行程、交通、餐食皆由旅客自行安排。費用不含早餐、旅遊平安保險、當地交通、景點門票及個人消費，請自行加保。實際航班時刻與飯店房型以出發前最終確認為準。</p>
   </div>
 
   <p class="contact-line">＊ 行程請洽 設計組 Tony 王</p>
@@ -510,17 +459,20 @@
 
 <script>
 (function(){
-  const c = document.getElementById('snow');
-  for (let i=0;i<50;i++){
-    const f = document.createElement('div');
-    f.className = 'flake';
-    const size = 3 + Math.random()*6;
-    f.style.width = f.style.height = size+'px';
-    f.style.left = (Math.random()*100)+'vw';
-    f.style.animationDuration = (9+Math.random()*10)+'s';
-    f.style.animationDelay = (-Math.random()*16)+'s';
-    f.style.setProperty('--dx', (Math.random()*70-35)+'px');
-    c.appendChild(f);
+  const c = document.getElementById('petals');
+  const colors = ['#F3C9CE','#F7DEE2','#fff'];
+  for (let i=0;i<40;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 6 + Math.random()*7;
+    p.style.width = size+'px';
+    p.style.height = size+'px';
+    p.style.background = colors[i % colors.length];
+    p.style.left = (Math.random()*100)+'vw';
+    p.style.animationDuration = (10+Math.random()*10)+'s';
+    p.style.animationDelay = (-Math.random()*18)+'s';
+    p.style.setProperty('--dx', (Math.random()*70-35)+'px');
+    c.appendChild(p);
   }
 })();
 </script>
