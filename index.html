@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>京阪自由行５日｜2027 員工旅遊</title>
+<title>大阪自由行５日｜2027 員工旅遊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -64,6 +64,10 @@
     background:linear-gradient(100deg, var(--vermillion), var(--gold));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
+  .hero-en{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;
+    color:var(--vermillion-deep);margin:0 0 20px;font-weight:600;
+  }
   .hero-sub{
     color:var(--muted);font-size:15.5px;line-height:1.95;
     max-width:560px;margin:0 auto 32px;
@@ -74,6 +78,70 @@
     background:#fff;border:1.5px solid var(--washi-deep);color:var(--ink);
     padding:8px 16px;border-radius:20px;
   }
+
+  /* faint background labels */
+  .bg-label{
+    position:absolute;font-family:'IBM Plex Mono',monospace;font-weight:700;
+    color:rgba(51,42,34,.05);font-size:clamp(60px,12vw,140px);white-space:nowrap;
+    z-index:0;pointer-events:none;letter-spacing:.04em;
+  }
+
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- simple block ---------- */
+  .simple-block{
+    position:relative;z-index:1;background:#fff;border-radius:20px;
+    padding:28px 30px;margin:44px 0;
+    box-shadow:0 16px 36px rgba(51,42,34,.12);border:1px solid var(--washi-deep);
+    text-align:center;
+    
+  }
+  .simple-block h3{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 16px;color:var(--indigo);}
+  .simple-checks{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;font-size:13.5px;color:var(--ink);margin:0 0 18px;}
+  .simple-checks span{display:inline-flex;align-items:center;gap:6px;}
+  .simple-checks b{color:var(--bamboo);}
+  .simple-line{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--vermillion-deep);margin:0 0 18px;font-weight:700;}
+  .simple-areas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .simple-areas span{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);
+    background:var(--washi);border:1px solid var(--washi-deep);padding:6px 16px;border-radius:14px;
+  }
+
+  /* ---------- quick pick ---------- */
+  .quick-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:8px;}
+  @media (min-width:700px){ .quick-grid{grid-template-columns:1fr 1fr 1fr;} }
+  .quick-card{
+    background:#fff;border-radius:18px;padding:22px 20px;
+    border:1px solid var(--washi-deep);box-shadow:0 14px 30px rgba(51,42,34,.1);
+    display:flex;flex-direction:column;gap:10px;
+    transition:transform .25s ease, box-shadow .25s ease;
+    
+  }
+  .quick-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(51,42,34,.16);}
+  .quick-card:nth-child(2){animation-delay:.1s;}
+  .quick-card:nth-child(3){animation-delay:.2s;}
+  .quick-label{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
+    background:var(--indigo);color:#fff;padding:5px 12px;border-radius:12px;align-self:flex-start;
+  }
+  .quick-card h4{font-family:'Shippori Mincho',serif;font-size:17px;margin:0;color:var(--indigo);}
+  .quick-feats{font-size:12.5px;color:var(--muted);line-height:1.9;margin:0;padding-left:14px;}
+  .quick-feats li{padding-left:2px;}
+  .quick-btn{
+    margin-top:auto;display:inline-block;text-align:center;
+    background:var(--washi);border:1px solid var(--washi-deep);color:var(--ink);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;padding:9px;border-radius:12px;
+    text-decoration:none;transition:background .2s, color .2s;
+  }
+  .quick-btn:hover{background:var(--vermillion);color:#fff;border-color:var(--vermillion);}
+
+  /* ---------- region strip ---------- */
+  .region-strip{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:0 0 40px;}
+  .region-item{
+    background:#fff;border:1px solid var(--washi-deep);border-radius:14px;
+    padding:10px 16px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:baseline;
+  }
+  .region-item b{color:var(--indigo);font-family:'Shippori Mincho',serif;font-size:14px;}
 
   /* ---------- section heading ---------- */
   .section-head{text-align:center;margin:56px 0 34px;position:relative;}
@@ -140,10 +208,16 @@
     box-shadow:0 6px 14px rgba(0,0,0,.2);
   }
   .hotel-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;}
+  .hotel-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .hotel-badges span{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;
+    background:var(--indigo);color:#fff;padding:4px 10px;border-radius:10px;
+  }
   .hotel-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:19px;color:var(--indigo);margin:0 0 6px;line-height:1.5;}
   .hotel-loc{font-size:12.5px;line-height:1.7;color:var(--muted);margin:0 0 14px;}
   .hotel-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
   .hotel-tags .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--washi);border:1px solid var(--washi-deep);color:#8A6A3E;padding:5px 11px;border-radius:14px;}
+  .hotel-fit{font-size:12.5px;color:var(--vermillion-deep);font-weight:600;margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--washi-deep);}
 
   .price-table{margin-top:auto;border-top:1px dashed var(--washi-deep);padding-top:14px;}
   .price-head{display:flex;justify-content:flex-end;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.03em;margin-bottom:6px;padding-right:2px;}
@@ -174,6 +248,12 @@
   .incl-grid div{font-size:13px;color:#5A4E3E;padding-left:20px;position:relative;line-height:1.7;}
   .incl-grid div::before{content:"⛩️";position:absolute;left:0;top:0;font-size:12px;}
   .footer-note{font-size:11.5px;color:#9C8F7A;line-height:1.8;border-top:1px dashed var(--washi-deep);padding-top:15px;}
+  .footer-cta{
+    text-align:center;font-family:'Shippori Mincho',serif;font-size:20px;
+    color:var(--indigo);margin:0 0 60px 0;
+  }
+  .footer-cta .en{display:block;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--vermillion-deep);letter-spacing:.05em;margin-bottom:10px;}
+  .footer-cta .who{display:block;font-size:13px;color:var(--muted);margin-top:10px;font-family:'Noto Sans TC',sans-serif;}
   .contact-line{
     text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
     color:var(--muted);padding-bottom:50px;
@@ -185,14 +265,33 @@
 
 <div class="wrap">
   <div class="hero">
-    <span class="eyebrow">2027 員工旅遊</span>
-    <h1>京都．大阪<br><b>機加酒自由行</b>５日</h1>
-    <p class="hero-sub">古寺紅葉、町屋小巷、道頓堀霓虹——不跟團、不趕行程，飯店訂好、機票訂好，剩下的路自己走。以下六個房型方案，挑一個順眼的出發。</p>
+    <span class="bg-label" style="top:20px;left:-40px;">KYOTO</span>
+    <span class="bg-label" style="bottom:-10px;right:-60px;">OSAKA</span>
+    <span class="eyebrow">2027 EMPLOYEE TRIP</span>
+    <h1>京都慢慢走，<br><b>大阪好好玩。</b></h1>
+    <p class="hero-en">KYOTO × OSAKA｜5 DAYS FREE TRIP</p>
+    <p class="hero-sub">古寺梅香、町屋小巷、道頓堀霓虹。<br>不跟團、不趕行程，機票飯店先搞定，剩下的五天，照自己的方式玩。</p>
     <div class="hero-tags">
-      <span class="htag">📅 2027.02.24－02.28</span>
+      <span class="htag">📅 2027.02.18－02.22</span>
       <span class="htag">🗓️ 5天4夜</span>
-      <span class="htag">✈️ 傳統航空直飛</span>
-      <span class="htag">🎒 機加酒自由行</span>
+      <span class="htag">✈️ 中華航空直飛</span>
+      <span class="htag">🎒 自由行</span>
+    </div>
+  </div>
+
+  <div class="simple-block">
+    <h3>這趟旅行，很簡單。</h3>
+    <div class="simple-checks">
+      <span>日期固定 <b>✓</b></span>
+      <span>航班固定 <b>✓</b></span>
+      <span>四晚住宿 <b>✓</b></span>
+    </div>
+    <p class="simple-line">你只要決定：想住哪裡。</p>
+    <div class="simple-areas">
+      <span>梅田</span>
+      <span>本町</span>
+      <span>心齋橋</span>
+      <span>通天閣</span>
     </div>
   </div>
 
@@ -205,7 +304,7 @@
   <div class="flight-grid">
     <div class="flight-card">
       <span class="flight-tag">去程</span>
-      <p class="flight-date"><b>2月24日（週三）</b>　飛行時間 2h30m</p>
+      <p class="flight-date"><b>2月18日（週四）</b>　飛行時間 2h30m</p>
       <div class="flight-leg">
         <div class="flight-line">
           <div class="flight-dot"></div>
@@ -230,7 +329,7 @@
 
     <div class="flight-card">
       <span class="flight-tag">回程</span>
-      <p class="flight-date"><b>2月28日（週日）</b>　飛行時間 3h25m</p>
+      <p class="flight-date"><b>2月22日（週一）</b>　飛行時間 3h25m</p>
       <div class="flight-leg">
         <div class="flight-line">
           <div class="flight-dot"></div>
@@ -267,8 +366,52 @@
 
   <div class="section-head">
     <span class="torii">⛩️</span>
-    <h2>六款房型方案</h2>
-    <p>飯店照片與詳細資訊陸續補上，先看整體風格</p>
+    <h2>六種住法，你選一種。</h2>
+    <p>同樣的五天，不同的大阪生活方式。</p>
+  </div>
+
+  <div class="region-strip">
+    <div class="region-item"><b>梅田</b>大阪交通樞紐、百貨多</div>
+    <div class="region-item"><b>本町</b>位於梅田與心齋橋中間，交通方便</div>
+    <div class="region-item"><b>心齋橋</b>逛街、美食、夜生活最方便</div>
+    <div class="region-item"><b>通天閣</b>大阪味濃、美食多、價格較親切</div>
+  </div>
+
+  <div class="section-head">
+    <h2 style="font-size:21px;">不想一間一間看？先從這裡選。</h2>
+  </div>
+
+  <div class="quick-grid">
+    <div class="quick-card">
+      <span class="quick-label">交通最方便</span>
+      <h4>APA度假酒店 御堂筋本町站</h4>
+      <ul class="quick-feats">
+        <li>本町站出口直結</li>
+        <li>移動京都、大阪都方便</li>
+        <li>適合重視交通效率的人</li>
+      </ul>
+      <a href="#plan2" class="quick-btn">查看方案</a>
+    </div>
+    <div class="quick-card">
+      <span class="quick-label">晚上最好玩</span>
+      <h4>大阪心齋橋橋樑酒店</h4>
+      <ul class="quick-feats">
+        <li>心齋橋商圈，吃飯逛街方便</li>
+        <li>晚間酒類暢飲是特色</li>
+        <li>適合晚上還想繼續活動的人</li>
+      </ul>
+      <a href="#plan3" class="quick-btn">查看方案</a>
+    </div>
+    <div class="quick-card">
+      <span class="quick-label">預算最漂亮</span>
+      <h4>住一 通天閣店</h4>
+      <ul class="quick-feats">
+        <li>目前方案中價格較有優勢</li>
+        <li>通天閣、新世界生活圈</li>
+        <li>適合重視 CP 值的人</li>
+      </ul>
+      <a href="#plan6" class="quick-btn">查看方案</a>
+    </div>
   </div>
 
   <div class="hotel-grid" id="hotelGrid">
@@ -283,6 +426,7 @@
         <div class="carousel-dots"><span class="active"></span><span></span></div>
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>梅田生活圈</span><span>ReFa房型</span></div>
         <p class="hotel-name">KOKO HOTEL 大阪梅田</p>
         <p class="hotel-loc">距離地下鐵谷町線「東梅田」站步行約3分鐘。客室走白粉色系設計，附設ReFa美容家電，自組漢堡早餐是招牌。</p>
         <div class="hotel-tags">
@@ -294,26 +438,28 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">標準雙人房<small>一大床</small></span>
-            <span class="prices"><span class="pcol card-p">29,000</span><span class="pcol cash-p">28,000</span></span>
+            <span class="prices"><span class="pcol card-p">26,000</span><span class="pcol cash-p">25,000</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">標準雙床房<small>兩張床</small></span>
-            <span class="prices"><span class="pcol card-p">30,000</span><span class="pcol cash-p">29,000</span></span>
+            <span class="prices"><span class="pcol card-p">27,000</span><span class="pcol cash-p">26,000</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你想睡飽再出發，順便寵一下自己。</p>
       </div>
     </div>
 
-    <div class="hotel-card">
+    <div class="hotel-card" id="plan2">
       <div class="hotel-photo">
         <span class="hotel-tier">方案 2</span>
         <img src="plan2.jpg" alt="APA度假酒店御堂筋本町站 雙床房">
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>車站直結</span><span>大型飯店</span></div>
         <p class="hotel-name">APA度假酒店 御堂筋本町站</p>
         <p class="hotel-loc">大阪地鐵「本町」站18號出口直結，出站即達。屬於APA&amp;Resort系列大型塔樓飯店，樓層高、視野佳。</p>
         <div class="hotel-tags">
@@ -325,17 +471,18 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">標準雙床房<small>兩張床</small></span>
-            <span class="prices"><span class="pcol card-p">29,500</span><span class="pcol cash-p">28,500</span></span>
+            <span class="prices"><span class="pcol card-p">26,500</span><span class="pcol cash-p">25,500</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你每天都想搭車跑景點。</p>
       </div>
     </div>
 
-    <div class="hotel-card">
+    <div class="hotel-card" id="plan3">
       <div class="hotel-photo carousel">
         <span class="hotel-tier">方案 3</span>
         <div class="carousel-track">
@@ -345,6 +492,7 @@
         <div class="carousel-dots"><span class="active"></span><span></span></div>
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>心齋橋核心</span><span>免費酒水</span></div>
         <p class="hotel-name">大阪心齋橋橋樑酒店</p>
         <p class="hotel-loc">距離地下鐵四つ橋線「四ツ橋」站步行約3分鐘，心齋橋站也僅5-6分鐘可達。晚間提供生啤酒、雞尾酒喝到飽，另有少見的四人房型。</p>
         <div class="hotel-tags">
@@ -356,17 +504,18 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">標準房<small>一大床</small></span>
-            <span class="prices"><span class="pcol card-p">28,500</span><span class="pcol cash-p">27,500</span></span>
+            <span class="prices"><span class="pcol card-p">25,500</span><span class="pcol cash-p">24,500</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">標準房<small>兩張床</small></span>
-            <span class="prices"><span class="pcol card-p">30,500</span><span class="pcol cash-p">29,500</span></span>
+            <span class="prices"><span class="pcol card-p">27,500</span><span class="pcol cash-p">26,500</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你晚上還想逛街喝酒。</p>
       </div>
     </div>
 
@@ -380,6 +529,7 @@
         <div class="carousel-dots"><span class="active"></span><span></span></div>
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>房內洗脫烘</span><span>適合買爆</span></div>
         <p class="hotel-name">東急STAY大阪本町 御堂筋心齋橋</p>
         <p class="hotel-loc">距離地下鐵堺筋本町站僅需步行1分鐘，御堂筋線本町站也在5分鐘內。多數房型配備獨立洗脫烘洗衣機與微波爐，適合長天數旅程。</p>
         <div class="hotel-tags">
@@ -391,13 +541,14 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">標準房<small>一大床或兩小床</small></span>
-            <span class="prices"><span class="pcol card-p">28,500</span><span class="pcol cash-p">27,500</span></span>
+            <span class="prices"><span class="pcol card-p">25,500</span><span class="pcol cash-p">24,500</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你會買很多東西，需要洗衣機。</p>
       </div>
     </div>
 
@@ -411,6 +562,7 @@
         <div class="carousel-dots"><span class="active"></span><span></span></div>
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>通天閣旁</span><span>大阪美食</span></div>
         <p class="hotel-name">大阪恵美須飯店（通天閣）</p>
         <p class="hotel-loc">距離地下鐵堺筋線「恵美須町」站步行約1分鐘，出站即可看到通天閣。鄰近新世界商圈，串炸、章魚燒等在地美食步行可達。</p>
         <div class="hotel-tags">
@@ -422,22 +574,24 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">舒適雙人房<small>一大床或兩小床</small></span>
-            <span class="prices"><span class="pcol card-p">27,000</span><span class="pcol cash-p">26,000</span></span>
+            <span class="prices"><span class="pcol card-p">24,000</span><span class="pcol cash-p">23,000</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你想把大阪在地美食一次吃透透。</p>
       </div>
     </div>
 
-    <div class="hotel-card">
+    <div class="hotel-card" id="plan6">
       <div class="hotel-photo">
         <span class="hotel-tier">方案 6</span>
         <img src="plan6.jpg" alt="住一通天閣店 兩人房">
       </div>
       <div class="hotel-body">
+        <div class="hotel-badges"><span>最低預算</span><span>兩張大床</span></div>
         <p class="hotel-name">住一 通天閣店</p>
         <p class="hotel-loc">距離阪堺電車「新今宮駅前」步行數分鐘可達。位處新世界通天閣商圈巷弄內，鬧中取靜，鄰近多家在地小吃店。</p>
         <div class="hotel-tags">
@@ -449,13 +603,14 @@
           <div class="price-head"><span>刷卡價</span><span>現金價</span></div>
           <div class="price-item">
             <span class="rtype">兩人房<small>兩張大床</small></span>
-            <span class="prices"><span class="pcol card-p">26,800</span><span class="pcol cash-p">25,800</span></span>
+            <span class="prices"><span class="pcol card-p">23,800</span><span class="pcol cash-p">22,800</span></span>
           </div>
           <div class="price-item">
             <span class="rtype">兒童不佔床<small>未滿6歲</small></span>
-            <span class="prices"><span class="pcol card-p">18,500</span><span class="pcol cash-p">18,000</span></span>
+            <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
+        <p class="hotel-fit">適合你，如果你想把住宿預算留給吃喝購物。</p>
       </div>
     </div>
 
@@ -464,13 +619,17 @@
   <div class="footer-box">
     <h3>費用包含</h3>
     <div class="incl-grid">
-      <div>來回機票（傳統航空直飛）</div>
+      <div>來回機票（中華航空直飛）</div>
       <div>4晚飯店住宿（依方案房型）</div>
     </div>
     <p class="footer-note">＊ 機加酒自由行，行程、交通、餐食皆由旅客自行安排。費用不含早餐、旅遊平安保險、當地交通、景點門票及個人消費，請自行加保。實際航班時刻與飯店房型以出發前最終確認為準。</p>
   </div>
 
-  <p class="contact-line">＊ 行程請洽 設計組 Tony 王</p>
+  <p class="footer-cta">
+    <span class="en">See you in Kansai. 🇯🇵</span>
+    行程相關問題
+    <span class="who">設計組 Tony 王</span>
+  </p>
 </div>
 
 <script>
