@@ -125,12 +125,6 @@
   .quick-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(51,42,34,.16);}
   .quick-card:nth-child(2){animation-delay:.1s;}
   .quick-card:nth-child(3){animation-delay:.2s;}
-  .quick-pick{
-    position:absolute;top:-9px;right:16px;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;
-    background:var(--gold);color:#fff;padding:3px 10px;border-radius:8px;
-    box-shadow:0 4px 10px rgba(201,162,39,.35);
-  }
   .quick-label{
     display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
     background:var(--indigo);color:#fff;padding:5px 12px;border-radius:12px;align-self:flex-start;
@@ -225,6 +219,11 @@
     background:var(--indigo);color:#fff;padding:4px 10px;border-radius:10px;
   }
   .hotel-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:19px;color:var(--indigo);margin:0 0 6px;line-height:1.5;}
+  .hotel-map-link{
+    display:inline-block;font-size:11.5px;color:var(--vermillion-deep);
+    text-decoration:none;margin:0 0 10px;opacity:.85;
+  }
+  .hotel-map-link:hover{text-decoration:underline;opacity:1;}
   .hotel-loc{font-size:12.5px;line-height:1.7;color:var(--muted);margin:0 0 14px;}
   .hotel-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
   .hotel-tags .chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:var(--washi);border:1px solid var(--washi-deep);color:#8A6A3E;padding:5px 11px;border-radius:14px;}
@@ -241,10 +240,6 @@
   .price-item .prices .pcol{width:58px;text-align:right;}
   .price-item .prices .card-p{color:var(--vermillion-deep);font-weight:700;}
   .price-item .prices .cash-p{color:var(--muted);}
-
-  /* ---------- decorative mascots ---------- */
-  .mascot{position:absolute;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(51,42,34,.18));}
-  @media (max-width:900px){ .mascot{display:none;} }
 
   /* ---------- footer ---------- */
   .footer-box{
@@ -358,16 +353,6 @@
     </div>
   </div>
 
-  <!-- decorative mascots -->
-  <svg class="mascot" style="width:76px;right:2%;top:1400px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="50" cy="60" rx="28" ry="22" fill="#C9A98A" stroke="#332A22" stroke-width="3"/>
-    <ellipse cx="36" cy="55" rx="4" ry="3" fill="#fff"/><ellipse cx="64" cy="55" rx="4" ry="3" fill="#fff"/>
-    <ellipse cx="50" cy="66" rx="5" ry="3" fill="#fff"/>
-    <circle cx="50" cy="30" r="16" fill="#C9A98A" stroke="#332A22" stroke-width="3"/>
-    <path d="M40,18 Q34,2 44,8 M60,18 Q66,2 56,8" stroke="#332A22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <circle cx="44" cy="29" r="2" fill="#332A22"/><circle cx="56" cy="29" r="2" fill="#332A22"/>
-    <ellipse cx="50" cy="36" rx="2" ry="1.5" fill="#332A22"/>
-  </svg>
 
   <div class="section-head">
     <span class="torii">⛩️</span>
@@ -388,7 +373,6 @@
 
   <div class="quick-grid">
     <div class="quick-card">
-      <span class="quick-pick">OUR PICK</span>
       <span class="quick-label">交通最方便</span>
       <h4>APA度假酒店 御堂筋本町站</h4>
       <ul class="quick-feats">
@@ -432,9 +416,10 @@
         <div class="carousel-dots"><span class="active"></span><span></span></div>
       </div>
       <div class="hotel-body">
-        <div class="hotel-badges"><span>梅田生活圈</span><span>ReFa房型</span></div>
+        <div class="hotel-badges"><span>梅田生活圈</span><span>東梅田3分鐘</span></div>
         <p class="hotel-name">KOKO HOTEL 大阪梅田</p>
-        <p class="hotel-loc">距離地下鐵谷町線「東梅田」站步行約3分鐘。客室走白粉色系設計，附設ReFa美容家電，自組漢堡早餐是招牌。</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=KOKO%20HOTEL%20Osaka%20Umeda%20%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8D%80%E7%A5%9E%E5%B1%B1%E7%94%BA%208-4" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
+        <p class="hotel-loc">距離地下鐵谷町線「東梅田」站步行約3分鐘，位於梅田生活圈，周邊餐飲、購物選擇豐富。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
           <span class="chip">大阪梅田</span>
@@ -455,7 +440,7 @@
             <span class="prices"><span class="pcol card-p">15,500</span><span class="pcol cash-p">15,000</span></span>
           </div>
         </div>
-        <p class="hotel-fit">適合你，如果你想睡飽再出發，順便寵一下自己。</p>
+        <p class="hotel-fit">適合你，如果你想住梅田生活圈，逛街吃飯都方便。</p>
       </div>
     </div>
 
@@ -467,6 +452,7 @@
       <div class="hotel-body">
         <div class="hotel-badges"><span>車站直結</span><span>大型飯店</span></div>
         <p class="hotel-name">APA度假酒店 御堂筋本町站</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=APA%20Hotel%20%26%20Resort%20Midosuji%20Hommachi-Eki%20Tower%204-2-9%20Minamihommachi%2C%20Chuo%20Ward%2C%20Osaka%20541-0054" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
         <p class="hotel-loc">大阪地鐵「本町」站18號出口直結，出站即達。屬於APA&amp;Resort系列大型塔樓飯店，樓層高、視野佳。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
@@ -500,6 +486,7 @@
       <div class="hotel-body">
         <div class="hotel-badges"><span>心齋橋核心</span><span>免費酒水</span></div>
         <p class="hotel-name">大阪心齋橋橋樑酒店</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=The%20Bridge%20Hotel%20Shinsaibashi%201-10-24%20Nishishinsaibashi%2C%20Chuo%20Ward%2C%20Osaka%20542-0086" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
         <p class="hotel-loc">距離地下鐵四つ橋線「四ツ橋」站步行約3分鐘，心齋橋站也僅5-6分鐘可達。晚間提供生啤酒、雞尾酒喝到飽，另有少見的四人房型。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
@@ -537,6 +524,7 @@
       <div class="hotel-body">
         <div class="hotel-badges"><span>房內洗脫烘</span><span>適合買爆</span></div>
         <p class="hotel-name">東急STAY大阪本町 御堂筋心齋橋</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=Tokyu%20Stay%20Osaka%20Hommachi%202-4-24%20Kyutaromachi%2C%20Chuo%20Ward%2C%20Osaka%20541-0056" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
         <p class="hotel-loc">距離地下鐵堺筋本町站僅需步行1分鐘，御堂筋線本町站也在5分鐘內。多數房型配備獨立洗脫烘洗衣機與微波爐，適合長天數旅程。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
@@ -570,6 +558,7 @@
       <div class="hotel-body">
         <div class="hotel-badges"><span>通天閣旁</span><span>大阪美食</span></div>
         <p class="hotel-name">大阪恵美須飯店（通天閣）</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=Osaka%20Ebisu%20Hotel%201-21-2%20Ebisuhigashi%2C%20Naniwa%20Ward%2C%20Osaka%20556-0002" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
         <p class="hotel-loc">距離地下鐵堺筋線「恵美須町」站步行約1分鐘，出站即可看到通天閣。鄰近新世界商圈，串炸、章魚燒等在地美食步行可達。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
@@ -599,6 +588,7 @@
       <div class="hotel-body">
         <div class="hotel-badges"><span>最低預算</span><span>兩張大床</span></div>
         <p class="hotel-name">住一 通天閣店</p>
+        <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=Apartment%20Hotel%2011%20Tsutenkaku%202-5-11%20Ebisuhigashi%2C%20Naniwa%20Ward%2C%20Osaka%20556-0002" target="_blank" rel="noopener noreferrer">↗ 查看飯店</a>
         <p class="hotel-loc">距離阪堺電車「新今宮駅前」步行數分鐘可達。位處新世界通天閣商圈巷弄內，鬧中取靜，鄰近多家在地小吃店。</p>
         <div class="hotel-tags">
           <span class="chip">中華航空</span>
