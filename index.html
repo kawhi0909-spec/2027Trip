@@ -84,10 +84,10 @@
 
   /* faint background labels */
   .bg-label{
-    position:absolute;font-family:'IBM Plex Mono',monospace;font-weight:700;
+    position:fixed;font-family:'IBM Plex Mono',monospace;font-weight:700;
     color:rgba(51,42,34,.05);font-size:clamp(40px,10vw,140px);white-space:nowrap;
     z-index:0;pointer-events:none;letter-spacing:.04em;
-    max-width:100%;overflow:hidden;
+    max-width:80vw;overflow:hidden;
   }
 
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
@@ -266,11 +266,11 @@
 </head>
 <body>
 <div class="petals" id="petals"></div>
+<span class="bg-label" style="top:16px;left:6px;">KYOTO</span>
+<span class="bg-label" style="bottom:16px;right:6px;">OSAKA</span>
 
 <div class="wrap">
   <div class="hero">
-    <span class="bg-label" style="top:20px;left:6px;">KYOTO</span>
-    <span class="bg-label" style="bottom:6px;right:6px;">OSAKA</span>
     <span class="eyebrow">2027 EMPLOYEE TRIP</span>
     <h1>京都慢慢走，<br><b>大阪好好玩。</b></h1>
     <p class="hero-en">KYOTO × OSAKA｜5 DAYS FREE TRIP</p>
