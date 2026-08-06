@@ -19,7 +19,7 @@
     --bamboo:#6B8E5A;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
+  html{scroll-behavior:smooth;overflow-x:hidden;width:100%;max-width:100%;}
   body{
     margin:0;
     background:
@@ -30,6 +30,7 @@
     font-family:'Noto Sans TC', sans-serif;
     overflow-x:hidden;
     width:100%;
+    max-width:100%;
     position:relative;
   }
 
@@ -38,7 +39,7 @@
   .petal{position:absolute;top:-6vh;border-radius:50% 0 50% 50%;opacity:.8;animation:fall linear infinite;}
   @keyframes fall{ to{ transform:translate(var(--dx,0), 112vh) rotate(320deg); } }
 
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;overflow-x:hidden;}
 
   /* ---------- hero ---------- */
   .hero{padding:96px 0 10px;text-align:center;position:relative;overflow:hidden;}
@@ -269,7 +270,7 @@
 <div class="wrap">
   <div class="hero">
     <span class="bg-label" style="top:20px;left:6px;">KYOTO</span>
-    <span class="bg-label" style="bottom:-10px;right:6px;">OSAKA</span>
+    <span class="bg-label" style="bottom:6px;right:6px;">OSAKA</span>
     <span class="eyebrow">2027 EMPLOYEE TRIP</span>
     <h1>京都慢慢走，<br><b>大阪好好玩。</b></h1>
     <p class="hero-en">KYOTO × OSAKA｜5 DAYS FREE TRIP</p>
@@ -637,6 +638,16 @@
 
 <script>
 (function(){
+  function lockX(){
+    if (window.scrollX !== 0 || document.documentElement.scrollLeft !== 0) {
+      window.scrollTo(0, window.scrollY || document.documentElement.scrollTop);
+    }
+  }
+  window.addEventListener('scroll', lockX, {passive:true});
+  window.addEventListener('resize', lockX);
+  document.addEventListener('touchmove', lockX, {passive:true});
+})();
+(function(){
   const c = document.getElementById('petals');
   const colors = ['#F3C9CE','#F7DEE2','#fff'];
   for (let i=0;i<40;i++){
@@ -646,10 +657,10 @@
     p.style.width = size+'px';
     p.style.height = size+'px';
     p.style.background = colors[i % colors.length];
-    p.style.left = (Math.random()*100)+'vw';
+    p.style.left = (2 + Math.random()*94)+'%';
     p.style.animationDuration = (10+Math.random()*10)+'s';
     p.style.animationDelay = (-Math.random()*18)+'s';
-    p.style.setProperty('--dx', (Math.random()*70-35)+'px');
+    p.style.setProperty('--dx', (Math.random()*30-15)+'px');
     c.appendChild(p);
   }
 })();
