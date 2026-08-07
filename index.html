@@ -8,17 +8,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --washi:#F7F1E1;
-    --washi-deep:#EFE4C8;
-    --ink:#332A22;
-    --muted:#8A7A63;
-    --vermillion:#C0392B;
-    --vermillion-deep:#9C2E22;
-    --gold:#C9A227;
-    --indigo:#2B3A55;
-    --bamboo:#6B8E5A;
+    --washi:#F7F5F0;
+    --washi-deep:#E9E4D8;
+    --ink:#18212B;
+    --muted:#7A7F86;
+    --vermillion:#A8483D;
+    --vermillion-deep:#8B392F;
+    --gold:#B9A889;
+    --indigo:#1E2A33;
+    --bamboo:#204A3A;
+    /* semantic aliases */
+    --bg:var(--washi);
+    --surface:#FFFFFF;
+    --text:var(--ink);
+    --text-secondary:var(--muted);
+    --accent:var(--bamboo);
+    --accent-red:var(--vermillion);
+    --accent-gold:var(--gold);
+    --border:var(--washi-deep);
+    --radius:16px;
+    --shadow-soft:0 8px 24px rgba(24,33,43,.06);
+    --shadow-md:0 12px 32px rgba(24,33,43,.08);
   }
   *{box-sizing:border-box;}
+  a:focus-visible, button:focus-visible, .quick-btn:focus-visible, .hotel-map-link:focus-visible{
+    outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;
+  }
+  .reveal{opacity:1;transform:none;}
+  .reveal.pre-anim{opacity:0;transform:translateY(18px);}
+  .reveal.is-visible{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+  }
   html{scroll-behavior:smooth;overflow-x:hidden;width:100%;max-width:100%;}
   body{
     margin:0;
@@ -35,6 +58,29 @@
   }
 
   /* falling plum blossom petals */
+  /* ---------- sticky nav ---------- */
+  .site-nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(247,245,240,.86);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .site-nav-inner{
+    max-width:1080px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .site-nav-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;
+    color:var(--text-secondary);text-transform:uppercase;
+  }
+  .site-nav-links{display:flex;gap:22px;}
+  .site-nav-links a{
+    font-family:'Noto Sans TC',sans-serif;font-size:13.5px;color:var(--text);
+    text-decoration:none;padding:2px 0;border-bottom:1px solid transparent;
+    transition:border-color .2s ease,color .2s ease;
+  }
+  .site-nav-links a:hover, .site-nav-links a:focus-visible{border-color:var(--accent);color:var(--accent);}
+
   .petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
   .petal{position:absolute;top:-6vh;border-radius:50% 0 50% 50%;opacity:.8;animation:fall linear infinite;}
   @keyframes fall{ to{ transform:translate(var(--dx,0), 112vh) rotate(320deg); } }
@@ -52,9 +98,9 @@
     padding:8px 20px;border-radius:20px;
     margin:0 0 26px;
     border:1px solid rgba(201,162,39,.5);
-    box-shadow:0 8px 20px rgba(51,42,34,.1), inset 0 1px 0 #fff;
+    box-shadow:0 4px 14px rgba(24,33,43,.05), inset 0 1px 0 #fff;
   }
-  .eyebrow::before{content:"🏮";font-size:12px;}
+  .eyebrow::before{content:"";}
   h1{
     font-family:'Shippori Mincho', serif;
     font-weight:800;
@@ -81,6 +127,17 @@
     background:#fff;border:1.5px solid var(--washi-deep);color:var(--ink);
     padding:8px 16px;border-radius:20px;
   }
+  .hero-route{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;
+    color:var(--text-secondary);margin:22px 0 0;text-transform:uppercase;
+  }
+  .hero-route span{color:var(--accent);margin:0 4px;}
+  .hero-route-code{color:var(--accent-red);font-weight:600;letter-spacing:.08em;}
+  .skyline{
+    display:block;width:100%;height:auto;max-height:150px;margin:36px auto 0;
+    color:var(--border);opacity:.9;
+  }
+  @media (max-width:600px){ .skyline{max-height:100px;} }
 
   /* faint background labels */
   .bg-label{
@@ -94,9 +151,9 @@
 
   /* ---------- simple block ---------- */
   .simple-block{
-    position:relative;z-index:1;background:#fff;border-radius:20px;
-    padding:28px 30px;margin:44px 0;
-    box-shadow:0 16px 36px rgba(51,42,34,.12);border:1px solid var(--washi-deep);
+    position:relative;z-index:1;background:var(--surface);border-radius:var(--radius);
+    padding:32px 30px;margin:56px 0;
+    box-shadow:var(--shadow-soft);border:1px solid var(--border);
     text-align:center;
     
   }
@@ -117,12 +174,12 @@
   .quick-card{
     position:relative;
     background:#fff;border-radius:18px;padding:22px 20px;
-    border:1px solid var(--washi-deep);box-shadow:0 14px 30px rgba(51,42,34,.1);
+    border:1px solid var(--border);box-shadow:var(--shadow-soft);
     display:flex;flex-direction:column;gap:10px;
     transition:transform .25s ease, box-shadow .25s ease;
     
   }
-  .quick-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(51,42,34,.16);}
+  .quick-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
   .quick-card:nth-child(2){animation-delay:.1s;}
   .quick-card:nth-child(3){animation-delay:.2s;}
   .quick-label{
@@ -150,15 +207,30 @@
 
   /* ---------- section heading ---------- */
   .section-head{text-align:center;margin:56px 0 34px;position:relative;}
-  .section-head .torii{font-size:26px;display:block;margin-bottom:10px;}
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 12px;font-weight:600;
+  }
   .section-head h2{font-family:'Shippori Mincho',serif;font-size:26px;color:var(--indigo);margin:0 0 8px;}
   .section-head p{color:var(--muted);font-size:13.5px;margin:0;}
 
   /* ---------- flight info ---------- */
   .flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
   @media (max-width:700px){ .flight-grid{grid-template-columns:1fr;} }
-  .flight-card{background:#fff;border-radius:20px;padding:26px 26px 22px;box-shadow:0 16px 36px rgba(51,42,34,.12);border:1px solid var(--washi-deep);}
-  .flight-tag{display:inline-block;background:var(--bamboo);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;padding:5px 13px;border-radius:12px;margin-bottom:12px;}
+  .flight-card{background:var(--surface);border-radius:var(--radius);padding:28px 28px 24px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+  .flight-tag{
+    display:inline-block;background:transparent;color:var(--accent);
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;padding:4px 0;margin-bottom:10px;
+    border-bottom:1.5px solid var(--accent);
+  }
+  .flight-route{
+    display:flex;align-items:baseline;gap:10px;
+    font-family:'IBM Plex Mono',monospace;font-weight:700;
+    font-size:clamp(26px,4.2vw,36px);letter-spacing:.03em;
+    color:var(--text);margin:0 0 6px;
+  }
+  .flight-route .arrow{color:var(--accent-red);font-weight:400;font-size:.8em;}
   .flight-date{font-size:13px;color:var(--muted);margin-bottom:20px;}
   .flight-date b{color:var(--ink);font-weight:600;}
   .flight-leg{display:flex;gap:16px;align-items:flex-start;}
@@ -183,11 +255,11 @@
 
   .hotel-card{
     position:relative;
-    background:#fff;
-    border-radius:20px;
+    background:var(--surface);
+    border-radius:var(--radius);
     overflow:hidden;
-    box-shadow:0 18px 40px rgba(51,42,34,.16);
-    border:1px solid var(--washi-deep);
+    box-shadow:var(--shadow-soft);
+    border:1px solid var(--border);
     display:flex;flex-direction:column;
   }
   .hotel-photo{
@@ -210,7 +282,7 @@
     font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
     background:var(--vermillion);color:#fff;
     padding:6px 14px;border-radius:16px;
-    box-shadow:0 6px 14px rgba(0,0,0,.2);
+    box-shadow:0 2px 8px rgba(24,33,43,.15);
   }
   .hotel-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;}
   .hotel-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
@@ -255,14 +327,14 @@
   .footer-box{
     background:#fff;border-radius:22px;
     padding:38px 30px;margin:40px 0 80px;
-    box-shadow:0 18px 40px rgba(51,42,34,.14);
+    box-shadow:var(--shadow-soft);
     border:1px solid var(--washi-deep);
   }
   .footer-box h3{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 18px;color:var(--indigo);}
   .incl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:20px;}
   @media (max-width:560px){ .incl-grid{grid-template-columns:1fr;} }
   .incl-grid div{font-size:13px;color:#5A4E3E;padding-left:20px;position:relative;line-height:1.7;}
-  .incl-grid div::before{content:"⛩️";position:absolute;left:0;top:0;font-size:12px;}
+  .incl-grid div::before{content:"";position:absolute;left:0;top:8px;width:10px;height:1.5px;background:var(--accent);}
   .footer-note{font-size:11.5px;color:#9C8F7A;line-height:1.8;border-top:1px dashed var(--washi-deep);padding-top:15px;}
   .footer-cta{
     text-align:center;font-family:'Shippori Mincho',serif;font-size:20px;
@@ -277,13 +349,22 @@
 </style>
 </head>
 <body>
-<div class="petals" id="petals"></div>
-<span class="bg-label" style="top:16px;left:6px;">KYOTO</span>
-<span class="bg-label" style="bottom:16px;right:6px;">OSAKA</span>
+<nav class="site-nav" aria-label="頁面導覽">
+  <div class="site-nav-inner">
+    <span class="site-nav-brand">OSAKA・KYOTO 2027</span>
+    <div class="site-nav-links">
+      <a href="#flights">航班</a>
+      <a href="#hotelGrid">住宿</a>
+    </div>
+  </div>
+</nav>
+<div class="petals" id="petals" aria-hidden="true"></div>
+<span class="bg-label" style="top:64px;left:6px;" aria-hidden="true">KYOTO</span>
+<span class="bg-label" style="bottom:16px;right:6px;" aria-hidden="true">OSAKA</span>
 
 <div class="wrap">
   <div class="hero">
-    <span class="eyebrow">2027 EMPLOYEE TRIP</span>
+    <span class="eyebrow">COMPANY TRIP 2027</span>
     <h1>京都慢慢走，<br><b>大阪好好玩。</b></h1>
     <p class="hero-en">KYOTO × OSAKA｜5 DAYS FREE TRIP</p>
     <p class="hero-sub">古寺梅香、町屋小巷、道頓堀霓虹。<br>不跟團、不趕行程，機票飯店先搞定，剩下的五天，照自己的方式玩。</p>
@@ -293,9 +374,54 @@
       <span class="htag">✈️ 中華航空直飛</span>
       <span class="htag">🎒 自由行</span>
     </div>
+    <p class="hero-route">TAIPEI <span>→</span> OSAKA <span>→</span> KYOTO　<span class="hero-route-code">TPE—KIX</span></p>
+
+    <svg class="skyline" viewBox="0 0 1000 190" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+      <g class="landmark" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <!-- Fushimi Inari torii row -->
+        <g transform="translate(50,70)">
+          <path d="M0,110 L0,10 M56,110 L56,10 M-10,24 L66,24 M-16,10 Q28,-8 72,10"/>
+        </g>
+        <g transform="translate(100,88) scale(0.72)" opacity=".75">
+          <path d="M0,110 L0,10 M56,110 L56,10 M-10,24 L66,24 M-16,10 Q28,-8 72,10"/>
+        </g>
+        <g transform="translate(132,98) scale(0.5)" opacity=".55">
+          <path d="M0,110 L0,10 M56,110 L56,10 M-10,24 L66,24 M-16,10 Q28,-8 72,10"/>
+        </g>
+
+        <!-- Kiyomizu-dera stage -->
+        <g transform="translate(300,55)" stroke-width="1.6">
+          <path d="M10,20 L62,0 L114,20"/>
+          <path d="M-2,20 L126,20"/>
+          <rect x="18" y="20" width="88" height="20"/>
+          <path d="M-24,58 L148,58"/>
+          <path d="M-12,58 L-12,118 M18,58 L18,118 M48,58 L48,118 M78,58 L78,118 M108,58 L108,118 M136,58 L136,118" stroke-width="1.2"/>
+          <path d="M-12,118 L18,88 M18,118 L-12,88 M18,118 L48,88 M48,118 L18,88 M48,118 L78,88 M78,118 L48,88 M78,118 L108,88 M108,118 L78,88 M108,118 L136,88 M136,118 L108,88" stroke-width=".9"/>
+        </g>
+
+        <!-- Osaka Castle (main) -->
+        <g transform="translate(470,8)">
+          <path d="M20,160 L20,96 L210,96 L210,160"/>
+          <path d="M0,96 L115,64 L230,96"/>
+          <rect x="42" y="60" width="146" height="36"/>
+          <path d="M20,60 L115,30 L210,60"/>
+          <rect x="64" y="26" width="102" height="34"/>
+          <path d="M42,26 L115,4 L188,26"/>
+          <circle cx="95" cy="6" r="2.2" fill="currentColor" stroke="none"/>
+          <circle cx="135" cy="6" r="2.2" fill="currentColor" stroke="none"/>
+        </g>
+
+        <!-- Tsutenkaku tower -->
+        <g transform="translate(760,6)" stroke-width="1.7">
+          <path d="M42,10 L62,10 L78,158 L26,158 Z"/>
+          <path d="M26,158 L42,10 M78,158 L62,10 M31,126 L73,126 M33,94 L71,94 M37,62 L67,62"/>
+          <circle cx="52" cy="3" r="5"/>
+        </g>
+      </g>
+    </svg>
   </div>
 
-  <div class="simple-block">
+  <div class="simple-block reveal">
     <h3>這趟旅行，很簡單。</h3>
     <div class="simple-checks">
       <span>日期固定 <b>✓</b></span>
@@ -305,15 +431,16 @@
     <p class="simple-line" style="margin-bottom:0;">你只要決定：想住哪裡。</p>
   </div>
 
-  <div class="section-head" style="margin-top:26px;">
-    <span class="torii">✈️</span>
+  <div class="section-head" id="flights" style="margin-top:26px;scroll-margin-top:70px;">
+    <p class="section-eyebrow">JAPAN · KANSAI · 2027.02</p>
     <h2>台北 ⇄ 大阪</h2>
     <p>六個方案共用同一組去回程航班</p>
   </div>
 
   <div class="flight-grid">
-    <div class="flight-card">
-      <span class="flight-tag">去程</span>
+    <div class="flight-card reveal">
+      <span class="flight-tag">去程 OUTBOUND</span>
+      <p class="flight-route">TPE <span class="arrow">→</span> KIX</p>
       <p class="flight-date"><b>2月18日（週四）</b>　飛行時間 2h30m</p>
       <div class="flight-leg">
         <div class="flight-line">
@@ -337,8 +464,9 @@
       </div>
     </div>
 
-    <div class="flight-card">
-      <span class="flight-tag">回程</span>
+    <div class="flight-card reveal">
+      <span class="flight-tag">回程 RETURN</span>
+      <p class="flight-route">KIX <span class="arrow">→</span> TPE</p>
       <p class="flight-date"><b>2月22日（週一）</b>　飛行時間 3h25m</p>
       <div class="flight-leg">
         <div class="flight-line">
@@ -365,12 +493,12 @@
 
 
   <div class="section-head">
-    <span class="torii">⛩️</span>
+    <p class="section-eyebrow">OSAKA STAY GUIDE</p>
     <h2>六種住法，你選一種。</h2>
     <p>同樣的五天，不同的大阪生活方式。</p>
   </div>
 
-  <div class="region-strip">
+  <div class="region-strip reveal">
     <div class="region-item"><b>梅田</b>｜百貨購物</div>
     <div class="region-item"><b>本町</b>｜交通中心</div>
     <div class="region-item"><b>心齋橋</b>｜逛街夜生活</div>
@@ -382,7 +510,7 @@
   </div>
 
   <div class="quick-grid">
-    <div class="quick-card">
+    <div class="quick-card reveal">
       <span class="quick-label">交通最方便</span>
       <h4>APA度假酒店 御堂筋本町站</h4>
       <ul class="quick-feats">
@@ -392,7 +520,7 @@
       </ul>
       <a href="#plan2" class="quick-btn">查看方案</a>
     </div>
-    <div class="quick-card">
+    <div class="quick-card reveal">
       <span class="quick-label">晚上最好玩</span>
       <h4>大阪心齋橋橋樑酒店</h4>
       <ul class="quick-feats">
@@ -402,7 +530,7 @@
       </ul>
       <a href="#plan3" class="quick-btn">查看方案</a>
     </div>
-    <div class="quick-card">
+    <div class="quick-card reveal">
       <span class="quick-label">預算最漂亮</span>
       <h4>住一 通天閣店</h4>
       <ul class="quick-feats">
@@ -414,9 +542,9 @@
     </div>
   </div>
 
-  <div class="hotel-grid" id="hotelGrid">
+  <div class="hotel-grid" id="hotelGrid" style="scroll-margin-top:70px;">
 
-    <div class="hotel-card">
+    <div class="hotel-card reveal">
       <div class="hotel-photo carousel">
         <span class="hotel-tier">方案 1</span>
         <div class="carousel-track">
@@ -456,7 +584,7 @@
       </div>
     </div>
 
-    <div class="hotel-card" id="plan2">
+    <div class="hotel-card reveal" id="plan2">
       <div class="hotel-photo">
         <span class="hotel-tier">方案 2</span>
         <img src="plan2.jpg" alt="APA度假酒店御堂筋本町站 雙床房">
@@ -488,7 +616,7 @@
       </div>
     </div>
 
-    <div class="hotel-card" id="plan3">
+    <div class="hotel-card reveal" id="plan3">
       <div class="hotel-photo carousel">
         <span class="hotel-tier">方案 3</span>
         <div class="carousel-track">
@@ -528,7 +656,7 @@
       </div>
     </div>
 
-    <div class="hotel-card">
+    <div class="hotel-card reveal">
       <div class="hotel-photo carousel">
         <span class="hotel-tier">方案 4</span>
         <div class="carousel-track">
@@ -564,7 +692,7 @@
       </div>
     </div>
 
-    <div class="hotel-card">
+    <div class="hotel-card reveal">
       <div class="hotel-photo carousel">
         <span class="hotel-tier">方案 5</span>
         <div class="carousel-track">
@@ -600,7 +728,7 @@
       </div>
     </div>
 
-    <div class="hotel-card" id="plan6">
+    <div class="hotel-card reveal" id="plan6">
       <div class="hotel-photo">
         <span class="hotel-tier">方案 6</span>
         <img src="plan6.jpg" alt="住一通天閣店 兩人房">
@@ -634,7 +762,7 @@
 
   </div>
 
-  <div class="footer-box">
+  <div class="footer-box reveal">
     <h3>費用包含</h3>
     <div class="incl-grid">
       <div>來回機票（中華航空直飛）</div>
@@ -660,6 +788,28 @@
   window.addEventListener('scroll', lockX, {passive:true});
   window.addEventListener('resize', lockX);
   document.addEventListener('touchmove', lockX, {passive:true});
+})();
+
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    return; /* elements are visible by default via CSS, nothing to do */
+  }
+  items.forEach(el => el.classList.add('pre-anim'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  items.forEach(el => io.observe(el));
+  /* safety net: guarantee visibility no matter what */
+  window.setTimeout(() => {
+    items.forEach(el => el.classList.add('is-visible'));
+  }, 1500);
 })();
 (function(){
   const c = document.getElementById('petals');
