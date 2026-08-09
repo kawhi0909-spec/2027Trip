@@ -31,13 +31,24 @@
     --shadow-md:0 12px 32px rgba(24,33,43,.08);
   }
   *{box-sizing:border-box;}
-  a:focus-visible, button:focus-visible, .quick-btn:focus-visible, .hotel-map-link:focus-visible{
+  html, body, h1, h2, h3, h4, p, ul, ol, li, figure{margin:0;padding:0;}
+  ul, ol{list-style:none;}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  a:focus, button:focus, .quick-btn:focus, .hotel-map-link:focus, .rec-item:focus, .site-nav-links a:focus{
+    outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;
+  }
+  a:focus:not(:focus-visible), button:focus:not(:focus-visible){
+    outline:none;
+  }
+  a:focus-visible, button:focus-visible, .quick-btn:focus-visible, .hotel-map-link:focus-visible, .rec-item:focus-visible, .site-nav-links a:focus-visible{
     outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;
   }
   .reveal{opacity:1;transform:none;}
   .reveal.pre-anim{opacity:0;transform:translateY(18px);}
   .reveal.is-visible{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s ease;}
-  .reveal.is-visible{opacity:1;transform:translateY(0);}
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none;}
     *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
@@ -86,9 +97,10 @@
   .eyebrow{
     display:block;
     font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;
+    font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--text-secondary);
     margin:0 0 22px;
+    white-space:nowrap;
   }
   h1{
     font-family:'Noto Sans TC', sans-serif;
@@ -154,7 +166,7 @@
   /* ---------- section heading ---------- */
   .section-head{text-align:center;margin:64px 0 34px;position:relative;}
   .mini-landmark{width:34px;height:auto;color:var(--muted);opacity:.5;margin:0 auto 14px;display:block;}
-  .stay-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin:0 0 16px;}
+  .stay-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:0 0 16px;}
   .section-head h2{font-family:'Shippori Mincho',serif;font-weight:700;font-size:24px;color:var(--text);margin:0 0 8px;}
   .section-head p{color:var(--muted);font-size:13px;margin:0;}
 
@@ -196,25 +208,30 @@
   }
 
   /* ---------- hotel editorial sections ---------- */
-  .hotel-section{padding:70px 0;border-top:1px solid var(--border);}
+  .hotel-section{padding:70px 0;border-top:1px solid var(--border);overflow:visible;}
   .hotel-section:first-of-type{border-top:none;padding-top:20px;}
   .hotel-layout{display:grid;grid-template-columns:1fr;gap:36px;align-items:start;}
-  @media (min-width:900px){
+  @media (min-width:860px){
     .hotel-layout{grid-template-columns:58% 1fr;gap:70px;align-items:center;}
     .hotel-section.reverse .hotel-layout{grid-template-columns:1fr 58%;}
     .hotel-section.reverse .hotel-media{order:2;}
     .hotel-section.reverse .hotel-info{order:1;}
   }
 
-  .hotel-media{position:relative;margin-bottom:30px;}
-  @media (min-width:900px){ .hotel-media{margin-bottom:0;} }
-  .hotel-media .photo-main{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:4px;}
+  /* image-box uses padding-top to reserve height reliably, independent of aspect-ratio support or grid order */
+  .hotel-media{position:relative;margin-bottom:56px;}
+  @media (min-width:860px){ .hotel-media{margin-bottom:0;} }
+  .image-box{position:relative;width:100%;padding-top:75%;background:var(--washi-deep);border-radius:4px;overflow:hidden;}
+  .image-box img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;display:block;}
   .hotel-media .photo-second{
-    position:absolute;width:36%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;
-    left:24px;bottom:-22px;border:5px solid var(--bg);box-shadow:0 10px 24px rgba(29,35,41,.14);
+    position:absolute;width:32%;left:22px;bottom:-28px;z-index:2;
+    border-radius:3px;border:5px solid var(--bg);box-shadow:0 10px 24px rgba(29,35,41,.16);
+    overflow:hidden;
   }
+  .hotel-media .photo-second .image-box{padding-top:75%;}
   @media (max-width:760px){
-    .hotel-media .photo-second{width:46%;left:16px;bottom:-16px;border-width:4px;}
+    .hotel-media{margin-bottom:44px;}
+    .hotel-media .photo-second{width:42%;left:14px;bottom:-20px;border-width:4px;}
   }
 
   .hotel-info{max-width:460px;}
@@ -224,33 +241,36 @@
     color:var(--accent-red);text-transform:uppercase;margin:0 0 12px;
     padding-bottom:5px;border-bottom:1px solid var(--accent-red);
   }
-  .hotel-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:0 0 3px;}
+  .hotel-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:0 0 3px;white-space:nowrap;}
   .hotel-eyebrow-jp{font-size:11px;color:var(--muted);margin:0 0 18px;}
-  .hotel-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);color:var(--text);margin:0 0 16px;line-height:1.45;}
+  .hotel-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);color:var(--text);margin:0 0 22px;line-height:1.45;}
   .hotel-map-link{
     display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
-    color:var(--muted);text-decoration:none;margin:0 0 22px;
+    color:var(--muted);text-decoration:none;margin:0 0 28px;padding-top:2px;
     transition:color .2s ease, opacity .2s ease;
   }
   .hotel-map-link .en{display:block;letter-spacing:.1em;color:var(--text);text-transform:uppercase;font-weight:600;}
-  .hotel-map-link .zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:11.5px;margin-top:2px;}
+  .hotel-map-link .zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:11.5px;margin-top:3px;}
   .hotel-map-link:hover{opacity:.6;}
   .hotel-map-link:hover .en{text-decoration:underline;}
 
   .hotel-loc{font-size:14px;line-height:2;color:var(--muted);margin:0 0 22px;max-width:440px;}
-  .hotel-tags-line{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em;margin:0 0 26px;}
-  .hotel-tags-line span:not(:last-child)::after{content:"  ·  ";color:var(--border);}
+  .hotel-tags-line{
+    display:flex;flex-wrap:wrap;align-items:center;row-gap:6px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em;margin:0 0 26px;
+  }
+  .hotel-tags-line span{white-space:nowrap;}
+  .hotel-tags-line span:not(:last-child)::after{content:"·";margin:0 10px;color:var(--border);}
 
-  .price-editorial{margin:0 0 26px;}
+  .price-editorial{margin:0 0 30px;border-bottom:1px solid var(--border);}
   .price-room{padding:16px 0;border-top:1px solid var(--border);}
-  .price-room:last-child{border-bottom:1px solid var(--border);}
   .price-room-name{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin:0 0 2px;font-weight:600;}
   .price-room-sub{font-size:11.5px;color:var(--muted);margin:0 0 10px;}
-  .price-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:2px 0;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;}
-  .price-row .amt{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--text);font-size:15px;}
+  .price-row{display:grid;grid-template-columns:60px 1fr;align-items:baseline;font-size:13px;color:var(--muted);padding:2px 0;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;}
+  .price-row .amt{text-align:right;font-family:'Shippori Mincho',serif;font-weight:700;color:var(--text);font-size:15px;}
   .price-row.cash .amt{color:var(--accent-red);}
 
-  .hotel-note{padding-top:18px;border-top:1px solid var(--border);}
+  .hotel-note{padding:24px 0 4px;}
   .hotel-note-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin:0 0 6px;}
   .hotel-note p{margin:0;font-size:13.5px;color:var(--text);line-height:1.7;}
 
@@ -419,8 +439,8 @@
     <div class="hotel-section reveal">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan1-a.jpg" alt="KOKO HOTEL 大阪梅田 雙床房">
-          <img class="photo-second" src="plan1-b.jpg" alt="KOKO HOTEL 大阪梅田 雙人房">
+          <div class="image-box"><img src="plan1-a.jpg" alt="KOKO HOTEL 大阪梅田 雙床房"></div>
+          <div class="photo-second"><div class="image-box"><img src="plan1-b.jpg" alt="KOKO HOTEL 大阪梅田 雙人房"></div></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">01</p>
@@ -461,7 +481,7 @@
     <div class="hotel-section reverse reveal" id="plan2">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan2.jpg" alt="APA度假酒店御堂筋本町站 雙床房">
+          <div class="image-box"><img src="plan2.jpg" alt="APA度假酒店御堂筋本町站 雙床房"></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">02</p>
@@ -497,8 +517,8 @@
     <div class="hotel-section reveal" id="plan3">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan3-a.jpg" alt="大阪心齋橋橋樑酒店 雙床房">
-          <img class="photo-second" src="plan3-b.jpg" alt="大阪心齋橋橋樑酒店 雙人房">
+          <div class="image-box"><img src="plan3-a.jpg" alt="大阪心齋橋橋樑酒店 雙床房"></div>
+          <div class="photo-second"><div class="image-box"><img src="plan3-b.jpg" alt="大阪心齋橋橋樑酒店 雙人房"></div></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">03</p>
@@ -540,8 +560,8 @@
     <div class="hotel-section reverse reveal">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan4-a.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙床房">
-          <img class="photo-second" src="plan4-b.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙人房">
+          <div class="image-box"><img src="plan4-a.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙床房"></div>
+          <div class="photo-second"><div class="image-box"><img src="plan4-b.jpg" alt="東急stay大阪本町酒店 御堂筋心齋橋 雙人房"></div></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">04</p>
@@ -576,8 +596,8 @@
     <div class="hotel-section reveal">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan5-a.jpg" alt="大阪恵美須飯店(通天閣) 雙床房">
-          <img class="photo-second" src="plan5-b.jpg" alt="大阪恵美須飯店(通天閣) 雙人房">
+          <div class="image-box"><img src="plan5-a.jpg" alt="大阪恵美須飯店(通天閣) 雙床房"></div>
+          <div class="photo-second"><div class="image-box"><img src="plan5-b.jpg" alt="大阪恵美須飯店(通天閣) 雙人房"></div></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">05</p>
@@ -612,7 +632,7 @@
     <div class="hotel-section reverse reveal" id="plan6">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <img class="photo-main" src="plan6.jpg" alt="住一通天閣店 兩人房">
+          <div class="image-box"><img src="plan6.jpg" alt="住一通天閣店 兩人房"></div>
         </div>
         <div class="hotel-info">
           <p class="hotel-number">06</p>
@@ -687,7 +707,14 @@
   if (reduceMotion || !('IntersectionObserver' in window)) {
     return; /* elements are visible by default via CSS, nothing to do */
   }
-  items.forEach(el => el.classList.add('pre-anim'));
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  items.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < vh && rect.bottom > 0;
+    if (!alreadyVisible) {
+      el.classList.add('pre-anim');
+    }
+  });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
