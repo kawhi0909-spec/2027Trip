@@ -104,16 +104,30 @@
   /* ---------- city filter ---------- */
   .city-filter{
     display:flex;gap:0;justify-content:center;flex-wrap:wrap;
-    margin:40px 0 60px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    margin:40px 0 12px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
   }
   .city-filter button{
+    position:relative;
     font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;
     color:var(--muted);text-transform:uppercase;padding:16px 22px;
-    border-left:1px solid var(--border);transition:color .2s ease;
+    border-left:1px solid var(--border);
+    transition:color .25s ease, font-weight .25s ease;
   }
   .city-filter button:first-child{border-left:none;}
   .city-filter button:hover{color:var(--text);}
+  .city-filter button::after{
+    content:"";position:absolute;left:22px;right:22px;bottom:8px;height:2px;
+    background:var(--accent-red);
+    transform:scaleX(0);transform-origin:center;
+    transition:transform .25s ease;
+  }
   .city-filter button.active{color:var(--accent-red);font-weight:600;}
+  .city-filter button.active::after{transform:scaleX(1);}
+
+  .filter-status{
+    text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.1em;color:var(--muted);opacity:.75;margin:0 0 48px;
+  }
 
   /* ---------- section heading ---------- */
   .section-head{text-align:center;margin:0 0 40px;}
@@ -201,6 +215,7 @@
     <button type="button" data-city="kyoto">Kyoto</button>
     <button type="button" data-city="kobe">Kobe</button>
   </div>
+  <p class="filter-status" id="filterStatus">ALL · 15 PLACES</p>
 
   <div id="spotList">
 
@@ -595,6 +610,7 @@
 (function(){
   const buttons = document.querySelectorAll('.city-filter button');
   const spots = document.querySelectorAll('.spot-section');
+  const statusEl = document.getElementById('filterStatus');
 
   function applyFilter(city){
     let visibleIndex = 0;
@@ -612,6 +628,9 @@
       }
     });
     if (firstVisible) { firstVisible.classList.add('is-first-visible'); }
+    if (statusEl) {
+      statusEl.textContent = city.toUpperCase() + ' · ' + visibleIndex + ' PLACES';
+    }
   }
 
   buttons.forEach(btn => {
