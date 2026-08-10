@@ -119,7 +119,7 @@
     content:"";position:absolute;left:22px;right:22px;bottom:8px;height:2px;
     background:var(--accent-red);
     transform:scaleX(0);transform-origin:center;
-    transition:transform .25s ease;
+    transition:transform .25s ease-out;
   }
   .city-filter button.active{color:var(--accent-red);font-weight:600;}
   .city-filter button.active::after{transform:scaleX(1);}
@@ -128,6 +128,9 @@
     text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
     letter-spacing:.1em;color:var(--muted);opacity:.75;margin:0 0 48px;
   }
+
+  #spotList{transition:opacity .14s ease-out;}
+  #spotList.filter-fading{opacity:0;}
 
   /* ---------- section heading ---------- */
   .section-head{text-align:center;margin:0 0 40px;}
@@ -611,12 +614,16 @@
   const buttons = document.querySelectorAll('.city-filter button');
   const spots = document.querySelectorAll('.spot-section');
   const statusEl = document.getElementById('filterStatus');
+  const listEl = document.getElementById('spotList');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function applyFilter(city){
+  function renderFilter(city, animateEntrance){
     let visibleIndex = 0;
     let firstVisible = null;
+    const justShown = [];
     spots.forEach(spot => {
       const match = (city === 'all' || spot.getAttribute('data-city') === city);
+      const wasHidden = spot.classList.contains('city-hidden');
       spot.classList.toggle('city-hidden', !match);
       spot.classList.remove('is-first-visible');
       if (match) {
@@ -625,24 +632,51 @@
         const numEl = spot.querySelector('.spot-number');
         if (numEl) { numEl.textContent = num; }
         if (!firstVisible) { firstVisible = spot; }
+        if (wasHidden) { justShown.push(spot); }
       }
     });
     if (firstVisible) { firstVisible.classList.add('is-first-visible'); }
     if (statusEl) {
       statusEl.textContent = city.toUpperCase() + ' · ' + visibleIndex + ' PLACES';
     }
+    if (animateEntrance && !reduceMotion) {
+      justShown.forEach(spot => {
+        spot.style.transition = 'none';
+        spot.style.opacity = '0';
+        spot.style.transform = 'translateY(8px)';
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          justShown.forEach(spot => {
+            spot.style.transition = 'opacity .3s ease-out, transform .3s ease-out';
+            spot.style.opacity = '';
+            spot.style.transform = '';
+          });
+        });
+      });
+    }
+  }
+
+  function switchFilter(city){
+    if (reduceMotion || !listEl) { renderFilter(city, false); return; }
+    listEl.classList.add('filter-fading');
+    window.setTimeout(() => {
+      renderFilter(city, true);
+      listEl.classList.remove('filter-fading');
+    }, 140);
   }
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
+      if (btn.classList.contains('active')) { return; }
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      applyFilter(btn.getAttribute('data-city'));
+      switchFilter(btn.getAttribute('data-city'));
     });
   });
 
-  /* initialise numbering/border state to match the default "All" view */
-  applyFilter('all');
+  /* initialise numbering/border state to match the default "All" view, no animation on load */
+  renderFilter('all', false);
 })();
 </script>
 </body>
