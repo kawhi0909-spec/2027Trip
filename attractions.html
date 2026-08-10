@@ -76,7 +76,9 @@
   .site-nav-brand{
     font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;
     color:var(--text-secondary);text-transform:uppercase;
+    text-decoration:none;cursor:pointer;transition:color .2s ease;
   }
+  .site-nav-brand:hover, .site-nav-brand:focus-visible{color:var(--accent);}
   .site-nav-links{display:flex;gap:22px;}
   .site-nav-links a{
     font-family:'Noto Sans TC',sans-serif;font-size:13.5px;color:var(--text);
@@ -177,7 +179,7 @@
 <body>
 <nav class="site-nav" aria-label="頁面導覽">
   <div class="site-nav-inner">
-    <span class="site-nav-brand">OSAKA・KYOTO 2027</span>
+    <a class="site-nav-brand" href="index.html">OSAKA・KYOTO 2027</a>
     <div class="site-nav-links">
       <a href="index.html#flights">航班</a>
       <a href="index.html#hotelGrid">住宿</a>
