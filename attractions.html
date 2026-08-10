@@ -121,7 +121,7 @@
 
   /* ---------- spot editorial sections ---------- */
   .spot-section{padding:64px 0;border-top:1px solid var(--border);overflow:visible;transition:opacity .3s ease, max-height .3s ease;}
-  .spot-section:first-of-type{border-top:none;padding-top:10px;}
+  .spot-section.is-first-visible{border-top:none;padding-top:10px;}
   .spot-section.city-hidden{display:none;}
   .spot-layout{display:grid;grid-template-columns:1fr;gap:36px;align-items:start;}
   @media (min-width:860px){
@@ -594,17 +594,35 @@
 (function(){
   const buttons = document.querySelectorAll('.city-filter button');
   const spots = document.querySelectorAll('.spot-section');
+
+  function applyFilter(city){
+    let visibleIndex = 0;
+    let firstVisible = null;
+    spots.forEach(spot => {
+      const match = (city === 'all' || spot.getAttribute('data-city') === city);
+      spot.classList.toggle('city-hidden', !match);
+      spot.classList.remove('is-first-visible');
+      if (match) {
+        visibleIndex += 1;
+        const num = String(visibleIndex).padStart(2, '0');
+        const numEl = spot.querySelector('.spot-number');
+        if (numEl) { numEl.textContent = num; }
+        if (!firstVisible) { firstVisible = spot; }
+      }
+    });
+    if (firstVisible) { firstVisible.classList.add('is-first-visible'); }
+  }
+
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const city = btn.getAttribute('data-city');
-      spots.forEach(spot => {
-        const match = (city === 'all' || spot.getAttribute('data-city') === city);
-        spot.classList.toggle('city-hidden', !match);
-      });
+      applyFilter(btn.getAttribute('data-city'));
     });
   });
+
+  /* initialise numbering/border state to match the default "All" view */
+  applyFilter('all');
 })();
 </script>
 </body>
