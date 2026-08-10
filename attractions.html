@@ -48,13 +48,12 @@
     *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
   }
 
-  html{scroll-behavior:smooth;overflow-x:hidden;width:100%;max-width:100%;}
+  html{scroll-behavior:smooth;width:100%;max-width:100%;}
   body{
     margin:0;
     background:var(--bg);
     color:var(--ink);
     font-family:'Noto Sans TC', sans-serif;
-    overflow-x:hidden;
     width:100%;
     max-width:100%;
     position:relative;
@@ -64,7 +63,7 @@
 
   /* ---------- sticky nav ---------- */
   .site-nav{
-    position:sticky;top:0;z-index:20;
+    position:sticky;top:0;z-index:1000;
     background:rgba(247,245,240,.86);backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);
