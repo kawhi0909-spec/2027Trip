@@ -206,6 +206,13 @@
   @media (min-width:860px){ .hotel-media{margin-bottom:0;} }
   .image-box{position:relative;width:100%;padding-top:75%;background:var(--washi-deep);border-radius:4px;overflow:hidden;}
   .image-box img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .image-box .placeholder{
+    position:absolute;top:0;right:0;bottom:0;left:0;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+    color:#A8946A;text-align:center;padding:0 12px;
+  }
+  .image-box .placeholder .icon{font-size:26px;opacity:.5;}
+  .image-box .placeholder .txt{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;opacity:.7;}
   .hotel-media .photo-second{
     position:absolute;width:32%;left:22px;bottom:-28px;z-index:2;
     border-radius:3px;border:5px solid var(--bg);box-shadow:0 10px 24px rgba(29,35,41,.16);
@@ -219,6 +226,13 @@
 
   .hotel-info{max-width:460px;}
   .hotel-number{font-family:'Shippori Mincho',serif;font-weight:700;font-size:44px;color:var(--border);margin:0 0 14px;line-height:1;}
+  .hotel-number-row{display:flex;align-items:flex-start;gap:10px;margin:0 0 14px;}
+  .hotel-number-row .hotel-number{margin:0;}
+  .new-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;
+    color:var(--accent-red);font-weight:600;text-transform:uppercase;
+    margin-top:8px;
+  }
 
   .hotel-region{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--text);font-weight:600;margin:0 0 5px;}
   .hotel-region-desc{font-size:12.5px;color:var(--muted);margin:0 0 20px;line-height:1.6;}
@@ -400,38 +414,40 @@
     <div class="hotel-section reveal">
       <div class="hotel-layout">
         <div class="hotel-media">
-          <div class="image-box"><img src="plan1-a.jpg" alt="KOKO HOTEL 大阪梅田 雙床房"></div>
-          <div class="photo-second"><div class="image-box"><img src="plan1-b.jpg" alt="KOKO HOTEL 大阪梅田 雙人房"></div></div>
+          <div class="image-box">
+            <div class="placeholder"><span class="icon">📷</span><span class="txt">阪急大阪龍仕柏酒店　兩張床　照片待補</span></div>
+          </div>
+          <div class="photo-second"><div class="image-box">
+            <div class="placeholder"><span class="icon">📷</span><span class="txt">一大床　照片待補</span></div>
+          </div></div>
         </div>
         <div class="hotel-info">
-          <p class="hotel-number">01</p>
-          <p class="hotel-region">UMEDA · 梅田</p>
-          <p class="hotel-region-desc">大阪北區核心｜購物・交通方便</p>
-          <div class="hotel-title">
-            <h3 class="hotel-name">KOKO HOTEL 大阪梅田</h3>
+          <div class="hotel-number-row">
+            <p class="hotel-number">01</p>
+            <span class="new-tag">NEW</span>
           </div>
-          <a class="hotel-map-link" href="https://www.google.com/maps/search/?api=1&query=KOKO%20HOTEL%20Osaka%20Umeda%20%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8D%80%E7%A5%9E%E5%B1%B1%E7%94%BA%208-4" target="_blank" rel="noopener noreferrer"><span class="en">View Location ↗</span><span class="zh">查看飯店位置</span></a>
-          <p class="hotel-loc">距離地下鐵谷町線「東梅田」站步行約3分鐘，位於梅田生活圈，周邊餐飲、購物選擇豐富。</p>
-          <p class="hotel-ideal"><span class="label">適合｜</span>想住梅田生活圈，逛街吃飯都方便的人</p>
+          <p class="hotel-region">UMEDA · 梅田</p>
+          <p class="hotel-region-desc">大阪站生活圈｜購物・交通方便</p>
+          <div class="hotel-title">
+            <h3 class="hotel-name">阪急大阪龍仕柏酒店</h3>
+            <p class="hotel-name-sub">HOTEL HANKYU RESPIRE OSAKA</p>
+          </div>
+          <a class="hotel-map-link" href="https://www.google.com/maps/place/%E5%A4%A7%E9%98%AA%E9%98%AA%E6%80%A5%E9%BE%8D%E4%BB%95%E6%9F%8F%E9%A3%AF%E5%BA%97/@34.7047014,135.4935724,17z/data=!4m6!3m5!1s0x6000e7612e199f2b:0x3f1fd005ba7a2fce!8m2!3d34.7047014!4d135.4961473!16s%2Fg%2F11fl096_wk" target="_blank" rel="noopener noreferrer"><span class="en">View Location ↗</span><span class="zh">查看飯店位置</span></a>
+          <p class="hotel-loc">JR大阪站步行約3分鐘，阪急大阪梅田站、Metro梅田站步行約5分鐘，位於 LINKS UMEDA 上方，適合作為大阪、京都、神戶移動據點。</p>
+          <p class="hotel-ideal"><span class="label">適合｜</span>想住大阪站旁、重視交通與購物便利的人</p>
           <p class="hotel-tags-line"><span>中華航空</span><span>大阪梅田</span><span>5天4夜</span></p>
           <div class="price-editorial">
             <div class="price-room">
               <p class="price-room-name">標準雙人房</p>
               <p class="price-room-sub">一大床</p>
-              <div class="price-row cash"><span>現金</span><span class="amt">NT$25,000</span></div>
-              <div class="price-row"><span>刷卡</span><span class="amt">NT$26,000</span></div>
+              <div class="price-row cash"><span>現金</span><span class="amt">NT$26,500</span></div>
+              <div class="price-row"><span>刷卡</span><span class="amt">NT$27,500</span></div>
             </div>
             <div class="price-room">
               <p class="price-room-name">標準雙床房</p>
               <p class="price-room-sub">兩張床</p>
-              <div class="price-row cash"><span>現金</span><span class="amt">NT$26,000</span></div>
-              <div class="price-row"><span>刷卡</span><span class="amt">NT$27,000</span></div>
-            </div>
-            <div class="price-room">
-              <p class="price-room-name">兒童不佔床</p>
-              <p class="price-room-sub">未滿6歲</p>
-              <div class="price-row cash"><span>現金</span><span class="amt">NT$15,000</span></div>
-              <div class="price-row"><span>刷卡</span><span class="amt">NT$15,500</span></div>
+              <div class="price-row cash"><span>現金</span><span class="amt">NT$27,500</span></div>
+              <div class="price-row"><span>刷卡</span><span class="amt">NT$28,500</span></div>
             </div>
           </div>
         </div>
